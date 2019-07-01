@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} | {{ user }}'s Profile{% endblock %}
+
+{% block content %}
+<p>
+    Email: {{ profile.email }}
+</p>
+<p>
+    Date Joined: {{ profile.date_joined|date:"E jS, Y" }}
+</p>
+<p>
+    Last Login: {{ profile.last_login|date:"E jS, Y" }}
+</p>
+
+<!--<a href="{% url 'password_reset' %}">Reset Password</a>-->
+{% endblock %}
