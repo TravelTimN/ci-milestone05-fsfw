@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% block title %} | Log In{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ login_form | materializecss  }}
+    <button type="submit" class="btn">Log In</button>
+</form>
+
+<p>
+    <a href="{% url 'password_reset' %}">Reset Password</a>
+</p>
+{% endblock %}
