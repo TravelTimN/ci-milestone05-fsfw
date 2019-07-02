@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import (
+    UserLoginForm, UserRegistrationForm,
+    UserUpdateForm, ProfileUpdateForm)
 
 
 def superuser(request):
@@ -29,11 +31,11 @@ def login(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(
-                    request, "You have been successfully logged in!")
+                    request, f"Welcome back, {user.first_name}!")
                 return redirect(reverse("profile"))
             else:
                 login_form.add_error(
-                    None, "Your username or password is incorrect.")
+                    None, f"Your username or password is incorrect.")
     else:
         login_form = UserLoginForm()
 
@@ -43,9 +45,9 @@ def login(request):
 @login_required
 def logout(request):
     """ Log the user out """
+    messages.success(request, f"Hope to see you again soon!")
     auth.logout(request)
-    messages.success(request, "You have been successfully logged out!")
-    return redirect(reverse("index"))
+    return redirect(reverse("login"))
 
 
 def register(request):
@@ -62,11 +64,11 @@ def register(request):
                 password=request.POST["password1"])
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "You have successfully registered!")
+                messages.success(request, f"Welcome, {user.first_name}!")
                 return redirect(reverse("profile"))
             else:
                 messages.error(
-                    request, "There has been an error with registration, please try again!")
+                    request, f"Error with registration, please try again!")
     else:
         register_form = UserRegistrationForm()
 
@@ -74,7 +76,32 @@ def register(request):
         "register_form": register_form})
 
 
+@login_required
 def profile(request):
     """ The user's profile page """
     user = User.objects.get(email=request.user.email)
-    return render(request, "profile.html", {"profile": user})
+    if request.method == "POST":
+        update_form = UserUpdateForm(
+            request.POST,
+            instance=request.user)
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profile)
+        if update_form.is_valid() and profile_form.is_valid():
+            update_form.save()
+            profile_form.save()
+            messages.success(
+                request, f"Profile successfully updated, {user.first_name}!")
+            return redirect(reverse("profile"))
+    else:
+        update_form = UserUpdateForm(
+            instance=request.user)
+        profile_form = ProfileUpdateForm(
+            instance=request.user.profile)
+    context = {
+        "update_form": update_form,
+        "profile_form": profile_form,
+        "profile": user
+    }
+    return render(request, "profile.html", context)

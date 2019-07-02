@@ -1,0 +1,8 @@
+<!-- Django 'Flash' Messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <span id="flashToast" class="white-text green darken-4 text-shadow-2 center-align bold">{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}

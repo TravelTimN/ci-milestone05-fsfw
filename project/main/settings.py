@@ -100,6 +100,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # MEDIA FILES
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 # MATERIALIZE + FONT AWESOME
 MATERIALIZECSS_ICON_SET = "fontawesome"
