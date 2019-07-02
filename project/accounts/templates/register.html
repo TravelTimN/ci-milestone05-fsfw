@@ -5,7 +5,7 @@
 {% block styles %}
 <style>
     body {
-        background: url("{% static 'img/bg.png' %}") no-repeat center center fixed;
+        background: url("{% static 'img/bg-01.png' %}") no-repeat center center fixed;
         background-size: cover;
     }
 </style>
@@ -18,31 +18,49 @@
     <h4 class="white-text text-shadow-2 center">Register</h4>
     <div class="divider white"></div>
 
-    <div class="row">
-        <div class="col s12 m10 offset-m1 l8 offset-l2">
-
-            <form method="POST">
-                {% csrf_token %}
-                {{ register_form.username | materializecss:'icon=fas fa-user-plus material-icons white-text text-shadow-2' }}
-                {{ register_form.email | materializecss:'icon=fas fa-at material-icons white-text text-shadow-2' }}
-                {{ register_form.password1 | materializecss:'icon=fas fa-key material-icons white-text text-shadow-2' }}
-                {{ register_form.password2 | materializecss:'icon=fas fa-key material-icons white-text text-shadow-2' }}
-
-                <p class="white-text center text-shadow-2">
-                    Have an account?
-                    <a href="{% url 'login' %}">
-                        <span class="bold amber-text text-darken-1 text-shadow-2">Log In!</span>
-                    </a>
-                </p>
-
-                <div class="row center-align">
-                    <div class="col s12">
-                        <button type="submit" class="btn btn-large green bold text-shadow-2">Register</button>
-                    </div>
-                </div>
-            </form>
+    <form method="POST" class="text-shadow-2">
+        {% csrf_token %}
+        <br>
+        <div class="row">
+            <div class="col s12 m6">
+                {{ register_form.username | materializecss:'icon=fas fa-user-plus white-text' }}
+            </div>
+            <div class="col s12 m6">
+                {{ register_form.email | materializecss:'icon=fas fa-at white-text' }}
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col s12 m6">
+                {{ register_form.first_name | materializecss:'icon=fas fa-id-card white-text' }}
+            </div>
+            <div class="col s12 m6">
+                {{ register_form.last_name | materializecss:'icon=fas fa-id-card white-text' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                {{ register_form.password1 | materializecss:'icon=fas fa-key white-text' }}
+            </div>
+            <div class="col s12 m6">
+                {{ register_form.password2 | materializecss:'icon=fas fa-key white-text' }}
+            </div>
+        </div>
+
+        <p class="white-text center text-shadow-2">
+            Have an account?
+            <a href="{% url 'login' %}">
+                <span class="bold amber-text text-darken-1 text-shadow-2">Log In!</span>
+            </a>
+        </p>
+
+        <div class="row center-align">
+            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                <button type="submit" class="btn btn-large green bold text-shadow-2">Register</button>
+            </div>
+        </div>
+
+        </div>
+    </form>
 
 </section>
 {% endblock %}
