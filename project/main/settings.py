@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cleanup",
     "materializecssform",
     "accounts",
 ]
@@ -104,3 +105,6 @@ MEDIA_URL = "/media/"
 
 # MATERIALIZE + FONT AWESOME
 MATERIALIZECSS_ICON_SET = "fontawesome"
+
+# KILL SESSION ON CLOSE
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
