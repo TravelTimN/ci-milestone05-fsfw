@@ -34,8 +34,8 @@ def login(request):
                     request, f"Welcome back, {user.first_name}!")
                 return redirect(reverse("profile"))
             else:
-                login_form.add_error(
-                    None, f"Your username or password is incorrect.")
+                messages.error(
+                    request, f"Your username or password is incorrect.")
     else:
         login_form = UserLoginForm()
 
@@ -92,7 +92,7 @@ def profile(request):
             update_form.save()
             profile_form.save()
             messages.success(
-                request, f"Profile successfully updated, {user.first_name}!")
+                request, f"Profile successfully updated!")
             return redirect(reverse("profile"))
     else:
         update_form = UserUpdateForm(

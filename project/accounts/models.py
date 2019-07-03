@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from PIL import Image
 
 
 class Profile(models.Model):
@@ -11,10 +12,24 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(
         default="profile_imgs/default.png",
-        upload_to="profile_imgs")
+        upload_to="profile_imgs",
+        blank=True,
+        null=True)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+    def save(self):
+        super().save()
+        """
+        - installed 'django-cleanup' to auto-remove old image.
+        - installed 'pillow' to resize larger images.
+        """
+        img = Image.open(self.image.path)
+        if img.height > 200 or img.width > 200:
+            new_img_size = (200, 200)
+            img.thumbnail(new_img_size)
+            img.save(self.image.path)
 
 
 def create_profile(sender, created, instance, **kwargs):
