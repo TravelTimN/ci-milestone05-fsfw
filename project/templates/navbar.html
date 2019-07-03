@@ -1,0 +1,171 @@
+{% load staticfiles %}
+
+<!-- TOP NAVBAR -->
+<nav class="nav-extended brown darken-4">
+    <div class="nav-wrapper">
+        <a href="{% url 'index' %}" class="brand-logo center">Unicorn Attractor</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse show-on-large right">
+            <i class="fas fa-bars material-icons" aria-hidden="true"></i>
+        </a>
+    </div>
+</nav>
+
+
+<!-- MOBILE SIDE NAVBAR -->
+<ul class="sidenav green lighten-5" id="mobile-demo">
+    <li class="sidenav-header green">
+        <div class="row valign-wrapper white-text text-shadow-2">
+            <div class="col s4 center-align">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" title="View Profile">
+                    <img src="{{ user.profile.image.url }}" width="50px" height="50px" alt="{{ user }}"
+                        class="circle white">
+                </a>
+                {% else %}
+                <img src="{% static 'img/user.png' %}" width="50px" height="50px" alt="Guest" class="circle">
+                {% endif %}
+            </div>
+            <div class="col s8">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" title="View Profile">
+                    <h5 class="bold white-text">{{ user }}</h5>
+                    <h6 class="white-text">{{ user.get_full_name }}</h6>
+                </a>
+                {% else %}
+                <h5 class="bold">Guest</h5>
+                <h6>not logged in</h6>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+    {% if user.is_superuser %}
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'superuser' %}">
+            <i class="fas fa-user-shield fa-lg red-text" aria-hidden="true"></i>
+            <span class="bold upper red-text">ADMIN PANEL</span>
+        </a>
+    </li>
+    {% endif %}
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'index' %}">
+            <i class="fas fa-home fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Home</span>
+        </a>
+    </li>
+    <li>
+        <a class="waves-effect waves-green" href="#">
+            <i class="fas fa-info-circle fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">About</span>
+        </a>
+    </li>
+    <li id="collapsible-head">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header waves-effect waves-green">
+                    <i class="fas fa-ticket-alt fa-lg green-text" aria-hidden="true"></i>
+                    <span class="bold upper">Tickets</span>
+                    <i class="fas fa-caret-down fa-lg right" style="margin-right: 0;"></i>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>
+                            <a class="waves-effect waves-green" href="#">
+                                <i class="fas fa-bug fa-lg green-text"></i>
+                                <span class="bold upper">Bugs</span>
+                                <span class="new badge right amber black-text" data-badge-caption="{{7}}"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-green" href="#">
+                                <i class="fas fa-magic fa-lg green-text"></i>
+                                <span class="bold upper">Features</span>
+                                <span class="new badge right amber black-text" data-badge-caption="{{4}}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a class="waves-effect waves-green" href="#">
+            <i class="fas fa-chart-pie fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Statistics</span>
+        </a>
+    </li>
+    <li>
+        <a class="waves-effect waves-green" href="#">
+            <i class="fas fa-envelope fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Contact</span>
+        </a>
+    </li>
+    {% if user.is_authenticated %}
+    <li>
+        <a class="waves-effect waves-green" href="#">
+            <i class="fas fa-shopping-cart fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Cart</span>
+            <span class="new badge right amber black-text" data-badge-caption="{{1}}"></span>
+        </a>
+    </li>
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'logout' %}">
+            <i class="fas fa-sign-out-alt fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Log Out</span>
+        </a>
+    </li>
+    {% else %}
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'login' %}">
+            <i class="fas fa-sign-in-alt fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Log In</span>
+        </a>
+    </li>
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'register' %}">
+            <i class="fas fa-user-plus fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Register</span>
+        </a>
+    </li>
+    {% endif %}
+
+    <li class="sidenav-footer grey darken-2">
+        <div class="row center-align green lighten-4">
+            <div class="col s12">
+                <h6 class="bold">&copy; Unicorn Attractor
+                    <br>
+                    <a href="https://github.com/TravelTimN" target="_blank">
+                        <small>&lpar;&lbrace; Tim Nelson &rbrace;&rpar;</small>
+                    </a>
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="social-icons">
+                <div class="col s3 center-align">
+                    <a href="https://www.linkedin.com/in/travel-tim-nelson" target="_blank" rel="noopener"
+                        aria-label="LinkedIn - Travel-Tim-Nelson" title="LinedIn">
+                        <i class="fab fa-lg fa-linkedin white-text"></i>
+                    </a>
+                </div>
+                <div class="col s3 center-align">
+                    <a href="https://github.com/TravelTimN" target="_blank" rel="noopener"
+                        aria-label="GitHub - TravelTimN" title="GitHub">
+                        <i class="fab fa-lg fa-github white-text"></i>
+                    </a>
+                </div>
+                <div class="col s3 center-align">
+                    <a href="https://www.facebook.com/TxxIxxM02" target="_blank" rel="noopener"
+                        aria-label="Facebook - TxxIxxM02" title="Facebook">
+                        <i class="fab fa-lg fa-facebook-square white-text"></i>
+                    </a>
+                </div>
+                <div class="col s3 center-align">
+                    <a href="https://www.youtube.com/c/TimNelsonTravels" target="_blank" rel="noopener"
+                        aria-label="YouTube - TimNelsonTravels" title="YouTube">
+                        <i class="fab fa-lg fa-youtube white-text"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
