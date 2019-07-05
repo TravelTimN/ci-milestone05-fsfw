@@ -18,7 +18,7 @@
             <div class="card-content white-text">
                 <div class="row">
                     <div class="col s12 m4 center">
-                        <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="responsive-img white">
+                        <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="responsive-img">
                     </div>
                     <div class="col s12 m8">
                         <div class="row">
@@ -59,17 +59,17 @@
                     Profile
                     <i class="fas fa-user hide-on-small-and-down" aria-hidden="true"></i>
                 </a>
-                <a href="#modal-profile-password" class="btn modal-trigger amber">
+                <a href="{% url 'password_reset' %}" class="btn amber">
                     Password
                     <i class="fas fa-key hide-on-small-and-down" aria-hidden="true"></i>
                 </a>
                 <br class="hide-on-med-and-up">
                 <a href="#" class="btn red">
-                    My Bugs
+                    Bugs
                     <i class="fas fa-bug hide-on-small-and-down" aria-hidden="true"></i>
                 </a>
                 <a href="#" class="btn blue">
-                    My Features
+                    Features
                     <i class="fas fa-magic hide-on-small-and-down" aria-hidden="true"></i>
                 </a>
             </div>
@@ -78,12 +78,10 @@
 </div>
 
 
-<!-- PROFILE MODALS -->
-
-<!-- edit profile -->
+<!-- PROFILE MODAL -->
 <div id="modal-profile-edit" class="modal white-text">
     <div class="modal-content center-align">
-        <h4>Edit Profile</h4>
+        <h4 class="bold">Edit Profile</h4>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
@@ -119,39 +117,4 @@
         </form>
     </div>
 </div>
-
-<!-- change password -->
-<div id="modal-profile-password" class="modal white-text">
-    <div class="modal-content center-align">
-        <h4>Change Password</h4>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col s12 m6">
-                    
-                </div>
-                <div class="col s12 m6">
-                    
-                </div>
-                <div class="col s12 m6">
-                    
-                </div>
-                <div class="col s12 m6">
-                    
-                </div>
-            </div>
-            <div class="row center-align">
-                <div class="col s12 m6 offset-m3">
-                    <button type="submit" class="btn btn-large green bold text-shadow-2">
-                        Save
-                        <i class="fas fa-save right"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<!--<a href="{% url 'password_reset' %}">Reset Password</a>-->
 {% endblock %}
