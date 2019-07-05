@@ -35,7 +35,7 @@ def login(request):
                 return redirect(reverse("profile"))
             else:
                 messages.error(
-                    request, f"Your username or password is incorrect.")
+                    request, f"Username or Password is incorrect.")
     else:
         login_form = UserLoginForm()
 
@@ -68,7 +68,7 @@ def register(request):
                 return redirect(reverse("profile"))
             else:
                 messages.error(
-                    request, f"Error with registration, please try again!")
+                    request, f"Error with registration. Please try again!")
     else:
         register_form = UserRegistrationForm()
 

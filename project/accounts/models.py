@@ -19,8 +19,8 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
         """
         - installed 'django-cleanup' to auto-remove old image.
         - installed 'pillow' to resize larger images.

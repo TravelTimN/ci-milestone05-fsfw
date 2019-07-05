@@ -27,7 +27,7 @@
             </div>
             <div class="col s8">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" title="View Profile">
+                <a href="{% url 'profile' %}" class="tooltipped" data-position="left" data-tooltip="View Profile">
                     <h5 class="bold white-text">{{ user }}</h5>
                     <h6 class="white-text">{{ user.get_full_name }}</h6>
                 </a>
