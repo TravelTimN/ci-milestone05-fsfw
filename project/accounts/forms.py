@@ -84,6 +84,7 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    """ Form to update User details """
     username = forms.CharField(
         label="Username",
         min_length=5,
@@ -115,6 +116,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """ Form to update user Profile """
     class Meta:
         model = Profile
         fields = ["image"]

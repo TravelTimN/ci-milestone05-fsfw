@@ -2,7 +2,7 @@
 {% load materializecss %}
 {% load staticfiles %}
 {% block title %} | {{ user }}'s Profile{% endblock %}
-{% block styles %}
+{% block css %}
 <style>
     body {
         background: url("{% static 'img/bg-02.png' %}") no-repeat center center fixed;
@@ -30,21 +30,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s6 m6">
+                            <div class="col s6">
                                 <small>Name:</small><br>
                                 <span class="bold">{{ user.get_full_name }}</span>
                             </div>
-                            <div class="col s6 m6">
+                            <div class="col s6">
                                 <small>Username:</small><br>
                                 <span class="bold">{{ user.username }}</span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s6 m6">
+                            <div class="col s6">
                                 <small>Member Since:</small><br>
                                 <span class="bold">{{ user.date_joined|date:"jS E, Y" }}</span>
                             </div>
-                            <div class="col s6 m6">
+                            <div class="col s6">
                                 <small>Last Login:</small><br>
                                 <span class="bold">{{ user.last_login|date:"jS E, Y" }}</span>
                             </div>

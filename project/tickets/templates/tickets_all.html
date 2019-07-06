@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% load staticfiles %}
+{% block title %} | Tickets{% endblock %}
+{% block css %}
+<style>
+    body {
+        background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'tickets:tickets_new_bug' %}">New</a>
+{% endblock %}
