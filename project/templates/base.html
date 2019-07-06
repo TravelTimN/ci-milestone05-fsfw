@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"
         type="text/css">
-    {% block styles %}
+    {% block css %}
     {% endblock %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
 </head>
@@ -22,11 +22,11 @@
 <body>
 
     <header>
-        {% include "./navbar.html" %}
+        {% include "partials/navbar.html" %}
     </header>
 
     <main class="container">
-        {% include "./messages.html" %}
+        {% include "partials/messages.html" %}
 
         {% block content %}
         {% endblock %}
@@ -38,6 +38,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {% block js %}
+    {% endblock %}
     <script src="{% static 'js/scripts.js' %}"></script>
 
 </body>

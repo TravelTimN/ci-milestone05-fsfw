@@ -8,6 +8,7 @@ from accounts.forms import (
 
 
 def superuser(request):
+    """ Superuser = Admin only access """
     if request.user.is_superuser:
         return redirect(reverse("superuser"))
 
@@ -21,7 +22,6 @@ def login(request):
     """ Logs the user into the app """
     if request.user.is_authenticated:
         return redirect(reverse("index"))
-
     if request.method=="POST":
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
@@ -38,8 +38,10 @@ def login(request):
                     request, f"Username or Password is incorrect.")
     else:
         login_form = UserLoginForm()
-
-    return render(request, "login.html", {"login_form": login_form})
+    context = {
+        "login_form": login_form,
+    }
+    return render(request, "login.html", context)
 
 
 @login_required
@@ -54,7 +56,6 @@ def register(request):
     """ Renders the registration page """
     if request.user.is_authenticated:
             return redirect(reverse("profile"))
-
     if request.method=="POST":
         register_form = UserRegistrationForm(request.POST)
         if register_form.is_valid():
@@ -71,9 +72,10 @@ def register(request):
                     request, f"Error with registration. Please try again!")
     else:
         register_form = UserRegistrationForm()
-
-    return render(request, "register.html", {
-        "register_form": register_form})
+    context = {
+        "register_form": register_form,
+    }
+    return render(request, "register.html", context)
 
 
 @login_required
