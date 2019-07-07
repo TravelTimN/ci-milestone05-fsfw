@@ -58,34 +58,12 @@
             <span class="bold upper">About</span>
         </a>
     </li>
-    <li id="collapsible-head">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header waves-effect waves-green">
-                    <i class="fas fa-ticket-alt fa-lg green-text" aria-hidden="true"></i>
-                    <span class="bold upper">Tickets</span>
-                    <i class="fas fa-caret-down fa-lg right" style="margin-right: 0;"></i>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li>
-                            <a class="waves-effect waves-green" href="{% url 'tickets:tickets_view_all' %}">
-                                <i class="fas fa-bug fa-lg green-text"></i>
-                                <span class="bold upper">Bugs</span>
-                                <span class="new badge right amber black-text" data-badge-caption="{{7}}"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-green" href="{% url 'tickets:tickets_view_all' %}">
-                                <i class="fas fa-magic fa-lg green-text"></i>
-                                <span class="bold upper">Features</span>
-                                <span class="new badge right amber black-text" data-badge-caption="{{4}}"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+    <li>
+        <a class="waves-effect waves-green" href="{% url 'tickets_view_all' %}">
+            <i class="fas fa-ticket-alt fa-lg green-text" aria-hidden="true"></i>
+            <span class="bold upper">Tickets</span>
+            <span class="new badge right amber black-text" data-badge-caption="{{ tickets_count }}"></span>
+        </a>
     </li>
     <li>
         <a class="waves-effect waves-green" href="#">
@@ -100,10 +78,10 @@
         </a>
     </li>
     {% if user.is_authenticated %}
-    <li>
+    <li class="strike">
         <a class="waves-effect waves-green" href="#">
             <i class="fas fa-shopping-cart fa-lg green-text" aria-hidden="true"></i>
-            <span class="bold upper">Cart</span>
+            <span class="bold upper red-text">Cart</span>
             <span class="new badge right amber black-text" data-badge-caption="{{1}}"></span>
         </a>
     </li>
