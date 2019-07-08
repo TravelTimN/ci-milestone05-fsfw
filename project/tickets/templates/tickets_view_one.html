@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% load staticfiles %}
+{% block title %} | Ticket ({{ ticket.ticket_type }}): {{ ticket.title }}{% endblock %}
+{% block css %}
+<style>
+    body {
+        background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card form white-text text-shadow-2">
+            <div class="card-content white-text">
+
+                <div class="card-badge-div">
+                    <!-- Ticket Status (Open | In Progress | Closed) -->
+                    {% if ticket.ticket_status == "Open" %}
+                        <span class="card-badge card-badge-open">
+                    {% elif ticket.ticket_status == "In Progress" %}
+                        <span class="card-badge card-badge-progress">
+                    {% elif ticket.ticket_status == "Closed" %}
+                        <span class="card-badge card-badge-closed">
+                    {% endif %}
+                        <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+                        </span>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <!-- Ticket Title -->
+                        <h4 class="bold center-align">{{ ticket.title }}</h4>
+                        <div class="divider"></div>
+                        <div class="row">
+
+                            <!-- Ticket Description -->
+                            <div class="col s12 m7 justify">
+                                STATUS:
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    ({{ ticket.ticket_status|upper }})
+                                </span>
+                                <p>{{ ticket.description|linebreaks }}</p>
+                            </div>
+
+                            <!-- Ticket Stats -->
+                            <div class="col s12 m5 bold">
+                                <div class="divider hide-on-med-and-up"></div>
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    <i class="fas fa-user-edit fa-lg"></i>
+                                </span> {{ ticket.author }}
+                                <div class="divider"></div>
+
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    <i class="far fa-eye fa-lg"></i>
+                                </span> {{ ticket.views }}
+                                <div class="divider"></div>
+
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    <i class="far fa-thumbs-up fa-lg"></i>
+                                </span> {{ ticket.upvotes }}
+                                <div class="divider"></div>
+
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    <i class="far fa-calendar-plus fa-lg"></i>
+                                </span> {{ ticket.date_created|date:"d E, Y (H:i T)" }}
+
+                                {% if ticket.date_created.date != ticket.date_edited.date %}
+                                <div class="divider"></div>
+
+                                <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                    {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                    {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                    <i class="far fa-calendar-check fa-lg"></i>
+                                </span> {{ ticket.date_edited|date:"d E, Y (H:i T)" }}
+                                
+                                {% else %}
+                                    {% if ticket.date_created.time.hour != ticket.date_edited.time.hour %}
+                                        {% if ticket.date_created.time.minute != ticket.date_edited.time.minute %}
+                                        <div class="divider"></div>
+                                        <span {% if ticket.ticket_status == "Open" %} class="green-text bold"
+                                            {% elif ticket.ticket_status == "In Progress" %} class="amber-text bold"
+                                            {% elif ticket.ticket_status == "Closed" %} class="red-text bold" {% endif %}>
+                                            <i class="far fa-calendar-check fa-lg"></i>
+                                        </span> {{ ticket.date_edited|date:"d E, Y (H:i T)" }}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USER BUTTONS -->
+            {% if user.is_authenticated %}
+            <div class="card-action center-align bold">
+                <a href="#" class="btn blue">
+                    Upvote
+                    <i class="fas fa-thumbs-up hide-on-small-and-down" aria-hidden="true"></i>
+                </a>
+                {% if user.id == ticket.author.id or user.is_superuser %}
+                <a href="{% url 'tickets_edit' ticket.id %}" class="btn green">
+                    Edit
+                    <i class="fas fa-edit hide-on-small-and-down" aria-hidden="true"></i>
+                </a>
+                <a href="#" class="btn red">
+                    Delete
+                    <i class="fas fa-trash-alt hide-on-small-and-down" aria-hidden="true"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
