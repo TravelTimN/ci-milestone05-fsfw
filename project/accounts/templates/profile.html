@@ -86,7 +86,7 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col s12 m6">
-                    {{ update_form.username | materializecss:'icon=fas fa-user-plus material-icons green-text' }}
+                    <h4 class="green-text bold">{{ user.username }}</h4>
                 </div>
                 <div class="col s12 m6">
                     {{ update_form.email | materializecss:'icon=fas fa-at material-icons green-text' }}

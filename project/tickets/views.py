@@ -14,7 +14,7 @@ def tickets_view_all(request):
     context = {
         "tickets": tickets,
     }
-    return render(request, "tickets_all.html", context)
+    return render(request, "tickets_view_all.html", context)
 
 
 @login_required
@@ -24,6 +24,8 @@ def tickets_new_bug(request):
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
             ticket_form.save()
+            messages.success(
+                request, f"Ticket successfully created for your Bug!")
             return redirect(tickets_view_all)
     else:
         ticket_form = TicketForm()
@@ -31,3 +33,37 @@ def tickets_new_bug(request):
         "ticket_form": ticket_form,
     }
     return render(request, "tickets_new_bug.html", context)
+
+
+def tickets_view_one(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket.views += 1
+    ticket.save()
+    context = {
+        "ticket": ticket,
+    }
+    return render(request, "tickets_view_one.html", context)
+
+
+@login_required
+def tickets_edit(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+    if request.method == "POST":
+        ticket_form = TicketForm(request.POST, instance=ticket)
+        if ticket_form.is_valid():
+            ticket_form.instance.author = request.user
+            ticket_form.instance.date_edited = timezone.now()
+            ticket_form.save()
+            messages.success(
+                request, f"Ticket successfully updated!")
+            return redirect(tickets_view_one, ticket.pk)
+    else:
+        ticket_form = TicketForm(instance=ticket)
+    template_name = (
+        "tickets_edit_bug.html" if ticket.ticket_type == "Bug" else \
+            "tickets_edit_feature.html"
+    )
+    context = {
+        "ticket_form": ticket_form,
+    }
+    return render(request, template_name, context)

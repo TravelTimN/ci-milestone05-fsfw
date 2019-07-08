@@ -85,12 +85,6 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     """ Form to update User details """
-    username = forms.CharField(
-        label="Username",
-        min_length=5,
-        max_length=15,
-        widget=forms.TextInput(),
-        required=False)
     email = forms.CharField(
         label="Email Address",
         min_length=5,
@@ -112,7 +106,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["username", "email", "first_name", "last_name"]
+        fields = ["email", "first_name", "last_name"]
 
 
 class ProfileUpdateForm(forms.ModelForm):

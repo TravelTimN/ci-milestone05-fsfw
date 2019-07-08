@@ -39,7 +39,7 @@
         </div>
     </li>
     {% if user.is_superuser %}
-    <li>
+    <li id="admin">
         <a class="waves-effect waves-green" href="{% url 'superuser' %}">
             <i class="fas fa-user-shield fa-lg red-text" aria-hidden="true"></i>
             <span class="bold upper red-text">ADMIN PANEL</span>
