@@ -30,14 +30,7 @@
 
 				<div class="card-badge-div">
 					<!-- Ticket Status (Open | In Progress | Closed) -->
-					{% if ticket.ticket_status == "Open" %}
-						<span class="card-badge card-badge-open">
-					{% elif ticket.ticket_status == "In Progress" %}
-						<span class="card-badge card-badge-progress">
-					{% elif ticket.ticket_status == "Closed" %}
-						<span class="card-badge card-badge-closed">
-					{% endif %}
-
+					<span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
 						<!-- Ticket Type (Bug vs Feature) -->
 						{% if ticket.ticket_type == "Bug" %}
 							<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
@@ -48,13 +41,11 @@
 				</div>
 
 				<!-- Ticket Title & Description -->
-				<span {% if ticket.ticket_status == "Open" %} class="green-text"
-					{% elif ticket.ticket_status == "In Progress" %} class="amber-text"
-					{% elif ticket.ticket_status == "Closed" %} class="red-text" {% endif %}>
+				<span class="{% include 'partials/status_color.html' %}-text">
 					<div class="card-content">
-						<h6>
-							<span class="white-text bold">{{ ticket.ticket_type | upper }}</span>
-							( {{ ticket.ticket_status }} )
+						<h6 class="bold">
+							<span class="white-text">{{ ticket.ticket_type | upper }}</span>
+							({{ ticket.ticket_status }})
 						</h6>
 						<div class="divider"></div>
 						<br>
@@ -62,16 +53,14 @@
 							{{ ticket.title }}
 						</span>
 						<p class="truncate">
-							<i class="fas fa-info-circle" title="{{ ticket.description }}"></i>
+							<i class="fas fa-info-circle white-text" title="{{ ticket.description }}"></i>
 							{{ ticket.description }}
 						</p>
 					</div>
 				</span>
 
 				<!-- Ticket Stats -->
-				<div {% if ticket.ticket_status == "Open" %} class="card-action green darken-5"
-					{% elif ticket.ticket_status == "In Progress" %} class="card-action amber darken-5"
-					{% elif ticket.ticket_status == "Closed" %} class="card-action red darken-5" {% endif %}>
+				<div class="card-action {% include 'partials/status_color.html' %} darken-5">
 					<div class="row center-align">
 						<div class="col s4 tooltipped" data-position="top" data-tooltip="UPVOTES">
 							<i class="far fa-thumbs-up fa-lg" aria-hidden="true"></i><br>
@@ -97,6 +86,10 @@
 			</div>
 		</div>
 	</a>
+	{% empty %}
+	<h1 class="white-text">
+		There aren't any tickets currently!
+	</h1>
 	{% endfor %}
 
 </div>
