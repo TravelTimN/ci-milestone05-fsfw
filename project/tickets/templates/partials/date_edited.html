@@ -1,0 +1,8 @@
+<span class="{% include './status_color.html' %}-text">
+    <h2>
+        <i class="far fa-calendar-check tooltipped" data-position="bottom"
+            data-tooltip="LAST UPDATED"></i>
+    </h2>
+</span>
+{{ ticket.date_edited | date:"d E, Y" }}<br>
+<small>{{ ticket.date_edited | time:"@H:i (T)" }}</small>

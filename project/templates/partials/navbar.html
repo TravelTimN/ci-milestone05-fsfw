@@ -5,7 +5,7 @@
     <div class="nav-wrapper">
         <a href="{% url 'index' %}" class="brand-logo center">Unicorn Attractor</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse show-on-large right">
-            <i class="fas fa-bars material-icons" aria-hidden="true"></i>
+            <i class="fas fa-bars fa-lg material-icons" aria-hidden="true"></i>
         </a>
     </div>
 </nav>
@@ -13,6 +13,8 @@
 
 <!-- MOBILE SIDE NAVBAR -->
 <ul class="sidenav green lighten-5" id="mobile-demo">
+
+    <!-- NAVBAR HEADER -->
     <li class="sidenav-header green">
         <div class="row valign-wrapper white-text text-shadow-2">
             <div class="col s4 center-align">
@@ -38,6 +40,8 @@
             </div>
         </div>
     </li>
+
+    <!-- USER IS ADMIN -->
     {% if user.is_superuser %}
     <li id="admin">
         <a class="waves-effect waves-green" href="{% url 'superuser' %}">
@@ -77,14 +81,9 @@
             <span class="bold upper">Contact</span>
         </a>
     </li>
+
+    <!-- USER IS LOGGED IN -->
     {% if user.is_authenticated %}
-    <li class="strike">
-        <a class="waves-effect waves-green" href="#">
-            <i class="fas fa-shopping-cart fa-lg green-text" aria-hidden="true"></i>
-            <span class="bold upper red-text">Cart</span>
-            <span class="new badge right amber black-text" data-badge-caption="{{1}}"></span>
-        </a>
-    </li>
     <li>
         <a class="waves-effect waves-green" href="{% url 'logout' %}">
             <i class="fas fa-sign-out-alt fa-lg green-text" aria-hidden="true"></i>
@@ -106,6 +105,7 @@
     </li>
     {% endif %}
 
+    <!-- NAVBAR LOGO / COPYRIGHT -->
     <li class="sidenav-footer grey darken-2">
         <div class="row center-align green lighten-4">
             <div class="col s12">
@@ -117,33 +117,36 @@
                 </h6>
             </div>
         </div>
+
+        <!-- NAVBAR FOOTER -->
         <div class="row">
             <div class="social-icons">
                 <div class="col s3 center-align">
                     <a href="https://www.linkedin.com/in/travel-tim-nelson" target="_blank" rel="noopener"
                         aria-label="LinkedIn - Travel-Tim-Nelson" title="LinedIn">
-                        <i class="fab fa-lg fa-linkedin white-text"></i>
+                        <i class="fab fa-lg fa-linkedin white-text text-shadow-2"></i>
                     </a>
                 </div>
                 <div class="col s3 center-align">
                     <a href="https://github.com/TravelTimN" target="_blank" rel="noopener"
                         aria-label="GitHub - TravelTimN" title="GitHub">
-                        <i class="fab fa-lg fa-github white-text"></i>
+                        <i class="fab fa-lg fa-github white-text text-shadow-2"></i>
                     </a>
                 </div>
                 <div class="col s3 center-align">
                     <a href="https://www.facebook.com/TxxIxxM02" target="_blank" rel="noopener"
                         aria-label="Facebook - TxxIxxM02" title="Facebook">
-                        <i class="fab fa-lg fa-facebook-square white-text"></i>
+                        <i class="fab fa-lg fa-facebook-square white-text text-shadow-2"></i>
                     </a>
                 </div>
                 <div class="col s3 center-align">
                     <a href="https://www.youtube.com/c/TimNelsonTravels" target="_blank" rel="noopener"
                         aria-label="YouTube - TimNelsonTravels" title="YouTube">
-                        <i class="fab fa-lg fa-youtube white-text"></i>
+                        <i class="fab fa-lg fa-youtube white-text text-shadow-2"></i>
                     </a>
                 </div>
             </div>
         </div>
+
     </li>
 </ul>

@@ -8,6 +8,7 @@ from tickets.forms import TicketForm
 
 
 def tickets_view_all(request):
+    """ View ALL Tickets """
     tickets = Ticket.objects.filter(
         date_created__lte=timezone.now()
     ).order_by("-date_created")
@@ -19,14 +20,16 @@ def tickets_view_all(request):
 
 @login_required
 def tickets_new_bug(request):
+    """ Create NEW Ticket (Bug) """
     if request.method=="POST":
         ticket_form = TicketForm(request.POST)
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
-            ticket_form.save()
+            new_ticket = ticket_form.save()
+            new_ticket_id = new_ticket.pk
             messages.success(
-                request, f"Ticket successfully created for your Bug!")
-            return redirect(tickets_view_all)
+                request, f"SUCCESS! Ticket for a BUG created!")
+            return redirect(tickets_view_one, new_ticket_id)
     else:
         ticket_form = TicketForm()
     context = {
@@ -36,6 +39,7 @@ def tickets_new_bug(request):
 
 
 def tickets_view_one(request, pk):
+    """ View a Single Ticket """
     ticket = get_object_or_404(Ticket, pk=pk)
     ticket.views += 1
     ticket.save()
@@ -47,11 +51,11 @@ def tickets_view_one(request, pk):
 
 @login_required
 def tickets_edit(request, pk):
+    """ Edit a Single Ticket """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
     if request.method == "POST":
         ticket_form = TicketForm(request.POST, instance=ticket)
         if ticket_form.is_valid():
-            ticket_form.instance.author = request.user
             ticket_form.instance.date_edited = timezone.now()
             ticket_form.save()
             messages.success(
