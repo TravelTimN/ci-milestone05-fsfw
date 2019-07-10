@@ -20,7 +20,8 @@
 
                     <!-- PROFILE PHOTO -->
                     <div class="col s12 m4 center">
-                        <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="responsive-img circle">
+                        <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="responsive-img circle"
+                            lazyload="on">
                     </div>
 
                     <!-- USER DETAILS -->
@@ -105,7 +106,7 @@
             </div>
             <div class="row">
                 <div class="col s12 m3">
-                    <img src="{{ user.profile.image.url }}" width="75" height="75" class="circle white">
+                    <img src="{{ user.profile.image.url }}" width="75" height="75" class="circle white" lazyload="on">
                 </div>
                 <div class="col s12 m9 left-align">
                     {{ profile_form.image }}

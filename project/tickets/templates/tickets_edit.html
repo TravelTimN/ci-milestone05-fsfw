@@ -19,18 +19,34 @@
             {% csrf_token %}
             <div class="card form text-shadow-2">
                 <div class="card-content card-content-new-ticket">
+
+                    <div class="card-badge-div">
+                        <!-- Ticket Status (Open | In Progress | Closed) -->
+                        <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
+                            <!-- Ticket Type (Bug vs Feature) -->
+                            {% if ticket.ticket_type == "Bug" %}
+                            <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+                            {% elif ticket.ticket_type == "Feature" %}
+                            <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
+                            {% endif %}
+                        </span>
+                    </div>
+
                     <div class="row">
                         <div class="col s12">
                             <h3 class="bold">
-                                Edit Bug
-                                <i class="fas fa-bug green-text hide-on-small-and-down" aria-hidden="true"></i>
+                                Edit
+                                <span class="{% include 'partials/status_color.html' %}-text">
+                                    {{ ticket.ticket_type }}
+                                </span>
                             </h3>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col s12">
-                            {{ ticket_form.title | materializecss:'icon=fas fa-file-alt material-icons green-text' }}
-                            {{ ticket_form.description | materializecss:'icon=fas fa-align-left material-icons green-text' }}
+                            {{ ticket_form.title | materializecss:'icon=fas fa-file-alt white-text' }}
+                            {{ ticket_form.description | materializecss:'icon=fas fa-align-left white-text' }}
                         </div>
                     </div>
                 </div>

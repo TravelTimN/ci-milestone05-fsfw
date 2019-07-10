@@ -20,11 +20,12 @@ def tickets_view_all(request):
 
 @login_required
 def tickets_new_bug(request):
-    """ Create NEW Ticket (Bug) """
+    """ Create a NEW Ticket (Bug) """
     if request.method=="POST":
         ticket_form = TicketForm(request.POST)
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
+            ticket_form.instance.ticket_type = "Bug"
             new_ticket = ticket_form.save()
             new_ticket_id = new_ticket.pk
             messages.success(
@@ -38,9 +39,30 @@ def tickets_new_bug(request):
     return render(request, "tickets_new_bug.html", context)
 
 
+@login_required
+def tickets_new_feature(request):
+    """ Create a NEW Ticket (Feature) """
+    if request.method=="POST":
+        ticket_form = TicketForm(request.POST)
+        if ticket_form.is_valid():
+            ticket_form.instance.author = request.user
+            ticket_form.instance.ticket_type = "Feature"
+            new_ticket = ticket_form.save()
+            new_ticket_id = new_ticket.pk
+            messages.success(
+                request, f"SUCCESS! Ticket for a FEATURE created!")
+            return redirect(tickets_view_one, new_ticket_id)
+    else:
+        ticket_form = TicketForm()
+    context = {
+        "ticket_form": ticket_form,
+    }
+    return render(request, "tickets_new_feature.html", context)
+
+
 def tickets_view_one(request, pk):
     """ View a Single Ticket """
-    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
     ticket.views += 1
     ticket.save()
     context = {
@@ -63,11 +85,18 @@ def tickets_edit(request, pk):
             return redirect(tickets_view_one, ticket.pk)
     else:
         ticket_form = TicketForm(instance=ticket)
-    template_name = (
-        "tickets_edit_bug.html" if ticket.ticket_type == "Bug" else \
-            "tickets_edit_feature.html"
-    )
     context = {
+        "ticket": ticket,
         "ticket_form": ticket_form,
     }
-    return render(request, template_name, context)
+    return render(request, "tickets_edit.html", context)
+
+
+@login_required
+def tickets_delete(request, pk):
+    """ Delete a Ticket """
+    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+    ticket.delete()
+    messages.success(
+        request, f"Your ticket has been deleted!")
+    return redirect(tickets_view_all)
