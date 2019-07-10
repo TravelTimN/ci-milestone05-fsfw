@@ -46,24 +46,25 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 
 "**_As a user, I would like to_** _____________________________"
 
-- *view the site* from **any device** *(mobile, tablet, desktop)*.
-- *view all tickets (bugs/features)* as a **Guest**.
-- *create* my own **profile**.
-- *update* my **profile**, including *uploading* a **photo**.
-- *log* my own **bug tickets** for *free*.
+- *view the site* from **any device** *(mobile, tablet, desktop)*. :white_check_mark:
+- *view all tickets (bugs/features)* as a **Guest**. :white_check_mark:
+- *create* my own **profile**. :white_check_mark:
+- *update* my **profile**, including *uploading* a **photo**. :white_check_mark:
+- *log* my own **bug tickets** for *free*. :white_check_mark:
 - *submit* my own **feature requests** for *a small fee*.
-- *edit* my own **tickets** *(bugs and features)*.
-- *delete* my own **tickets** *(bugs and features)*.
-- be able to **log out**.
-- be able to **change my password**.
+- *edit* my own **tickets** *(bugs and features)*. :white_check_mark:
+- *delete* my own **tickets** *(bugs and features)*. :white_check_mark:
+- be able to **log out**. :white_check_mark:
+- be able to **change my password**. :white_check_mark:
 - be able to **delete my account**.
-- *see* the **total views** of each *bug and feature*.
+- *see* the **total views** of each *bug and feature*. :white_check_mark:
 - *comment* on **bugs and features** that I relate to.
 - *up-vote* **bugs** for *free* that I relate to.
 - *pay a nominal fee to up-vote* **features** that I support.
 - *earn* various **badges** for *active participation* using the app.
 - *view* **statistics** of tickets such as "*highest-grossed features*" and "*most up-voted bugs*".
 
+:white_check_mark: *denotes items that have been successfully implemented*
 
 ### Design
 
