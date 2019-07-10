@@ -6,5 +6,20 @@
             (<span class="{% include './status_color.html' %}-text">#</span>)
         </h4>
         <div class="divider {% include './status_color.html' %}"></div>
+
+
+        <!-- {% for comment in comments %} -->
+        <!-- if no comments found, use the %empty% tag -->
+        <!-- {% empty %} -->
+        <!-- "Here be Nothing!" -->
+        <!-- {% endfor %} -->
+
+        <!-- if Goal Reached (€100), close comments, and recommend new Ticket -->
+        {% if ticket.gross_total >= 100 %}
+        {% endif %}
+
+
+
+
     </div>
 </div>

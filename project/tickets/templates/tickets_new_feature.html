@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% load staticfiles %}
+{% block title %} | New Ticket - Feature{% endblock %}
+{% block css %}
+<style>
+    body {
+        background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 center-align white-text">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="card form text-shadow-2">
+                <div class="card-content card-content-new-ticket">
+                    <div class="row">
+                        <div class="col s12">
+                            <h3 class="bold">
+                                New Feature
+                                <i class="fas fa-magic green-text hide-on-small-and-down" aria-hidden="true"></i>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            {{ ticket_form.title | materializecss:'icon=fas fa-file-alt material-icons green-text' }}
+                            {{ ticket_form.description | materializecss:'icon=fas fa-align-left material-icons green-text' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-action">
+                    <div class="row">
+                        <div class="col s12 m5 offset-m1">
+                            <button type="submit" class="btn btn-large green bold text-shadow-2">Save
+                                <i class="fas fa-save material-icons right hide-on-small-and-down"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="col s12 m5">
+                            <a href="{% url 'tickets_view_all' %}" class="btn btn-large red bold text-shadow-2">
+                                Cancel
+                                <i class="fas fa-times-circle material-icons right hide-on-small-and-down"
+                                    aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

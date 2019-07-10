@@ -12,10 +12,16 @@
 {% endblock %}
 
 {% block content %}
+
 {% if user.is_authenticated %}
 <a href="{% url 'tickets_new_bug' %}" class="btn btn-large green text-shadow-2">
-	New Ticket
+	New Bug
 	<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+</a>
+
+<a href="{% url 'tickets_new_feature' %}" class="btn btn-large green text-shadow-2">
+	New Feature
+	<i class="fas fa-magic fa-lg" aria-hidden="true"></i>
 </a>
 {% endif %}
 <br><br>
@@ -70,16 +76,16 @@
 							<i class="far fa-eye fa-lg" aria-hidden="true"></i><br>
 							<span class="white-text">{{ ticket.views }}</span>
 						</div>
+						{% if ticket.ticket_type == "Feature" %}
 						<div class="col s4 tooltipped" data-position="top" data-tooltip="DONATED">
 							<i class="fas fa-hand-holding-usd fa-lg" aria-hidden="true"></i><br>
 							<span class="white-text">
-							{% if ticket.ticket_type == "Feature" %}
 							&euro;{{ ticket.gross_total }}
-							{% else %}
-							-
-							{% endif %}
 							</span>
 						</div>
+						{% else %}
+						FREE<br>UPVOTES
+						{% endif %}
 					</div>
 				</div>
 
