@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block content %}
+<!-- set variable for 'today' -->
+{% now "j F Y" as today %}
+
 <div class="row">
     <div class="col s12">
         <div class="card form white-text text-shadow-2">
@@ -40,10 +43,11 @@
                             <div class="col s12 m7 justify">
                                 <br>
                                 <p class="{% include 'partials/status_color.html' %}-text bold">
-                                    {{ ticket.ticket_type | upper }} DETAILS
+                                    {{ ticket.ticket_type|upper }} DETAILS
                                 </p>
                                 <br>
-                                <p>{{ ticket.description | linebreaksbr }}</p>
+                                <p class="bold">Ticket Number: #{{ ticket.id }}</pc>
+                                <p>{{ ticket.description|linebreaksbr }}</p>
                             </div>
 
                             <!-- TICKET STATS -->
@@ -60,12 +64,14 @@
                                             {% elif ticket.ticket_status == "Closed" %}class="fas fa-check-circle tooltipped"
                                             {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
                                         </h2>
-                                        {{ ticket.ticket_status | upper }}<br>
+                                        {{ ticket.ticket_status|upper }}<br>
                                         <small>
                                             {% if ticket.ticket_status == "Closed" %}
-                                                on: {{ ticket.date_edited | date:"d/m/y" }}
+                                                {{ ticket.date_edited|date:"j N Y" }}
+                                            {% elif ticket.date_created.date|date:"j F Y" == today %}
+                                                <span class="new badge amber black-text" data-badge-caption="NEW!"></span>
                                             {% else %}
-                                                {{ ticket.date_created | timesince }}
+                                                {{ ticket.date_created|timesince }}
                                             {% endif %}
                                         </small>
                                     </div>
@@ -115,8 +121,8 @@
                                                     data-tooltip="DATE CREATED"></i>
                                             </h2>
                                         </span>
-                                        {{ ticket.date_created | date:"d E, Y" }}<br>
-                                        <small>{{ ticket.date_created | time:"@H:i (T)" }}</small>
+                                        {{ ticket.date_created|date:"d E, Y" }}<br>
+                                        <small>{{ ticket.date_created|time:"@H:i (T)" }}</small>
                                     </div>
 
                                     <!-- date last edited -->
@@ -170,14 +176,14 @@
                                         <a href="{% url 'tickets_edit' ticket.id %}" class="white-text">
                                             <div class="col s6 blue">
                                                 <h4><i class="far fas fa-edit"></i></h4>
-                                                <h6 class="bold">EDIT<br>{{ ticket.ticket_type | upper }}</h6>
+                                                <h6 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h6>
                                             </div>
                                         </a>
                                         <!-- Delete (if permitted) -->
                                         <a href="#modal-tickets-delete" class="modal-trigger white-text">
                                             <div class="col s6 red">
                                                 <h4><i class="far fas fa-trash-alt"></i></h4>
-                                                <h6 class="bold">DELETE<br>{{ ticket.ticket_type | upper }}</h6>
+                                                <h6 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h6>
                                             </div>
                                         </a>
                                     </div>
@@ -242,7 +248,12 @@
         <br><br>
 
         <!-- COMMENTS -->
-        {% include 'partials/comments.html' %}
+
+
+        {% include "partials/comments.html" %}
+
+
+
     </div>
 
     <div class="col s12 center-align">

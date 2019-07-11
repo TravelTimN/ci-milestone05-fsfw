@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-# drop-down options
+# drop-down options for Tickets
 TICKET_TYPE_CHOICES = (
     ("Bug", "Bug"),
     ("Feature", "Feature")
@@ -15,6 +15,7 @@ TICKET_STATUS_CHOICES = (
 )
 
 
+# ----- TICKETS ----- #
 class Ticket(models.Model):
     """
     Allow users to open Tickets (Bugs or Features).
@@ -24,13 +25,11 @@ class Ticket(models.Model):
     title = models.CharField(
         max_length=75,
         default="",
-        blank=False,
-        help_text="Titles can have a maximum of 75 characters.")
+        blank=False)
     description = models.TextField(
         max_length=2000,
         default="",
-        blank=False,
-        help_text="Descriptions can have a maximum of 2,000 characters.")
+        blank=False)
 
     # ticket fields (non-editable)
     author = models.ForeignKey(
@@ -65,4 +64,30 @@ class Ticket(models.Model):
         decimal_places=0)
 
     def __str__(self):
-        return "#{0} [{1}] - {2}".format(self.id, self.ticket_type, self.title)
+        return "#{0} [{1}] - {2}".format(
+            self.id, self.ticket_type, self.title)
+
+
+class Comment(models.Model):
+    """ Allow users to add Comments onto Tickets (Bugs or Features). """
+    # user fields (editable)
+    comment = models.TextField(
+        max_length=2000,
+        null=True,
+        help_text="Comments can have a maximum of 2,000 characters.")
+
+    # comment fields (non-editable)
+    ticket = models.ForeignKey(
+        Ticket,
+        null=True,
+        on_delete=models.CASCADE)
+    commenter = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.CASCADE)
+    date_commented = models.DateTimeField(
+        auto_now_add=True)
+
+    def __str__(self):
+        return "Comment #{0} by {1} on Ticket #{2}".format(
+            self.id, self.commenter, self.ticket.id)

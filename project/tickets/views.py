@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
-from tickets.models import Ticket
-from tickets.forms import TicketForm
+from tickets.models import Ticket, Comment
+from tickets.forms import TicketForm, CommentForm
 
 
 def tickets_view_all(request):
@@ -63,9 +63,26 @@ def tickets_new_feature(request):
 def tickets_view_one(request, pk):
     """ View a Single Ticket """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+    # allow users to add Comments
+    if request.method=="POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment_form.instance.commenter = request.user
+            comment_form.instance.ticket = ticket
+            comment_form.save()
+            ticket.views -= 1
+            ticket.save()
+            messages.success(
+                request, f"Your comment was added!")
+            return redirect(tickets_view_one, ticket.pk)
+    else:
+        comment_form = CommentForm()
     ticket.views += 1
     ticket.save()
+    comments = Comment.objects.filter(ticket_id=ticket.pk)
     context = {
+        "comment_form": comment_form,
+        "comments": comments,
         "ticket": ticket,
     }
     return render(request, "tickets_view_one.html", context)
@@ -75,7 +92,7 @@ def tickets_view_one(request, pk):
 def tickets_edit(request, pk):
     """ Edit a Single Ticket """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    if request.method == "POST":
+    if request.method=="POST":
         ticket_form = TicketForm(request.POST, instance=ticket)
         if ticket_form.is_valid():
             ticket_form.instance.date_edited = timezone.now()

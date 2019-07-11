@@ -50,7 +50,10 @@
 				<span class="{% include 'partials/status_color.html' %}-text">
 					<div class="card-content">
 						<h6 class="bold">
-							<span class="white-text">{{ ticket.ticket_type | upper }}</span>
+							<span class="white-text">
+								#{{ ticket.id }} -
+								{{ ticket.ticket_type|upper }}
+							</span>
 							({{ ticket.ticket_status }})
 						</h6>
 						<div class="divider"></div>
