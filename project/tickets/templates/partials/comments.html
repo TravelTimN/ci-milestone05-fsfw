@@ -1,25 +1,64 @@
+{% load materializecss %}
+{% load humanize %}
 <div class="card form white-text text-shadow-2">
     <div class="card-content white-text">
         <h4 class="bold center-align">
             <i class="fas fa-comments"></i>
             Comments
-            (<span class="{% include './status_color.html' %}-text">#</span>)
+            (<span class="{% include './status_color.html' %}-text">{{ comments|length }}</span>)
         </h4>
-        <div class="divider {% include './status_color.html' %}"></div>
+        <!-- <div class="divider {% include './status_color.html' %}"></div> -->
 
+        <ul class="collection">
+        {% for comment in comments %}
+        <li class="collection-item avatar grey darken-4">
+            <img src="{{ comment.commenter.profile.image.url }}" alt="{{ user }}" class="circle white" lazyload="on">
+            <span class="title {% include './status_color.html' %}-text">
+                {{ comment.commenter.username }}
+            </span>
+            <small class="{% include './status_color.html' %}-text text-lighten-3">
+                {{ comment.date_commented|naturaltime }}
+            </small>
+            <p>
+                {{ comment.comment }}
+            </p>
+        </li>
+        {% empty %}
+        <li class="collection-item avatar grey darken-4">
+            <span class="title {% include './status_color.html' %}-text">
+                No Comments
+            </span>
+        </li>
+        {% endfor %}
+        </ul>
+        
 
-        <!-- {% for comment in comments %} -->
-        <!-- if no comments found, use the %empty% tag -->
-        <!-- {% empty %} -->
-        <!-- "Here be Nothing!" -->
-        <!-- {% endfor %} -->
+        {% if ticket.ticket_status == "Closed" %}
+        THIS TICKET AND COMMENTS ARE CLOSED<br>
+        To open a new {{ ticket.ticket_type }}-Ticket,
+        <a href="{% url 'tickets_new_'|add:ticket.ticket_type|lower %}" class="bold">click here!</a>
+        {% else %}
 
-        <!-- if Goal Reached (€100), close comments, and recommend new Ticket -->
-        {% if ticket.gross_total >= 100 %}
+            {% if user.is_authenticated %}
+            <a href="#modal-comments-add" class="modal-trigger btn bold {% include './status_color.html' %}">Add Comment</a>
+
+            <!-- ADD COMMENT MODAL -->
+            <div id="modal-comments-add" class="modal white-text">
+                <div class="modal-content center-align bold">
+                    <h4 class="green-text bold">Add Comment</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ comment_form|materializecss }}
+                        <button type="submit" class="btn btn-large green bold text-shadow-2">
+                            Save
+                            <i class="fas fa-save right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
         {% endif %}
-
-
-
 
     </div>
 </div>

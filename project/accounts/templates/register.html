@@ -23,26 +23,26 @@
         <br>
         <div class="row">
             <div class="col s12 m6">
-                {{ register_form.username | materializecss:'icon=fas fa-user-plus white-text' }}
+                {{ register_form.username|materializecss:'icon=fas fa-user-plus white-text' }}
             </div>
             <div class="col s12 m6">
-                {{ register_form.email | materializecss:'icon=fas fa-at white-text' }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m6">
-                {{ register_form.first_name | materializecss:'icon=fas fa-id-card white-text' }}
-            </div>
-            <div class="col s12 m6">
-                {{ register_form.last_name | materializecss:'icon=fas fa-id-card white-text' }}
+                {{ register_form.email|materializecss:'icon=fas fa-at white-text' }}
             </div>
         </div>
         <div class="row">
             <div class="col s12 m6">
-                {{ register_form.password1 | materializecss:'icon=fas fa-key white-text' }}
+                {{ register_form.first_name|materializecss:'icon=fas fa-id-card white-text' }}
             </div>
             <div class="col s12 m6">
-                {{ register_form.password2 | materializecss:'icon=fas fa-key white-text' }}
+                {{ register_form.last_name|materializecss:'icon=fas fa-id-card white-text' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                {{ register_form.password1 materializecss:'icon=fas fa-key white-text' }}
+            </div>
+            <div class="col s12 m6">
+                {{ register_form.password2|materializecss:'icon=fas fa-key white-text' }}
             </div>
         </div>
 

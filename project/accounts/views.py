@@ -82,7 +82,7 @@ def register(request):
 def profile(request):
     """ The user's profile page """
     user = User.objects.get(email=request.user.email)
-    if request.method == "POST":
+    if request.method=="POST":
         update_form = UserUpdateForm(
             request.POST,
             instance=request.user)
