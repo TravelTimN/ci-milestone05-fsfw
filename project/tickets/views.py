@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
-from tickets.models import Ticket, Comment
+from tickets.models import Ticket, Comment, Upvote
 from tickets.forms import TicketForm, CommentForm
 
 
@@ -62,28 +62,36 @@ def tickets_new_feature(request):
 
 def tickets_view_one(request, pk):
     """ View a Single Ticket """
+    # get ticket details
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    # allow users to add Comments
+    # increase number of views by 1
+    ticket.views += 1
+    ticket.save()
+    # filter comments on specific ticket
+    comments = Comment.objects.filter(ticket_id=ticket.pk)
+    # filter upvotes on specific ticket by user ID
+    upvotes = Upvote.objects.filter(ticket_id=ticket.pk).values("user_id")
+    voters = [vote["user_id"] for vote in upvotes]
+    # POST methods
     if request.method=="POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment_form.instance.commenter = request.user
             comment_form.instance.ticket = ticket
             comment_form.save()
-            ticket.views -= 1
+            # remove two ticket views to avoid duplicates on POST
+            ticket.views -= 2
             ticket.save()
             messages.success(
                 request, f"Your comment was added!")
             return redirect(tickets_view_one, ticket.pk)
     else:
         comment_form = CommentForm()
-    ticket.views += 1
-    ticket.save()
-    comments = Comment.objects.filter(ticket_id=ticket.pk)
     context = {
         "comment_form": comment_form,
         "comments": comments,
         "ticket": ticket,
+        "voters": voters,
     }
     return render(request, "tickets_view_one.html", context)
 
@@ -117,3 +125,35 @@ def tickets_delete(request, pk):
     messages.success(
         request, f"Your ticket has been deleted!")
     return redirect(tickets_view_all)
+
+
+@login_required
+def upvote_add(request, pk):
+    """ Upvote a Ticket """
+    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket.upvotes += 1
+    # remove a ticket view to avoid duplicates
+    ticket.views -= 1
+    ticket.save()
+    Upvote.objects.create(
+        ticket_id=ticket.pk,
+        user_id=request.user.id)
+    messages.success(
+        request, f"Thanks for your vote!")
+    return redirect(tickets_view_one, ticket.pk)
+
+
+@login_required
+def upvote_remove(request, pk):
+    """ Remove Upvote from a Ticket """
+    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket.upvotes -= 1
+    # remove a ticket view to avoid duplicates
+    ticket.views -= 1
+    ticket.save()
+    Upvote.objects.filter(
+        ticket_id=ticket.pk,
+        user_id=request.user.id).delete()
+    messages.success(
+        request, f"Your vote has been removed.")
+    return redirect(tickets_view_one, ticket.pk)
