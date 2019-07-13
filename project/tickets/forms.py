@@ -1,3 +1,5 @@
+import calendar
+from datetime import datetime
 from django import forms
 from tickets.models import Ticket, Comment
 
@@ -16,6 +18,13 @@ class TicketForm(forms.ModelForm):
         min_length=20,
         max_length=2000,
         widget=forms.Textarea(),
+        required=True)
+    gross_total = forms.IntegerField(
+        label="Donation Amount",
+        widget=forms.NumberInput(
+            attrs={
+                "type":"range", "step":"5", "value":"50",
+                "min":"10", "max":"100"}),
         required=True)
 
     class Meta:
@@ -36,3 +45,28 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["comment"]
+
+
+# ----- PAYMENTS ----- #
+class PaymentForm(forms.Form):
+    """ Form to allow users to pay for Feature payments """
+    month_choices = [(m, calendar.month_name[m]) for m in range(1, 13)]
+    year_choices = [(y, y) for y in range(
+        datetime.now().year, datetime.now().year + 16)]
+
+    credit_card_number = forms.CharField(
+        label="Credit Card Number",
+        required=False)
+    cvv = forms.CharField(
+        label="Security Code (CVV)",
+        required=False)
+    expiry_month = forms.ChoiceField(
+        label="Expiry Month",
+        choices=month_choices,
+        required=False)
+    expiry_year = forms.ChoiceField(
+        label="Expiry Year",
+        choices=year_choices,
+        required=False)
+    stripe_id = forms.CharField(
+        widget=forms.HiddenInput)
