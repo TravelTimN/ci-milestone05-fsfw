@@ -1,10 +1,15 @@
 from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from tickets.models import Ticket, Comment, Upvote
-from tickets.forms import TicketForm, CommentForm
+from tickets.forms import TicketForm, CommentForm, PaymentForm
+import stripe
+
+
+stripe.api_key = settings.STRIPE_SECRET
 
 
 def tickets_view_all(request):
@@ -44,18 +49,44 @@ def tickets_new_feature(request):
     """ Create a NEW Ticket (Feature) """
     if request.method=="POST":
         ticket_form = TicketForm(request.POST)
-        if ticket_form.is_valid():
-            ticket_form.instance.author = request.user
-            ticket_form.instance.ticket_type = "Feature"
-            new_ticket = ticket_form.save()
-            new_ticket_id = new_ticket.pk
-            messages.success(
-                request, f"SUCCESS! Ticket for a FEATURE created!")
-            return redirect(tickets_view_one, new_ticket_id)
+        payment_form = PaymentForm(request.POST)
+        if ticket_form.is_valid() and payment_form.is_valid():
+            # amount to pay / donate
+            gross_total = 0
+            gross_total += int(request.POST.get("gross_total"))
+            try:
+                # build Stripe payment
+                customer = stripe.Charge.create(
+                    amount = int(gross_total * 100),
+                    currency = "EUR",
+                    description = request.user.email,
+                    card = payment_form.cleaned_data["stripe_id"],
+                )
+            except stripe.error.CardError:
+                messages.error(request, "Your card was declined!")
+            
+            if customer.paid:
+                ticket_form.instance.author = request.user
+                ticket_form.instance.ticket_type = "Feature"
+                ticket_form.instance.gross_total = gross_total
+                new_ticket = ticket_form.save()
+                new_ticket_id = new_ticket.pk
+                messages.success(
+                    request, f"SUCCESS! Ticket for a FEATURE created!\
+                        €{gross_total} was charged to your card.")
+                return redirect(tickets_view_one, new_ticket_id)
+            else:
+                messages.error(request, "Unable to take payment!")
+        else:
+            print(payment_form.errors)
+            messages.error(request, "We were unable to take a payment with that card!")
     else:
         ticket_form = TicketForm()
+        payment_form = PaymentForm()
     context = {
         "ticket_form": ticket_form,
+        "payment_form": payment_form,
+        "publishable": settings.STRIPE_PUBLISHABLE
     }
     return render(request, "tickets_new_feature.html", context)
 

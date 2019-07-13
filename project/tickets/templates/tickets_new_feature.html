@@ -15,7 +15,11 @@
 <div class="row">
     <div class="col s12 center-align white-text">
 
-        <form method="POST">
+        <div id="credit-card-errors" style="display: none;">
+            <div class="alert-message block-message error" id="stripe-error-message"></div>
+        </div>
+
+        <form method="POST" id="feature-payment" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card form text-shadow-2">
                 <div class="card-content card-content-new-ticket">
@@ -32,15 +36,32 @@
                             {{ ticket_form.title|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
                             {{ ticket_form.description|materializecss:'icon=fas fa-align-left material-icons green-text' }}
                         </div>
+                        <div class="col s12 center-align">
+                            <p class="range-field">
+                                {{ ticket_form.gross_total }}
+                            </p>
+                        </div>
+                        <div class="col s8 offset-s3 right-align">
+                            <h5>total: €<span id="total-cost"></span></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            {{ payment_form.credit_card_number|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
+                            {{ payment_form.expiry_month }}
+                            {{ payment_form.expiry_year }}
+                            {{ payment_form.cvv|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
+                            {{ payment_form.stripe_id }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="card-action">
                     <div class="row">
                         <div class="col s12 m5 offset-m1">
-                            <button type="submit" class="btn btn-large green bold text-shadow-2">Save
-                                <i class="fas fa-save material-icons right hide-on-small-and-down"
-                                    aria-hidden="true"></i>
+                            <button type="submit" class="btn btn-large green bold text-shadow-2">
+                                Pay €<span id="pay-btn"></span>
+                                <i class="fas fa-save material-icons right hide-on-small-and-down" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="col s12 m5">
@@ -58,4 +79,23 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script src="https://js.stripe.com/v2/"></script>
+<script>
+    //<![CDATA[
+    Stripe.publishableKey = "{{ publishable }}";
+    //]]>
+
+    defaultVal = $("#id_gross_total").val();
+    $("#pay-btn").text(defaultVal);
+    $("#total-cost").text(defaultVal);
+    $("input[type=range]").on("input", function () {
+        $(".thumb .value").trigger("change");
+        $("#pay-btn").text($(".thumb .value").text());
+        $("#total-cost").text($(".thumb .value").text());
+    });
+</script>
+<script src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}
