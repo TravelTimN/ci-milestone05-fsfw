@@ -68,13 +68,13 @@ class Ticket(models.Model):
             self.id, self.ticket_type, self.title)
 
 
+# ----- COMMENTS ----- #
 class Comment(models.Model):
     """ Allow users to add Comments onto Tickets (Bugs or Features). """
     # user fields (editable)
     comment = models.TextField(
         max_length=2000,
-        null=True,
-        help_text="Comments can have a maximum of 2,000 characters.")
+        null=True)
 
     # comment fields (non-editable)
     ticket = models.ForeignKey(
@@ -91,3 +91,20 @@ class Comment(models.Model):
     def __str__(self):
         return "Comment #{0} by {1} on Ticket #{2}".format(
             self.id, self.commenter, self.ticket.id)
+
+
+# ----- UPVOTES ----- #
+class Upvote(models.Model):
+    """ Allow users to Upvote a Ticket (Bugs or Features) """
+    user = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.CASCADE)
+    ticket = models.ForeignKey(
+        Ticket,
+        null=True,
+        on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Upvote by {0} on Ticket {1}".format(
+            self.user.username, self.ticket.id)

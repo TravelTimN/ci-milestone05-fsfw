@@ -203,11 +203,22 @@
                 <div class="card-action center-align bold">
                     <div class="row">
                         <div class="col s12 m5 l4">
-                            <span class="hoverable">
-                                <a href="#" class="btn {% include 'partials/status_color.html' %}">
+                            <span class="bold text-shadow-2 hoverable">
+                                {% if user.id not in voters %}
+                                <!-- UPVOTE (add)-->
+                                <a href="{% url 'upvote_add' ticket.pk %}"
+                                    class="btn {% include 'partials/status_color.html' %}">
                                     <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
                                     UPVOTE
                                 </a>
+                                {% else %}
+                                <!-- UPVOTE (remove)-->
+                                <a href="{% url 'upvote_remove' ticket.pk %}"
+                                    class="btn {% include 'partials/status_color.html' %}">
+                                    <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
+                                    REMOVE
+                                </a>
+                                {% endif %}
                             </span>
                         </div>
                         <div class="col s12 m7 l8">
