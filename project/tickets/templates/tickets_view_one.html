@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load materializecss %}
 {% load staticfiles %}
 {% block title %} | Ticket ({{ ticket.ticket_type }}): {{ ticket.title }}{% endblock %}
@@ -67,7 +68,7 @@
                                         {{ ticket.ticket_status|upper }}<br>
                                         <small>
                                             {% if ticket.ticket_status == "Closed" %}
-                                                {{ ticket.date_edited|date:"j N Y" }}
+                                                {{ ticket.date_edited|naturalday:"j N Y" }}
                                             {% elif ticket.date_created.date|date:"j F Y" == today %}
                                                 <span class="new badge amber black-text" data-badge-caption="NEW!"></span>
                                             {% else %}
@@ -109,6 +110,9 @@
                                             </h2>
                                         </span>
                                         {{ ticket.upvotes }}
+                                        {% if user.id in voters %}
+                                        <i class="fas fa-check fa-lg green-text"></i>
+                                        {% endif %}
                                     </div>
                                 </div>
 
@@ -121,7 +125,7 @@
                                                     data-tooltip="DATE CREATED"></i>
                                             </h2>
                                         </span>
-                                        {{ ticket.date_created|date:"d E, Y" }}<br>
+                                        {{ ticket.date_created|naturalday:"d E, Y"|upper }}<br>
                                         <small>{{ ticket.date_created|time:"@H:i (T)" }}</small>
                                     </div>
 
@@ -197,62 +201,7 @@
             </div>
 
             <!-- UPVOTE OPTION -->
-            {% if ticket.ticket_status != "Closed" %}
-                <!-- only allow voting if not 'closed' and user is logged in -->
-                {% if user.is_authenticated %}
-                <div class="card-action center-align bold">
-                    <div class="row">
-                        <div class="col s12 m5 l4">
-                            <span class="bold text-shadow-2 hoverable">
-                                {% if user.id not in voters %}
-                                <!-- UPVOTE (add)-->
-                                <a href="{% url 'upvote_add' ticket.pk %}"
-                                    class="btn {% include 'partials/status_color.html' %}">
-                                    <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
-                                    UPVOTE
-                                </a>
-                                {% else %}
-                                <!-- UPVOTE (remove)-->
-                                <a href="{% url 'upvote_remove' ticket.pk %}"
-                                    class="btn {% include 'partials/status_color.html' %}">
-                                    <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
-                                    REMOVE
-                                </a>
-                                {% endif %}
-                            </span>
-                        </div>
-                        <div class="col s12 m7 l8">
-                            Sound familiar? Let us know!<br>
-                            {{ ticket.ticket_type }} upvotes
-                            {% if ticket.ticket_type == "Bug" %}
-                            are always <span class="{% include 'partials/status_color.html' %}-text">FREE!</span>
-                            {% elif ticket.ticket_type == "Feature" %}
-                            require a <span class="{% include 'partials/status_color.html' %}-text">€5 donation!</span>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <!-- FEATURES only -->
-                    {% if ticket.ticket_type == "Feature" %}
-                    <div class="divider {% include 'partials/status_color.html' %}"></div>
-                    <div class="row">
-                        <div class="col s12 m6">
-                            Once a Feature Request reaches
-                            <span class="{% include 'partials/status_color.html' %}-text">&euro;100</span>
-                            in donations, we will begin development!
-                        </div>
-                        <div class="col s12 m6">
-                            <div class="progress {% include 'partials/status_color.html' %} lighten-4">
-                                <div class="determinate bold {% include 'partials/status_color.html' %}"
-                                    style="width: {{ ticket.gross_total }}%;">{{ ticket.gross_total }}%</div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                </div>
-                {% endif %}
-            {% endif %}
+            {% include "partials/upvotes.html" %}
 
         </div>
 
