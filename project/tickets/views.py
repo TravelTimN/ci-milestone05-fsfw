@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from tickets.models import Ticket, Comment, Upvote
-from tickets.forms import TicketForm, CommentForm, PaymentForm
+from tickets.forms import TicketForm, CommentForm
 import stripe
 
 
@@ -49,26 +49,35 @@ def tickets_new_feature(request):
     """ Create a NEW Ticket (Feature) """
     if request.method=="POST":
         ticket_form = TicketForm(request.POST)
-        payment_form = PaymentForm(request.POST)
-        if ticket_form.is_valid() and payment_form.is_valid():
+        # payment_form = PaymentForm(request.POST)
+        if ticket_form.is_valid(): #and payment_form.is_valid():
             # amount to pay / donate
             gross_total = 0
             gross_total += int(request.POST.get("gross_total"))
             try:
                 # build Stripe payment
+                token = request.POST["stripeToken"] ###### added this
+
                 customer = stripe.Charge.create(
                     amount = int(gross_total * 100),
                     currency = "EUR",
-                    description = request.user.email,
-                    card = payment_form.cleaned_data["stripe_id"],
+                    description = (
+                        request.user.email +
+                        " (" + request.user.first_name +
+                        " " + request.user.last_name + ")"),
+                    # card = payment_form.cleaned_data["stripe_id"],
+                    source = token,
                 )
             except stripe.error.CardError:
+                # Stripe payment error
                 messages.error(request, "Your card was declined!")
             
             if customer.paid:
                 ticket_form.instance.author = request.user
                 ticket_form.instance.ticket_type = "Feature"
                 ticket_form.instance.gross_total = gross_total
+                if gross_total >= int(100):
+                    ticket_form.instance.ticket_status = "In Progress"
                 new_ticket = ticket_form.save()
                 new_ticket_id = new_ticket.pk
                 messages.success(
@@ -78,14 +87,14 @@ def tickets_new_feature(request):
             else:
                 messages.error(request, "Unable to take payment!")
         else:
-            print(payment_form.errors)
-            messages.error(request, "We were unable to take a payment with that card!")
+            # print(payment_form.errors)
+            messages.error(request, "There was an error. Please try again.")
     else:
         ticket_form = TicketForm()
-        payment_form = PaymentForm()
+        # payment_form = PaymentForm()
     context = {
         "ticket_form": ticket_form,
-        "payment_form": payment_form,
+        # "payment_form": payment_form,
         "publishable": settings.STRIPE_PUBLISHABLE
     }
     return render(request, "tickets_new_feature.html", context)

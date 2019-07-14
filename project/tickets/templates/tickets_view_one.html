@@ -111,7 +111,8 @@
                                         </span>
                                         {{ ticket.upvotes }}
                                         {% if user.id in voters %}
-                                        <i class="fas fa-check fa-lg green-text"></i>
+                                        <i class="fas fa-check fa-lg green-text tooltipped" data-position="top"
+                                            data-tooltip="I support this!"></i>
                                         {% endif %}
                                     </div>
                                 </div>
