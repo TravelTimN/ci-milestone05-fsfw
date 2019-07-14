@@ -1,7 +1,6 @@
 import calendar
 from datetime import datetime
 from django import forms
-from django.core.validators import RegexValidator
 from tickets.models import Ticket, Comment
 
 
@@ -20,17 +19,20 @@ class TicketForm(forms.ModelForm):
         max_length=2000,
         widget=forms.Textarea(),
         required=True)
-    gross_total = forms.IntegerField(
-        label="Donation Amount",
-        widget=forms.NumberInput(
-            attrs={
-                "type":"range", "step":"5", "value":"50",
-                "min":"10", "max":"100"}),
-        required=False)
 
     class Meta:
         model = Ticket
         fields = ["title", "description"]
+
+
+class DonationForm(forms.Form):
+    donation_amount = forms.IntegerField(
+        label="Donation Amount",
+        widget=forms.NumberInput(
+            attrs={
+                "type":"range", "step":"5", "value":"10",
+                "min":"5", "max":"100"}),
+        required=False)
 
 
 # ----- COMMENTS ----- #
@@ -46,33 +48,3 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["comment"]
-
-
-# ----- PAYMENTS ----- #
-# class PaymentForm(forms.Form):
-#     """ Form to allow users to pay for Feature payments """
-#     month_choices = [(m, calendar.month_name[m]) for m in range(1, 13)]
-#     year_choices = [(y, y) for y in range(
-#         datetime.now().year, datetime.now().year + 10)]
-
-#     credit_card_number = forms.CharField(
-#         label="Credit Card Number",
-#         max_length=16,
-#         required=False,
-#         validators=[RegexValidator(
-#             "^[0-9]{15,16}$",
-#                 message=("Credit Cards should be 15-16 numbers."))])
-#     cvv = forms.CharField(
-#         label="Security Code (CVV)",
-#         max_length=4,
-#         required=False)
-#     expiry_month = forms.ChoiceField(
-#         label="Expiry Month",
-#         choices=month_choices,
-#         required=False)
-#     expiry_year = forms.ChoiceField(
-#         label="Expiry Year",
-#         choices=year_choices,
-#         required=False)
-#     stripe_id = forms.CharField(
-#         widget=forms.HiddenInput)

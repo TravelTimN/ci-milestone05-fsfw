@@ -57,6 +57,15 @@
                                 </div>
                                 <div class="row bold">
 
+                                    <!-- author -->
+                                    <div class="col s6">
+                                        <img src="{{ ticket.author.profile.image.url }}" width="85px" height="85px"
+                                            alt="{{ ticket.author }}" class="circle white tooltipped"
+                                            data-position="bottom" data-tooltip="AUTHOR" lazyload="on">
+                                        <br>
+                                        {{ ticket.author }}
+                                    </div>
+
                                     <!-- ticket progress ( open | in progress | closed ) -->
                                     <div class="col s6">
                                         <h2 class="{% include 'partials/status_color.html' %}-text">
@@ -75,17 +84,6 @@
                                                 {{ ticket.date_created|timesince }}
                                             {% endif %}
                                         </small>
-                                    </div>
-
-                                    <!-- author -->
-                                    <div class="col s6">
-                                        <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
-                                                <i class="fas fa-user-edit tooltipped" data-position="bottom"
-                                                    data-tooltip="AUTHOR"></i>
-                                            </h2>
-                                        </span>
-                                        {{ ticket.author }}
                                     </div>
                                 </div>
 
@@ -146,7 +144,7 @@
                                     </div>
                                 </div>
 
-                                {% if ticket.ticket_type == "Feature" and ticket.gross_total >= 100 %}
+                                {% if ticket.ticket_type == "Feature" and ticket.total_donations >= 100 %}
                                 <div class="divider {% include 'partials/status_color.html' %}"></div>
                                 <div class="row bold">
                                     <!-- donations gross total -->
@@ -157,7 +155,7 @@
                                                     data-tooltip="DONATIONS"></i>
                                             </h2>
                                         </span>
-                                        &euro;{{ ticket.gross_total }}
+                                        &euro;{{ ticket.total_donations }}
                                     </div>
 
                                     <!-- donations percentage -->
@@ -167,7 +165,7 @@
                                                 <i class="fas fa-trophy tooltipped" data-position="bottom" data-tooltip="GOAL"></i>
                                             </h2>
                                         </span>
-                                        {{ ticket.gross_total }}%
+                                        {{ ticket.total_donations }}%
                                     </div>
                                 </div>
                                 {% endif %}
@@ -246,4 +244,18 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    // Slider/Range Values
+    defaultVal = $("#id_donation_amount").val();
+    $("#btn-pay-span, #total-cost").text(defaultVal);
+    $("input[type=range]").on("input", function () {
+        $(".thumb .value").trigger("change");
+        $("#btn-pay-span, #total-cost").text($(".thumb .value").text());
+    });
+</script>
+<script src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}

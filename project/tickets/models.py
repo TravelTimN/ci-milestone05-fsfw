@@ -58,10 +58,8 @@ class Ticket(models.Model):
         default=0)
     upvotes = models.IntegerField(
         default=0)
-    gross_total = models.DecimalField(
-        default=0,
-        max_digits=7,
-        decimal_places=0)
+    total_donations = models.IntegerField(
+        default=0)
 
     def __str__(self):
         return "#{0} [{1}] - {2}".format(

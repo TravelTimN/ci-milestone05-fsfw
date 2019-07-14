@@ -1,63 +1,144 @@
-{% if ticket.ticket_status != "Closed" %}
-    <!-- only allow voting if not 'closed' and user is logged in -->
-    {% if user.is_authenticated %}
-    <div class="card-action center-align bold">
-        <div class="row">
-            <div class="col s12 m5 l4">
-                <span class="bold text-shadow-2 hoverable">
-                    {% if user.id not in voters %}
+<!-- only allow voting if not 'closed' and user is logged in -->
+{% if user.is_authenticated %}
+<div class="card-action center-align bold">
+    {% if ticket.ticket_status != "Closed" %}
+    <div class="row">
+        <div class="col s12 m5 l4">
+            <span class="bold text-shadow-2 hoverable">
+                {% if user.id not in voters %}
                     <!-- UPVOTE (add)-->
+                    {% if ticket.ticket_type == "Bug" %}
                     <a href="{% url 'upvote_add' ticket.pk %}" class="btn {% include './status_color.html' %}">
                         <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
                         UPVOTE
                     </a>
-                    {% else %}
-                    <!-- UPVOTE (remove)-->
-                    <a href="{% url 'upvote_remove' ticket.pk %}" class="btn {% include './status_color.html' %}">
-                        <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
-                        REMOVE
-                    </a>
+                    {% elif ticket.ticket_type == "Feature" %}
+                        {% if ticket.total_donations < 100 %}
+                        <!-- feature upvotes require a small donation until goal achieved -->
+                        <a href="#modal-feature-payment" class="btn modal-trigger {% include './status_color.html' %}">
+                            <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
+                            UPVOTE
+                        </a>
+                        {% else %}
+                        <!-- feature upvotes are free if full goal achieved -->
+                        <a href="{% url 'upvote_add' ticket.pk %}" class="btn {% include './status_color.html' %}">
+                            <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
+                            UPVOTE
+                        </a>
+                        {% endif %}
                     {% endif %}
-                </span>
-            </div>
-            <div class="col s12 m7 l8">
-                Sound familiar? Let us know!<br>
-                {{ ticket.ticket_type }} upvotes
-                {% if ticket.ticket_type == "Bug" %}
-                are always <span class="{% include './status_color.html' %}-text">FREE!</span>
-                {% elif ticket.ticket_type == "Feature" %}
-                    {% if ticket.gross_total < 100 %}
-                    require a <span class="{% include './status_color.html' %}-text">€5 donation!</span>
-                    {% else %}
-                    are now <span class="{% include './status_color.html' %}-text">FREE!</span>
-                    {% endif %}
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- FEATURES only -->
-        {% if ticket.ticket_type == "Feature" %}
-        <div class="divider {% include './status_color.html' %}"></div>
-        <div class="row">
-            <div class="col s12 m6">
-                {% if ticket.gross_total < 100 %}
-                Once a Feature Request reaches
-                <span class="{% include './status_color.html' %}-text">&euro;100</span>
-                in donations, we will begin development!
                 {% else %}
-                Thank You to all contributors!<br>
-                <span class="{% include './status_color.html' %}-text">&euro;100 Goal Achieved!</span>
+                <!-- UPVOTE (remove) - disabled for Features!-->
+                <a href="{% url 'upvote_remove' ticket.pk %}" class="btn {% include './status_color.html' %}"
+                    {% if ticket.ticket_type == 'Feature' %}disabled{% endif %}>
+                    <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
+                    REMOVE
+                </a>
                 {% endif %}
-            </div>
-            <div class="col s12 m6">
-                <div class="progress {% include './status_color.html' %} lighten-4">
-                    <div class="determinate bold {% include './status_color.html' %}"
-                        style="width: {{ ticket.gross_total }}%;">{{ ticket.gross_total }}%</div>
-                </div>
-            </div>
+            </span>
         </div>
-        {% endif %}
-
+        <div class="col s12 m7 l8">
+            Sound familiar? Let us know!<br>
+            {{ ticket.ticket_type }} upvotes
+            {% if ticket.ticket_type == "Bug" %}
+            are always <span class="{% include './status_color.html' %}-text">FREE!</span>
+            {% elif ticket.ticket_type == "Feature" %}
+                {% if ticket.total_donations < 100 %}
+                require a <span class="{% include './status_color.html' %}-text">small donation!</span>
+                {% else %}
+                are now <span class="{% include './status_color.html' %}-text">FREE!</span>
+                {% endif %}
+            {% endif %}
+        </div>
     </div>
     {% endif %}
+
+    <!-- FEATURES only -->
+    {% if ticket.ticket_type == "Feature" %}
+        {% if ticket.ticket_status != "Closed" %}
+            <div class="divider {% include './status_color.html' %}"></div>
+        {% endif %}
+    <div class="row">
+        <div class="col s12 m6">
+            {% if ticket.total_donations < 100 %}
+            Once a Feature Request reaches
+            <span class="{% include './status_color.html' %}-text">&euro;100</span>
+            in donations, we will begin development!
+            {% else %}
+            Thank You to all Supporters!<br>
+            <span class="{% include './status_color.html' %}-text">&euro;100 Goal Achieved!</span>
+            {% endif %}
+        </div>
+        <div class="col s12 m6">
+            <div class="progress {% include './status_color.html' %} lighten-4">
+                <div class="determinate bold {% include './status_color.html' %}"
+                    style="width: {{ ticket.total_donations }}%;">{{ ticket.total_donations }}%</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- LIST OF SUPPORTERS | VOTERS | DONORS -->
+    {% if ticket.ticket_status != "Closed" %}
+        <div class="divider {% include './status_color.html' %}"></div>
+    {% endif %}
+    <div class="row">
+        <div class="col s12">
+            <h5>Supporters</h5>
+            <div class="chip black bold {% include './status_color.html' %}-text">
+                <img src="{{ ticket.author.profile.image.url }}" alt="{{ ticket.author }}" class="circle white"
+                    lazyload="on">
+                {{ ticket.author.username }}
+            </div>
+            {% for donor in donors %}
+                {% if donor.username != ticket.author.username %}
+                <div class="chip black bold {% include './status_color.html' %}-text">
+                    <img src="{{ donor.profile.image.url }}" alt="{{ donor.username }}" class="circle white"
+                        lazyload="on">
+                    {{ donor.username }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
 {% endif %}
+
+<!-- FEATURE Upvote Modal -->
+<div id="modal-feature-payment" class="modal white-text">
+    <div class="modal-content center-align bold">
+        <h4 class="green-text bold">Upvote Feature</h4>
+        <h6 class="red center-align upper">Important: Upvote Payments are Non-Refundable!</h6>
+        <br>
+        <form method="POST" action="{% url 'upvote_add' ticket.id %}" id="payment-form" data-token="{{ publishable }}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <p class="range-field">
+                        {{ donation_form.donation_amount }}
+                    </p>
+                    <small class="amber-text bold">SLIDE TO PICK YOUR DONATION AMOUNT</small>
+                </div>
+            </div>
+            
+            <fieldset>
+                <legend>
+                    <h5>Donation for <span class="amber-text">&euro;<span id="total-cost"></span></span></h5>
+                </legend>
+                <label for="card-element">Credit or Debit card</label>
+                <div id="card-element"></div>
+                <div id="card-errors" class="white-text red" role="alert"></div>
+            </fieldset>
+            <br>
+            <button type="submit" id="btn-pay" class="btn btn-large green bold text-shadow-2">
+                Donate €<span id="btn-pay-span"></span>
+                <i class="fas fa-hand-holding-usd right hide-on-small-and-down" aria-hidden="true"></i>
+            </button>
+            <a class="modal-close btn btn-large red bold text-shadow-2">
+                Cancel
+                <i class="fas fa-times-circle right hide-on-small-and-down" aria-hidden="true"></i>
+            </a>
+        </form>
+    </div>
+</div>
