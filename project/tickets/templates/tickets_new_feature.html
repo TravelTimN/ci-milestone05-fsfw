@@ -40,7 +40,7 @@
                         </div>
                         <div class="col s12 m8 offset-m2 center-align">
                             <p class="range-field">
-                                {{ ticket_form.gross_total }}
+                                {{ donation_form.donation_amount }}
                             </p>
                             <small class="amber-text bold">SLIDE TO PICK YOUR DONATION AMOUNT</small>
                         </div>
@@ -87,28 +87,13 @@
 {% block js %}
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-
-    defaultVal = $("#id_gross_total").val();
+    // Slider/Range Values
+    defaultVal = $("#id_donation_amount").val();
     $("#btn-pay-span, #total-cost").text(defaultVal);
     $("input[type=range]").on("input", function () {
         $(".thumb .value").trigger("change");
         $("#btn-pay-span, #total-cost").text($(".thumb .value").text());
     });
-
-    // cardNumber = $("input[type=text]#id_credit_card_number");
-    // $(cardNumber).prop({type: "number"});
-    // $("#btn-pay").prop("disabled", true);
-    // $(cardNumber).on("focusout", function () {
-    //     if ((cardNumber).val().length < 15) {
-    //         M.toast({html: "Card Number should be 15-16 numbers!"});
-    //         $(cardNumber).removeClass("validate valid").addClass("invalid");
-    //         $("#btn-pay").prop("disabled", true);
-    //     } else {
-    //         $(cardNumber).removeClass("validate invalid").addClass("valid");
-    //         $("#btn-pay").prop("disabled", false);
-    //     }
-    // });
-
 </script>
 <script src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}

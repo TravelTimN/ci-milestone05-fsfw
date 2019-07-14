@@ -50,9 +50,13 @@
                         {% csrf_token %}
                         {{ comment_form|materializecss }}
                         <button type="submit" class="btn btn-large green bold text-shadow-2">
-                            Save
-                            <i class="fas fa-save right"></i>
+                            Add
+                            <i class="fas fa-comment-medical right"></i>
                         </button>
+                        <a class="modal-close btn btn-large red bold text-shadow-2">
+                            Cancel
+                            <i class="fas fa-times-circle right hide-on-small-and-down" aria-hidden="true"></i>
+                        </a>
                     </form>
                 </div>
             </div>

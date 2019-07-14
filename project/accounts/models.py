@@ -15,6 +15,8 @@ class Profile(models.Model):
         upload_to="profile_imgs",
         blank=True,
         null=True)
+    total_donated = models.IntegerField(
+        default=0)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

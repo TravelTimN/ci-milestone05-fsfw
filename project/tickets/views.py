@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
+from accounts.models import Profile
 from tickets.models import Ticket, Comment, Upvote
-from tickets.forms import TicketForm, CommentForm
+from tickets.forms import TicketForm, CommentForm, DonationForm
 import stripe
 
 
@@ -31,6 +32,7 @@ def tickets_new_bug(request):
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
             ticket_form.instance.ticket_type = "Bug"
+            ticket_form.instance.views = 1
             new_ticket = ticket_form.save()
             new_ticket_id = new_ticket.pk
             messages.success(
@@ -49,52 +51,56 @@ def tickets_new_feature(request):
     """ Create a NEW Ticket (Feature) """
     if request.method=="POST":
         ticket_form = TicketForm(request.POST)
-        # payment_form = PaymentForm(request.POST)
-        if ticket_form.is_valid(): #and payment_form.is_valid():
+        donation_form = DonationForm(request.POST)
+        if ticket_form.is_valid() and donation_form.is_valid():
             # amount to pay / donate
-            gross_total = 0
-            gross_total += int(request.POST.get("gross_total"))
+            donation_amount = 0
+            donation_amount += int(request.POST.get("donation_amount"))
             try:
                 # build Stripe payment
-                token = request.POST["stripeToken"] ###### added this
-
+                token = request.POST["stripeToken"]
                 customer = stripe.Charge.create(
-                    amount = int(gross_total * 100),
+                    amount = int(donation_amount * 100),
                     currency = "EUR",
                     description = (
                         request.user.email +
-                        " (" + request.user.first_name +
-                        " " + request.user.last_name + ")"),
-                    # card = payment_form.cleaned_data["stripe_id"],
+                        " (" + request.user.get_full_name() + ")"),
                     source = token,
                 )
             except stripe.error.CardError:
                 # Stripe payment error
-                messages.error(request, "Your card was declined!")
-            
+                messages.error(request, f"Your card was declined!")
+            # authorization is valid - payment successful
             if customer.paid:
                 ticket_form.instance.author = request.user
                 ticket_form.instance.ticket_type = "Feature"
-                ticket_form.instance.gross_total = gross_total
-                if gross_total >= int(100):
+                ticket_form.instance.views = 1
+                ticket_form.instance.total_donations = donation_amount
+                # update user Profile with additional donation amount
+                get_user_donations = Profile.objects.values_list(
+                    "total_donated", flat=True).get(user_id=request.user.id)
+                new_user_donations = get_user_donations + donation_amount
+                Profile.objects.filter(user_id=request.user.id).update(total_donated=new_user_donations)
+                # update ticket status to In Progress if €100 goal is achieved
+                if donation_amount >= int(100):
                     ticket_form.instance.ticket_status = "In Progress"
                 new_ticket = ticket_form.save()
                 new_ticket_id = new_ticket.pk
                 messages.success(
                     request, f"SUCCESS! Ticket for a FEATURE created!\
-                        €{gross_total} was charged to your card.")
+                        €{donation_amount} was charged to your card.")
                 return redirect(tickets_view_one, new_ticket_id)
             else:
-                messages.error(request, "Unable to take payment!")
+                messages.error(request, f"Unable to take payment!")
         else:
-            # print(payment_form.errors)
-            messages.error(request, "There was an error. Please try again.")
+            print(ticket_form.errors)
+            messages.error(request, f"There was an error. Please try again.")
     else:
         ticket_form = TicketForm()
-        # payment_form = PaymentForm()
+        donation_form = DonationForm()
     context = {
+        "donation_form": donation_form,
         "ticket_form": ticket_form,
-        # "payment_form": payment_form,
         "publishable": settings.STRIPE_PUBLISHABLE
     }
     return render(request, "tickets_new_feature.html", context)
@@ -112,6 +118,7 @@ def tickets_view_one(request, pk):
     # filter upvotes on specific ticket by user ID
     upvotes = Upvote.objects.filter(ticket_id=ticket.pk).values("user_id")
     voters = [vote["user_id"] for vote in upvotes]
+    donors = User.objects.filter(id__in=voters)
     # POST methods
     if request.method=="POST":
         comment_form = CommentForm(request.POST)
@@ -127,9 +134,13 @@ def tickets_view_one(request, pk):
             return redirect(tickets_view_one, ticket.pk)
     else:
         comment_form = CommentForm()
+        donation_form = DonationForm()
     context = {
         "comment_form": comment_form,
         "comments": comments,
+        "donation_form": donation_form,
+        "donors": donors,
+        "publishable": settings.STRIPE_PUBLISHABLE,
         "ticket": ticket,
         "voters": voters,
     }
@@ -175,11 +186,60 @@ def upvote_add(request, pk):
     # remove a ticket view to avoid duplicates
     ticket.views -= 1
     ticket.save()
-    Upvote.objects.create(
-        ticket_id=ticket.pk,
-        user_id=request.user.id)
-    messages.success(
-        request, f"Thanks for your vote!")
+    if request.method=="POST":
+        donation_form = DonationForm(request.POST)
+        if donation_form.is_valid():
+            # amount to pay / donate
+            donation_amount = 0
+            donation_amount += int(request.POST.get("donation_amount"))
+            try:
+                # build Stripe payment
+                token = request.POST["stripeToken"]
+                customer = stripe.Charge.create(
+                    amount = int(donation_amount * 100),
+                    currency = "EUR",
+                    description = (
+                        request.user.email +
+                        " (" + request.user.get_full_name() + ")"),
+                    source = token,
+                )
+            except stripe.error.CardError:
+                # Stripe payment error
+                messages.error(request, f"Your card was declined!")
+            # authorization is valid - payment successful
+            if customer.paid:
+                Upvote.objects.create(
+                    ticket_id=ticket.pk,
+                    user_id=request.user.id)
+                # update Ticket total donation amount
+                get_total_donations = Ticket.objects.values_list(
+                    "total_donations", flat=True).get(id=ticket.pk)
+                new_total_donations = get_total_donations + donation_amount
+                Ticket.objects.filter(id=ticket.pk).update(total_donations=new_total_donations)
+                # update user Profile with additional donation amount
+                get_user_donations = Profile.objects.values_list(
+                    "total_donated", flat=True).get(user_id=request.user.id)
+                new_user_donations = get_user_donations + donation_amount
+                Profile.objects.filter(user_id=request.user.id).update(total_donated=new_user_donations)
+                # update ticket status to In Progress if €100 goal is achieved
+                if new_total_donations >= int(100):
+                    Ticket.objects.filter(
+                        id=ticket.pk).update(ticket_status="In Progress")
+                messages.success(
+                    request, f"Thank You for your Donation!\
+                        €{donation_amount} was charged to your card.")
+                return redirect(tickets_view_one, ticket.pk)
+            else:
+                messages.error(request, f"Unable to take payment!")
+        else:
+            print(ticket_form.errors)
+            messages.error(request, f"There was an error. Please try again.")
+    else:
+        Upvote.objects.create(
+            ticket_id=ticket.pk,
+            user_id=request.user.id)
+        messages.success(
+            request, f"Thanks for your vote!")
     return redirect(tickets_view_one, ticket.pk)
 
 
