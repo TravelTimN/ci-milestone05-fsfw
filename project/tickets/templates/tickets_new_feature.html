@@ -15,43 +15,46 @@
 <div class="row">
     <div class="col s12 center-align white-text">
 
-        <div id="credit-card-errors" style="display: none;">
-            <div class="alert-message block-message error" id="stripe-error-message"></div>
-        </div>
-
-        <form method="POST" id="feature-payment" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'tickets_new_feature' %}" id="payment-form" data-token="{{ publishable }}">
             {% csrf_token %}
             <div class="card form text-shadow-2">
                 <div class="card-content card-content-new-ticket">
+
+                    <div class="card-badge-div">
+                        <span class="card-badge card-badge-amber">
+                            <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
                     <div class="row">
                         <div class="col s12">
                             <h3 class="bold">
                                 New Feature
-                                <i class="fas fa-magic green-text hide-on-small-and-down" aria-hidden="true"></i>
                             </h3>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            {{ ticket_form.title|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
-                            {{ ticket_form.description|materializecss:'icon=fas fa-align-left material-icons green-text' }}
+                            {{ ticket_form.title|materializecss:'icon=fas fa-file-alt amber-text' }}
+                            {{ ticket_form.description|materializecss:'icon=fas fa-align-left amber-text' }}
                         </div>
-                        <div class="col s12 center-align">
+                        <div class="col s12 m8 offset-m2 center-align">
                             <p class="range-field">
                                 {{ ticket_form.gross_total }}
                             </p>
-                        </div>
-                        <div class="col s8 offset-s3 right-align">
-                            <h5>total: €<span id="total-cost"></span></h5>
+                            <small class="amber-text bold">SLIDE TO PICK YOUR DONATION AMOUNT</small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            {{ payment_form.credit_card_number|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
-                            {{ payment_form.expiry_month }}
-                            {{ payment_form.expiry_year }}
-                            {{ payment_form.cvv|materializecss:'icon=fas fa-file-alt material-icons green-text' }}
-                            {{ payment_form.stripe_id }}
+                            <fieldset>
+                                <legend>
+                                    <h5>Payment for <span class="amber-text">&euro;<span id="total-cost"></span></span></h5>
+                                </legend>
+                                <label for="card-element">Credit or Debit card</label>
+                                <div id="card-element"></div>
+                                <div id="card-errors" class="white-text red" role="alert"></div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -59,15 +62,15 @@
                 <div class="card-action">
                     <div class="row">
                         <div class="col s12 m5 offset-m1">
-                            <button type="submit" class="btn btn-large green bold text-shadow-2">
-                                Pay €<span id="pay-btn"></span>
-                                <i class="fas fa-save material-icons right hide-on-small-and-down" aria-hidden="true"></i>
+                            <button type="submit" id="btn-pay" class="btn btn-large green bold text-shadow-2">
+                                Pay €<span id="btn-pay-span"></span>
+                                <i class="fas fa-hand-holding-usd right hide-on-small-and-down" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="col s12 m5">
                             <a href="{% url 'tickets_view_all' %}" class="btn btn-large red bold text-shadow-2">
                                 Cancel
-                                <i class="fas fa-times-circle material-icons right hide-on-small-and-down"
+                                <i class="fas fa-times-circle right hide-on-small-and-down"
                                     aria-hidden="true"></i>
                             </a>
                         </div>
@@ -82,20 +85,30 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
-    //<![CDATA[
-    Stripe.publishableKey = "{{ publishable }}";
-    //]]>
 
     defaultVal = $("#id_gross_total").val();
-    $("#pay-btn").text(defaultVal);
-    $("#total-cost").text(defaultVal);
+    $("#btn-pay-span, #total-cost").text(defaultVal);
     $("input[type=range]").on("input", function () {
         $(".thumb .value").trigger("change");
-        $("#pay-btn").text($(".thumb .value").text());
-        $("#total-cost").text($(".thumb .value").text());
+        $("#btn-pay-span, #total-cost").text($(".thumb .value").text());
     });
+
+    // cardNumber = $("input[type=text]#id_credit_card_number");
+    // $(cardNumber).prop({type: "number"});
+    // $("#btn-pay").prop("disabled", true);
+    // $(cardNumber).on("focusout", function () {
+    //     if ((cardNumber).val().length < 15) {
+    //         M.toast({html: "Card Number should be 15-16 numbers!"});
+    //         $(cardNumber).removeClass("validate valid").addClass("invalid");
+    //         $("#btn-pay").prop("disabled", true);
+    //     } else {
+    //         $(cardNumber).removeClass("validate invalid").addClass("valid");
+    //         $("#btn-pay").prop("disabled", false);
+    //     }
+    // });
+
 </script>
 <script src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}

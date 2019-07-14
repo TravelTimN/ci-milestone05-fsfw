@@ -26,7 +26,11 @@
                 {% if ticket.ticket_type == "Bug" %}
                 are always <span class="{% include './status_color.html' %}-text">FREE!</span>
                 {% elif ticket.ticket_type == "Feature" %}
-                require a <span class="{% include './status_color.html' %}-text">€5 donation!</span>
+                    {% if ticket.gross_total < 100 %}
+                    require a <span class="{% include './status_color.html' %}-text">€5 donation!</span>
+                    {% else %}
+                    are now <span class="{% include './status_color.html' %}-text">FREE!</span>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -36,9 +40,14 @@
         <div class="divider {% include './status_color.html' %}"></div>
         <div class="row">
             <div class="col s12 m6">
+                {% if ticket.gross_total < 100 %}
                 Once a Feature Request reaches
                 <span class="{% include './status_color.html' %}-text">&euro;100</span>
                 in donations, we will begin development!
+                {% else %}
+                Thank You to all contributors!<br>
+                <span class="{% include './status_color.html' %}-text">&euro;100 Goal Achieved!</span>
+                {% endif %}
             </div>
             <div class="col s12 m6">
                 <div class="progress {% include './status_color.html' %} lighten-4">
