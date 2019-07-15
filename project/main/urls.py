@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from accounts import urls as accounts_urls
 from accounts.views import index, superuser
+from stats import urls as stats_urls
 from tickets import urls as tickets_urls
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     url(r"^admin/", superuser, name="superuser"),
     url(r"^$", index, name="index"),
     url(r"^accounts/", include(accounts_urls)),
+    url(r"^statistics/", include(stats_urls)),
     url(r"^tickets/", include(tickets_urls)),
 ]
 

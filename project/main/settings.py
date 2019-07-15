@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django_cleanup",
     "materializecssform",
     "accounts",
+    "stats",
     "tickets",
 ]
 

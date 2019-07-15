@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% load staticfiles %}
+{% block title %} | Statistics{% endblock %}
+{% block css %}
+<style>
+    body {
+        background: url("{% static 'img/bg-02.png' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 center-align">
+        <div class="form">
+            <canvas id="pieTotalBugsFeatures" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 center-align">
+        <div class="form">
+            <canvas id="barTicketStatus" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 center-align">
+        <div class="form">
+            <canvas id="horizontalbarTimescale" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+
+        // variables from stats/views.py file
+        // var users_top_three = {{ users_top_three|safe }};
+        // var features_top_five = {{ features_top_five|safe }};
+        var features_total = {{ features_total|safe }};
+        var features_closed = {{ features_closed|safe }};
+        var features_in_progress = {{ features_in_progress|safe }};
+        var features_open = {{ features_open|safe }};
+        var features_monthly = {{ features_monthly|safe }};
+        var features_weekly = {{ features_weekly|safe }};
+        var features_daily = {{ features_daily|safe }};
+        // var bugs_top_five = {{ bugs_top_five|safe }};
+        var bugs_total = {{ bugs_total|safe }};
+        var bugs_closed = {{ bugs_closed|safe }};
+        var bugs_in_progress = {{ bugs_in_progress|safe }};
+        var bugs_open = {{ bugs_open|safe }};
+        var bugs_monthly = {{ bugs_monthly|safe }};
+        var bugs_weekly = {{ bugs_weekly|safe }};
+        var bugs_daily = {{ bugs_daily|safe }};
+
+        Chart.defaults.global.defaultFontColor = "#FFFFFF";
+        Chart.defaults.global.defaultFontSize = 20;
+
+        new Chart($("#pieTotalBugsFeatures"), {
+            type: "pie",
+            data: {
+                labels: ["BUGS", "FEATURES"],
+                datasets: [{
+                    label: "Total Bugs vs. Features",
+                    data: [bugs_total, features_total],
+                    backgroundColor: [
+                        "orange",
+                        "purple"
+                    ],
+                    hoverBackgroundColor: [
+                        "red",
+                        "blue"
+                    ],
+                    borderColor: [
+                        "#000000",
+                        "#000000"
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        //
+        new Chart($("#barTicketStatus"), {
+            type: "bar",
+            data: {
+                labels: ["BUGS", "FEATURES"],
+                datasets: [{
+                    label: "Open",
+                    data: [bugs_open, features_open],
+                    backgroundColor: "rgba(76, 175, 80, 0.75)",
+                    hoverBackgroundColor: "#4CAF50",
+                    borderColor: "#4CAF50",
+                    borderWidth: 5
+                }, {
+                    label: "In Progress",
+                    data: [bugs_in_progress, features_in_progress],
+                    backgroundColor: "rgba(255, 193, 7, 0.75)",
+                    hoverBackgroundColor: "#FFC107",
+                    borderColor: "#FFC107",
+                    borderWidth: 5
+                }, {
+                    label: "Closed",
+                    data: [bugs_closed, features_closed],
+                    backgroundColor: "rgba(244, 67, 54, 0.75)",
+                    hoverBackgroundColor: "#F44336",
+                    borderColor: "#F44336",
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }]
+                }
+            }
+        });
+
+        //
+        new Chart($("#horizontalbarTimescale"), {
+            type: "horizontalBar",
+            data: {
+                labels: ["BUGS", "FEATURES"],
+                datasets: [{
+                    label: "Monthly",
+                    data: [bugs_monthly, features_monthly],
+                    backgroundColor: "rgba(76, 175, 80, 0.75)",
+                    hoverBackgroundColor: "#4CAF50",
+                    borderColor: "#4CAF50",
+                    borderWidth: 5
+                }, {
+                    label: "Weekly",
+                    data: [bugs_weekly, features_weekly],
+                    backgroundColor: "rgba(255, 193, 7, 0.75)",
+                    hoverBackgroundColor: "#FFC107",
+                    borderColor: "#FFC107",
+                    borderWidth: 5
+                }, {
+                    label: "Daily",
+                    data: [bugs_daily, features_daily],
+                    backgroundColor: "rgba(244, 67, 54, 0.75)",
+                    hoverBackgroundColor: "#F44336",
+                    borderColor: "#F44336",
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }]
+                }
+            }
+        });
+
+    });
+</script>
+{% endblock %}
