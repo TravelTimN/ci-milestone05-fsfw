@@ -5,5 +5,5 @@
             data-tooltip="LAST UPDATED"></i>
     </h2>
 </span>
-{{ ticket.date_edited|naturalday:"d E, Y" }}<br>
+{{ ticket.date_edited|naturalday:"d E, Y"|upper }}<br>
 <small>{{ ticket.date_edited|time:"@H:i (T)" }}</small>
