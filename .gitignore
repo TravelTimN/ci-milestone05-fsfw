@@ -11,6 +11,10 @@ __pycache__/
 # local database
 *.sqlite3
 
+# coverage test files
+htmlcov/
+.coverage
+
 # local files
 static/
 media/
