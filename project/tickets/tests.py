@@ -37,7 +37,7 @@ class TestCommentForm(TestCase):
 
 
 # ----- VIEWS ----- #
-class TestTickestViews(TestCase):
+class TestTicketsViews(TestCase):
     def setUp(self):
         Ticket.objects.create(
             title="Test Bug",
