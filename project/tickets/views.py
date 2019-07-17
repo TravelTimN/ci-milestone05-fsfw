@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from accounts.models import Profile
 from tickets.models import Ticket, Comment, Upvote
@@ -15,9 +16,18 @@ stripe.api_key = settings.STRIPE_SECRET
 
 def tickets_view_all(request):
     """ View ALL Tickets """
-    tickets = Ticket.objects.filter(
-        date_created__lte=timezone.now()
-    ).order_by("-date_created")
+    tickets = Ticket.objects.all()
+    page = request.GET.get("page", 1)
+    paginator = Paginator(tickets, 8)
+    try:
+        tickets = paginator.page(page)
+    except PageNotAnInteger:
+        tickets = paginator.page(1)
+    except EmptyPage:
+        tickets = paginator.page(paginator.num_pages)
+    # tickets = Ticket.objects.filter(
+    #     date_created__lte=timezone.now()
+    # ).order_by("-date_created")
     context = {
         "tickets": tickets,
     }
@@ -27,12 +37,11 @@ def tickets_view_all(request):
 @login_required
 def tickets_new_bug(request):
     """ Create a NEW Ticket (Bug) """
-    if request.method=="POST":
+    if request.method == "POST":
         ticket_form = TicketForm(request.POST)
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
             ticket_form.instance.ticket_type = "Bug"
-            ticket_form.instance.views = 1
             new_ticket = ticket_form.save()
             new_ticket_id = new_ticket.pk
             messages.success(
@@ -49,7 +58,7 @@ def tickets_new_bug(request):
 @login_required
 def tickets_new_feature(request):
     """ Create a NEW Ticket (Feature) """
-    if request.method=="POST":
+    if request.method == "POST":
         ticket_form = TicketForm(request.POST)
         donation_form = DonationForm(request.POST)
         if ticket_form.is_valid() and donation_form.is_valid():
@@ -60,12 +69,12 @@ def tickets_new_feature(request):
                 # build Stripe payment
                 token = request.POST["stripeToken"]
                 customer = stripe.Charge.create(
-                    amount = int(donation_amount * 100),
-                    currency = "EUR",
-                    description = (
+                    amount=int(donation_amount * 100),
+                    currency="EUR",
+                    description=(
                         request.user.email +
                         " (" + request.user.get_full_name() + ")"),
-                    source = token,
+                    source=token,
                 )
             except stripe.error.CardError:
                 # Stripe payment error
@@ -74,13 +83,14 @@ def tickets_new_feature(request):
             if customer.paid:
                 ticket_form.instance.author = request.user
                 ticket_form.instance.ticket_type = "Feature"
-                ticket_form.instance.views = 1
                 ticket_form.instance.total_donations = donation_amount
                 # update user Profile with additional donation amount
                 get_user_donations = Profile.objects.values_list(
                     "total_donated", flat=True).get(user_id=request.user.id)
                 new_user_donations = get_user_donations + donation_amount
-                Profile.objects.filter(user_id=request.user.id).update(total_donated=new_user_donations)
+                Profile.objects.filter(
+                    user_id=request.user.id).update(
+                        total_donated=new_user_donations)
                 # update ticket status to In Progress if €100 goal is achieved
                 if donation_amount >= int(100):
                     ticket_form.instance.ticket_status = "In Progress"
@@ -109,7 +119,7 @@ def tickets_new_feature(request):
 def tickets_view_one(request, pk):
     """ View a Single Ticket """
     # get ticket details
-    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+    ticket = get_object_or_404(Ticket, pk=pk)
     # increase number of views by 1
     ticket.views += 1
     ticket.save()
@@ -120,7 +130,7 @@ def tickets_view_one(request, pk):
     voters = [vote["user_id"] for vote in upvotes]
     donors = User.objects.filter(id__in=voters)
     # POST methods
-    if request.method=="POST":
+    if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment_form.instance.commenter = request.user
@@ -150,8 +160,8 @@ def tickets_view_one(request, pk):
 @login_required
 def tickets_edit(request, pk):
     """ Edit a Single Ticket """
-    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    if request.method=="POST":
+    ticket = get_object_or_404(Ticket, pk=pk)
+    if request.method == "POST":
         ticket_form = TicketForm(request.POST, instance=ticket)
         if ticket_form.is_valid():
             ticket_form.instance.date_edited = timezone.now()
@@ -171,7 +181,7 @@ def tickets_edit(request, pk):
 @login_required
 def tickets_delete(request, pk):
     """ Delete a Ticket """
-    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+    ticket = get_object_or_404(Ticket, pk=pk)
     ticket.delete()
     messages.success(
         request, f"Your ticket has been deleted!")
@@ -186,7 +196,7 @@ def upvote_add(request, pk):
     # remove a ticket view to avoid duplicates
     ticket.views -= 1
     ticket.save()
-    if request.method=="POST":
+    if request.method == "POST":
         donation_form = DonationForm(request.POST)
         if donation_form.is_valid():
             # amount to pay / donate
@@ -196,12 +206,12 @@ def upvote_add(request, pk):
                 # build Stripe payment
                 token = request.POST["stripeToken"]
                 customer = stripe.Charge.create(
-                    amount = int(donation_amount * 100),
-                    currency = "EUR",
-                    description = (
+                    amount=int(donation_amount * 100),
+                    currency="EUR",
+                    description=(
                         request.user.email +
                         " (" + request.user.get_full_name() + ")"),
-                    source = token,
+                    source=token,
                 )
             except stripe.error.CardError:
                 # Stripe payment error
@@ -215,12 +225,15 @@ def upvote_add(request, pk):
                 get_total_donations = Ticket.objects.values_list(
                     "total_donations", flat=True).get(id=ticket.pk)
                 new_total_donations = get_total_donations + donation_amount
-                Ticket.objects.filter(id=ticket.pk).update(total_donations=new_total_donations)
+                Ticket.objects.filter(
+                    id=ticket.pk).update(total_donations=new_total_donations)
                 # update user Profile with additional donation amount
                 get_user_donations = Profile.objects.values_list(
                     "total_donated", flat=True).get(user_id=request.user.id)
                 new_user_donations = get_user_donations + donation_amount
-                Profile.objects.filter(user_id=request.user.id).update(total_donated=new_user_donations)
+                Profile.objects.filter(
+                    user_id=request.user.id).update(
+                        total_donated=new_user_donations)
                 # update ticket status to In Progress if €100 goal is achieved
                 if new_total_donations >= int(100):
                     Ticket.objects.filter(
