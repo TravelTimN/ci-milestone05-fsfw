@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from accounts.models import Profile
-from tickets.models import Ticket, Comment, Upvote
+from tickets.models import Ticket, TicketStatus, TicketType, Comment, Upvote
 from tickets.forms import TicketForm, CommentForm, DonationForm
 import stripe
 
@@ -16,8 +16,21 @@ stripe.api_key = settings.STRIPE_SECRET
 
 def tickets_view_all(request):
     """ View ALL Tickets """
-    tickets = Ticket.objects.all()
+    # search parameters
     page = request.GET.get("page", 1)
+    ticket_status_list = TicketStatus.objects.all()
+    ticket_type_list = TicketType.objects.all()
+    tkt_status = request.GET.get("tkt_status")
+    tkt_type = request.GET.get("tkt_type")
+    upvotes_min = request.GET.get("upvotes_min")
+    upvotes_max = request.GET.get("upvotes_max")
+    # filter by search parameters
+    tickets = Ticket.objects.all()
+    tickets = tickets.filter(ticket_status__id=tkt_status) if tkt_status else tickets
+    tickets = tickets.filter(ticket_type__id=tkt_type) if tkt_type else tickets
+    tickets = tickets.filter(upvotes__gte=upvotes_min) if upvotes_min else tickets
+    tickets = tickets.filter(upvotes__lte=upvotes_max) if upvotes_max else tickets
+    # pagination
     paginator = Paginator(tickets, 8)
     try:
         tickets = paginator.page(page)
@@ -25,11 +38,15 @@ def tickets_view_all(request):
         tickets = paginator.page(1)
     except EmptyPage:
         tickets = paginator.page(paginator.num_pages)
-    # tickets = Ticket.objects.filter(
-    #     date_created__lte=timezone.now()
-    # ).order_by("-date_created")
+    # pass context to template
     context = {
         "tickets": tickets,
+        "ticket_status_list": ticket_status_list,
+        "ticket_type_list": ticket_type_list,
+        "tkt_status": tkt_status,
+        "tkt_type": tkt_type,
+        "upvotes_min": upvotes_min,
+        "upvotes_max": upvotes_max,
     }
     return render(request, "tickets_view_all.html", context)
 
