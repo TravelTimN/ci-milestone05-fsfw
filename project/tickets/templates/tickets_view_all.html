@@ -26,6 +26,41 @@
 {% endif %}
 <br><br>
 
+<div class="divider"></div>
+<form action="." method="GET" class="form">
+	<div class="row">
+		<div class="input-field col s12 m2">
+			<select name="tkt_status" id="tkt_status" class="browser-default">
+				<option value="">Filter by Status</option>
+				{% for status in ticket_status_list %}
+				<option value="{{ status.id }}" {% if status.id|safe in tkt_status|safe %}selected{% endif %}>{{ status }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="input-field col s12 m2">
+			<select name="tkt_type" id="tkt_type" class="browser-default">
+				<option value="">Filter by Type</option>
+				{% for type in ticket_type_list %}
+				<option value="{{ type.id }}" {% if type.id|safe in tkt_type|safe %}selected{% endif %}>{{ type }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="input-field col s2">
+			<input type="number" id="upvotes_min" class="validate" name="upvotes_min"
+				value="{% if upvotes_min  %}{{ upvotes_min }}{% endif %}">
+			<label for="upvotes_min" class="active">Min. Upvotes</label>
+		</div>
+		<div class="input-field col s2">
+			<input type="number" id="upvotes_max" class="validate" name="upvotes_max"
+				value="{% if upvotes_max  %}{{ upvotes_max }}{% endif %}">
+			<label for="upvotes_max" class="active">Max. Upvotes</label>
+		</div>
+	</div>
+	<button type="submit" class="btn">Search</button>
+	<a class="btn" href="{% url 'tickets_view_all' %}">Reset</a>
+</form>
+<div class="divider"></div>
+
 <div class="row">
 
 	<!-- Ticket Cards -->
@@ -38,9 +73,9 @@
 					<!-- Ticket Status (Open | In Progress | Closed) -->
 					<span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
 						<!-- Ticket Type (Bug vs Feature) -->
-						{% if ticket.ticket_type == "Bug" %}
+						{% if ticket.ticket_type_id == 1 %}
 							<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-						{% elif ticket.ticket_type == "Feature" %}
+						{% elif ticket.ticket_type_id == 2 %}
 							<i class="fas fa-magic fa-lg" aria-hidden="true"></i>
 						{% endif %}
 					</span>
@@ -79,7 +114,7 @@
 							<i class="far fa-eye fa-lg" aria-hidden="true"></i><br>
 							<span class="white-text">{{ ticket.views }}</span>
 						</div>
-						{% if ticket.ticket_type == "Feature" %}
+						{% if ticket.ticket_type_id == 2 %}
 						<div class="col s4 tooltipped" data-position="top" data-tooltip="DONATED">
 							<i class="fas fa-hand-holding-usd fa-lg" aria-hidden="true"></i><br>
 							<span class="white-text">

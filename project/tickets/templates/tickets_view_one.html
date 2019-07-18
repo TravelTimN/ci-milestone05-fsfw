@@ -25,9 +25,9 @@
                     <!-- Ticket Status (Open | In Progress | Closed) -->
                     <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
                         <!-- Ticket Type (Bug vs Feature) -->
-                        {% if ticket.ticket_type == "Bug" %}
+                        {% if ticket.ticket_type_id == 1 %}
                         <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-                        {% elif ticket.ticket_type == "Feature" %}
+                        {% elif ticket.ticket_type_id == 2 %}
                         <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
                         {% endif %}
                     </span>
@@ -69,9 +69,9 @@
                                     <!-- ticket progress ( open | in progress | closed ) -->
                                     <div class="col s6">
                                         <h2 class="{% include 'partials/status_color.html' %}-text">
-                                            <i {% if ticket.ticket_status == "Open" %}class="fas fa-hourglass-start tooltipped"
-                                            {% elif ticket.ticket_status == "In Progress" %}class="fas fa-tools tooltipped"
-                                            {% elif ticket.ticket_status == "Closed" %}class="fas fa-check-circle tooltipped"
+                                            <i {% if ticket.ticket_status_id == 1 %}class="fas fa-hourglass-start tooltipped"
+                                            {% elif ticket.ticket_status_id == 2 %}class="fas fa-tools tooltipped"
+                                            {% elif ticket.ticket_status_id == 3 %}class="fas fa-check-circle tooltipped"
                                             {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
                                         </h2>
                                         {{ ticket.ticket_status|upper }}<br>

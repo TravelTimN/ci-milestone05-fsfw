@@ -3,16 +3,35 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-# drop-down options for Tickets
-TICKET_TYPE_CHOICES = (
-    ("Bug", "Bug"),
-    ("Feature", "Feature")
-)
-TICKET_STATUS_CHOICES = (
-    ("Open", "Open"),
-    ("In Progress", "In Progress"),
-    ("Closed", "Closed"),
-)
+# ----- TICKET TYPE ----- #
+class TicketType(models.Model):
+    TICKET_TYPE_CHOICES = (
+        ("Bug", "Bug"),
+        ("Feature", "Feature")
+    )
+    ticket_type = models.CharField(
+        max_length=7,
+        unique=True,
+        choices=TICKET_TYPE_CHOICES)
+
+    def __str__(self):
+        return self.ticket_type
+
+
+# ----- TICKET STATUS ----- #
+class TicketStatus(models.Model):
+    TICKET_STATUS_CHOICES = (
+        ("Open", "Open"),
+        ("In Progress", "In Progress"),
+        ("Closed", "Closed"),
+    )
+    ticket_status = models.CharField(
+        max_length=11,
+        unique=True,
+        choices=TICKET_STATUS_CHOICES)
+
+    def __str__(self):
+        return self.ticket_status
 
 
 # ----- TICKETS ----- #
@@ -36,16 +55,12 @@ class Ticket(models.Model):
         User,
         null=True,
         on_delete=models.CASCADE)
-    ticket_status = models.CharField(
-        max_length=11,
-        default="Open",
-        null=True,
-        choices=TICKET_STATUS_CHOICES)
-    ticket_type = models.CharField(
-        max_length=7,
-        default="Bug",
-        null=True,
-        choices=TICKET_TYPE_CHOICES)
+    ticket_status = models.ForeignKey(
+        TicketStatus,
+        null=True)
+    ticket_type = models.ForeignKey(
+        TicketType,
+        null=True)
     date_created = models.DateTimeField(
         blank=False,
         null=False,
@@ -60,6 +75,9 @@ class Ticket(models.Model):
         default=0)
     total_donations = models.IntegerField(
         default=0)
+
+    class Meta:
+        ordering = ("-date_edited", )
 
     def __str__(self):
         return "#{0} [{1}] - {2}".format(
