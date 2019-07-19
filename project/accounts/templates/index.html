@@ -1,2 +1,193 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %} | Home{% endblock %}
+
+{% block main %}
+<div class="bg-unicorn-found">
+    <div class="landing-header center-align white-text">
+        <h1>
+            <span class="rainbow-text bold upper">Unicorn Attractor</span>
+        </h1>
+    </div>
+</div>
+
+<section class="section section-dark center-align white-text text-shadow-2">
+    <h2 class="upper bold">
+        The new and exciting augmented reality app!
+    </h2>
+    <div class="divider"></div>
+    <p>
+        Developed and published by <span class="green-text bold">2BN-DEVS</span>, made for
+        <a href="https://play.google.com/store/apps" target="_blank" rel="noopener">Android</a> and
+        <a href="https://www.apple.com/ie/ios/app-store" target="_blank" rel="noopener">iOS</a> devices.
+    </p>
+    <p>
+        <span class="rainbow-text bold">Unicorn Attractor</span> made its debut on May 24th, 2019 in Scotland
+        owing to the fact that the
+        <cite title="https://www.visitscotland.com/about/uniquely-scottish/national-animal-unicorn">national animal of
+            Scotland is the Unicorn</cite>!
+        <br>
+        The app is now available in 168 countries around the world, and has 1.2M downloads so far.
+    </p>
+    <p>
+        Watch out <a href="https://www.pokemongo.com" target="_blank" rel="noopener">Pokémon Go</a> and
+        <a href="https://www.harrypotterwizardsunite.com" target="_blank" rel="noopener">Wizards Unite</a>.
+        There's a new AR app taking the world by surprise -
+        <span class="rainbow-text bold">Unicorn Attractor</span>.
+        <br>
+        The best part is that it's absolutely free to enjoy with your friends!
+    </p>
+    <p>
+        What are you waiting for? Download <span class="rainbow-text bold">Unicorn Attractor</span> now and start
+        building your herd with the rest of your <cite title="adult fans of My Little Pony">Bronies</cite>!
+    </p>
+    <div class="row">
+        <h3>
+            4.5 <i class="fas fa-star amber-text text-shadow-2"></i> |
+            11.4k <i class="fas fa-comment text-shadow-2"></i>
+        </h3>
+        <div class="col s12 m2 offset-m4 center-align">
+            <a href="https://www.apple.com/ie/ios/app-store" target="_blank" rel="noopener">
+                <img src="{% static 'img/btn-app-store.png' %}" width="150" alt="App Store" lazyload="on">
+            </a>
+        </div>
+        <div class="col s12 m2 center-align">
+            <a href="https://play.google.com/store/apps" target="_blank" rel="noopener">
+                <img src="{% static 'img/btn-google-play.png' %}" width="150" alt="Google Play" lazyload="on">
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="bg-app-01">
+    <div class="landing-header center-align">
+        <h2>
+            <span class="rainbow-text bold upper">Find & Snatch Unicorns</span>
+        </h2>
+    </div>
+</div>
+
+<section class="section section-light center-align grey-text text-darken-2">
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-mobile-alt red-text text-shadow-2"></i>
+                <p class="promo-caption bold upper red-text text-darken-3">
+                    Mobile GPS
+                </p>
+                <p class="light center">
+                    Use your mobile device GPS to locate, snatch, and train virtual Unicorns!
+                    You'll find Unicorns practically anywhere; whether it's in your hometown,
+                    or away to a far off destination on holiday.
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-medal orange-text text-shadow-2"></i>
+                <p class="promo-caption bold upper orange-text text-darken-3">
+                    Gain XP
+                </p>
+                <p class="light center">
+                    Navigate safely around your city with fellow Bronies to grow your herd.
+                    The larger your team's Unicorn herd grows, the more XP you earn!
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-walking yellow-text text-shadow-2"></i>
+                <p class="promo-caption bold upper yellow-text text-darken-3">
+                    Outdoor Fun
+                </p>
+                <p class="light center">
+                    Playing Unicorn Attractor helps to promote outdoor physical activity.
+                    Skip the gym today to go explore your hometown while snatching Unicorns!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-magic green-text text-shadow-2"></i>
+                <p class="promo-caption bold upper green-text text-darken-3">
+                    Magic Mysteries
+                </p>
+                <p class="light center">
+                    Once you've snatched enough Unicorns to build a herd, you'll be able to train the herd to perform
+                    powerful magic! Share magical secrets with members of your team to gain more XP.
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-horse blue-text text-shadow-2"></i>
+                <p class="promo-caption bold upper blue-text text-darken-3">
+                    Unicorn Secrets
+                </p>
+                <p class="light center">
+                    Learn unique secrets in the app in order to snatch Unicorns before they
+                    <em>'wink out'</em> or teleport back to
+                    <cite title="main setting of 'My Little Pony - Friendship is Magic'">Equestria</cite>.
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="fas fa-feather-alt purple-text text-shadow-2"></i>
+                <p class="promo-caption bold upper purple-text text-darken-3">
+                    Rare Alicorns
+                </p>
+                <p class="light center">
+                    Do you have what it takes to find the elusive Alicorn?
+                    Alicorns are winged Unicorns; they have wings like a Pegasus, and a horn like a Unicorn.
+                    There aren't many Alicorns, so to find one will gain you significant XP!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="bg-app-02">
+    <div class="landing-header center-align">
+        <h2>
+            <span class="rainbow-text bold upper">Play Virtually Anywhere</span>
+        </h2>
+    </div>
+</div>
+
+<section class="section section-dark center-align white-text">
+    <h2 class="upper bold">
+        Did You Know?
+    </h2>
+    <h3>
+        In Celtic mythology the unicorn was a symbol of purity and innocence, as well as masculinity and power. Tales of
+        dominance and chivalry associated with the unicorn may be why it was chosen as Scotland’s national animal.
+    </h3>
+</section>
+
+<div class="bg-app-03">
+    <div class="landing-header center-align">
+        <h2>
+            <span class="rainbow-text bold upper">Need Help?</span>
+        </h2>
+    </div>
+</div>
+
+<section class="section section-light center-align grey-text text-darken-2">
+    <h2 class="upper bold">
+        Ticket Support
+    </h2>
+    <h3>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum cum distinctio facere soluta, sunt ab dolores
+        tempore commodi, harum tenetur molestias quas placeat facilis aut repudiandae ullam id inventore modi labore.
+        Hic voluptatem laboriosam nesciunt, ex in alias incidunt assumenda, quisquam exercitationem vero cum unde magni
+        eveniet. Explicabo veritatis ipsam sed cum quasi molestias aperiam consectetur repellendus aut cupiditate odit
+        temporibus perferendis quibusdam sequi debitis odio quia aspernatur, natus illum impedit repudiandae doloremque
+        sapiente ex!
+    </h3>
+</section>
+
+
+{% endblock %}

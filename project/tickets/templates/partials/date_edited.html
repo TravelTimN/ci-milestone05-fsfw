@@ -1,9 +1,9 @@
 {% load humanize %}
 <span class="{% include './status_color.html' %}-text">
-    <h2>
+    <h1 class="i-stats">
         <i class="far fa-calendar-check tooltipped" data-position="bottom"
             data-tooltip="LAST UPDATED"></i>
-    </h2>
+    </h1>
 </span>
 {{ ticket.date_edited|naturalday:"d E, Y"|upper }}<br>
 <small>{{ ticket.date_edited|time:"@H:i (T)" }}</small>

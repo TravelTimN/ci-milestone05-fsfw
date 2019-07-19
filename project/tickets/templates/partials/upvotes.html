@@ -1,18 +1,18 @@
 <!-- only allow voting if not 'closed' and user is logged in -->
 {% if user.is_authenticated %}
 <div class="card-action center-align bold">
-    {% if ticket.ticket_status_id != 3 %}
+    {% if ticket.ticket_status.ticket_status != 'Closed' %}
     <div class="row">
         <div class="col s12 m5 l4">
             <span class="bold text-shadow-2 hoverable">
                 {% if user.id not in voters %}
                     <!-- UPVOTE (add)-->
-                    {% if ticket.ticket_type_id == 1 %}
+                    {% if ticket.ticket_type.ticket_type == 'Bug' %}
                     <a href="{% url 'upvote_add' ticket.pk %}" class="btn {% include './status_color.html' %}">
                         <i class="fas fa-thumbs-up left fa-lg" aria-hidden="true"></i>
                         UPVOTE
                     </a>
-                    {% elif ticket.ticket_type_id == 2 %}
+                    {% elif ticket.ticket_type.ticket_type == 'Feature' %}
                         {% if ticket.total_donations < 100 %}
                         <!-- feature upvotes require a small donation until goal achieved -->
                         <a href="#modal-feature-payment" class="btn modal-trigger {% include './status_color.html' %}">
@@ -30,7 +30,7 @@
                 {% else %}
                 <!-- UPVOTE (remove) - disabled for Features!-->
                 <a href="{% url 'upvote_remove' ticket.pk %}" class="btn {% include './status_color.html' %}"
-                    {% if ticket.ticket_type_id == 2 %}disabled{% endif %}>
+                    {% if ticket.ticket_type.ticket_type == 'Feature' %}disabled{% endif %}>
                     <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
                     REMOVE
                 </a>
@@ -40,9 +40,9 @@
         <div class="col s12 m7 l8">
             Sound familiar? Let us know!<br>
             {{ ticket.ticket_type }} upvotes
-            {% if ticket.ticket_type_id == 1 %}
+            {% if ticket.ticket_type.ticket_type == 'Bug' %}
             are always <span class="{% include './status_color.html' %}-text">FREE!</span>
-            {% elif ticket.ticket_type_id == 2 %}
+            {% elif ticket.ticket_type.ticket_type == 'Feature' %}
                 {% if ticket.total_donations < 100 %}
                 require a <span class="{% include './status_color.html' %}-text">small donation!</span>
                 {% else %}
@@ -54,8 +54,8 @@
     {% endif %}
 
     <!-- FEATURES only -->
-    {% if ticket.ticket_type_id == 2 %}
-        {% if ticket.ticket_status_id != 3 %}
+    {% if ticket.ticket_type.ticket_type == 'Feature' %}
+        {% if ticket.ticket_status.ticket_status != 'Closed' %}
             <div class="divider {% include './status_color.html' %}"></div>
         {% endif %}
     <div class="row">
@@ -79,12 +79,12 @@
     {% endif %}
 
     <!-- LIST OF SUPPORTERS | VOTERS | DONORS -->
-    {% if ticket.ticket_status_id != 3 %}
+    {% if ticket.ticket_status.ticket_status != 'Closed' %}
         <div class="divider {% include './status_color.html' %}"></div>
     {% endif %}
     <div class="row">
         <div class="col s12">
-            <h5>Supporters</h5>
+            <h2>Supporters</h2>
             <div class="chip black bold {% include './status_color.html' %}-text">
                 <img src="{{ ticket.author.profile.image.url }}" alt="{{ ticket.author }}" class="circle white"
                     lazyload="on">
@@ -108,8 +108,8 @@
 <!-- FEATURE Upvote Modal -->
 <div id="modal-feature-payment" class="modal white-text">
     <div class="modal-content center-align bold">
-        <h4 class="green-text bold">Upvote Feature</h4>
-        <h6 class="red center-align upper">Important: Upvote Payments are Non-Refundable!</h6>
+        <h1 class="green-text bold">Upvote Feature</h1>
+        <h3 class="red center-align upper">Important: Upvote Payments are Non-Refundable!</h3>
         <br>
         <form method="POST" action="{% url 'upvote_add' ticket.id %}" id="payment-form" data-token="{{ publishable }}">
             {% csrf_token %}
@@ -124,7 +124,7 @@
             
             <fieldset>
                 <legend>
-                    <h5>Donation for <span class="amber-text">&euro;<span id="total-cost"></span></span></h5>
+                    <h1>Donation for <span class="amber-text">&euro;<span id="total-cost"></span></span></h1>
                 </legend>
                 <label for="card-element">Credit or Debit card</label>
                 <div id="card-element"></div>

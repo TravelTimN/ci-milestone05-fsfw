@@ -26,12 +26,17 @@
         {% include "partials/navbar.html" %}
     </header>
 
-    <main class="container">
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+
+    <section class="container">
         {% include "partials/messages.html" %}
 
         {% block content %}
         {% endblock %}
-    </main>
+    </section>
 
     <footer>
     </footer>

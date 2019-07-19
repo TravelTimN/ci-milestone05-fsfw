@@ -3,7 +3,7 @@
 <!-- TOP NAVBAR -->
 <nav class="nav-extended brown darken-4">
     <div class="nav-wrapper">
-        <a href="{% url 'index' %}" class="brand-logo center">Unicorn Attractor</a>
+        <a href="{% url 'index' %}" class="brand-logo center rainbow-text">Unicorn Attractor</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse show-on-large right">
             <i class="fas fa-bars fa-lg material-icons" aria-hidden="true"></i>
         </a>
@@ -31,12 +31,12 @@
             <div class="col s8">
                 {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}" class="tooltipped" data-position="left" data-tooltip="View Profile">
-                    <h5 class="bold white-text">{{ user }}</h5>
-                    <h6 class="white-text">{{ user.get_full_name }}</h6>
+                    <h2 class="bold white-text">{{ user }}</h2>
+                    <h3 class="white-text">{{ user.get_full_name }}</h3>
                 </a>
                 {% else %}
-                <h5 class="bold">Guest</h5>
-                <h6>not logged in</h6>
+                <h2 class="bold">Guest</h2>
+                <h3>not logged in</h3>
                 {% endif %}
             </div>
         </div>
@@ -58,15 +58,9 @@
         </a>
     </li>
     <li>
-        <a class="waves-effect waves-green" href="#">
-            <i class="fas fa-info-circle fa-lg green-text" aria-hidden="true"></i>
-            <span class="bold upper">About</span>
-        </a>
-    </li>
-    <li>
         <a class="waves-effect waves-green" href="{% url 'tickets_view_all' %}">
             <i class="fas fa-ticket-alt fa-lg green-text" aria-hidden="true"></i>
-            <span class="bold upper">Tickets</span>
+            <span class="bold upper">Support</span>
             <span class="new badge right amber black-text" data-badge-caption="{{ tickets_count }}"></span>
         </a>
     </li>
@@ -74,12 +68,6 @@
         <a class="waves-effect waves-green" href="{% url 'get_all_stats' %}">
             <i class="fas fa-chart-pie fa-lg green-text" aria-hidden="true"></i>
             <span class="bold upper">Statistics</span>
-        </a>
-    </li>
-    <li>
-        <a class="waves-effect waves-green" href="#">
-            <i class="fas fa-envelope fa-lg green-text" aria-hidden="true"></i>
-            <span class="bold upper">Contact</span>
         </a>
     </li>
 
@@ -110,12 +98,12 @@
     <li class="sidenav-footer grey darken-2">
         <div class="row center-align green lighten-4">
             <div class="col s12">
-                <h6 class="bold">&copy; Unicorn Attractor
+                <h3 class="bold">&copy; <span class="rainbow-text">Unicorn Attractor</span>
                     <br>
-                    <a href="https://github.com/TravelTimN" target="_blank">
+                    <a href="https://github.com/TravelTimN" target="_blank" rel="noopener">
                         <small>&lpar;&lbrace; Tim Nelson &rbrace;&rpar;</small>
                     </a>
-                </h6>
+                </h3>
             </div>
         </div>
 
