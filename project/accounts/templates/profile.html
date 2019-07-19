@@ -28,7 +28,7 @@
                     <div class="col s12 m8">
                         <div class="row">
                             <div class="col s12">
-                                <h4 class="bold">{{ user.username }}</h4>
+                                <h1 class="bold">{{ user.username }}</h1>
                             </div>
                             <div class="col s12">
                                 <span class="bold">{{ user.email }}</span>
@@ -87,12 +87,12 @@
 <!-- PROFILE MODAL -->
 <div id="modal-profile-edit" class="modal white-text">
     <div class="modal-content center-align">
-        <h4 class="bold">Edit Profile</h4>
+        <h1 class="bold">Edit Profile</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col s12 m6">
-                    <h5 class="green-text bold">{{ user.username }}</h5>
+                    <h2 class="green-text bold">{{ user.username }}</h2>
                 </div>
                 <div class="col s12 m6">
                     {{ update_form.email|materializecss:'icon=fas fa-at green-text' }}

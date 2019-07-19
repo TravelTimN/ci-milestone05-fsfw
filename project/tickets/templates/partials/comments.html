@@ -2,11 +2,11 @@
 {% load humanize %}
 <div class="card form white-text text-shadow-2">
     <div class="card-content white-text">
-        <h4 class="bold center-align">
+        <h1 class="bold center-align">
             <i class="fas fa-comments"></i>
             Comments
             (<span class="{% include './status_color.html' %}-text">{{ comments|length }}</span>)
-        </h4>
+        </h1>
         <!-- <div class="divider {% include './status_color.html' %}"></div> -->
 
         <ul class="collection">
@@ -45,7 +45,7 @@
             <!-- ADD COMMENT MODAL -->
             <div id="modal-comments-add" class="modal white-text">
                 <div class="modal-content center-align bold">
-                    <h4 class="green-text bold">Add Comment</h4>
+                    <h1 class="green-text bold">Add Comment</h1>
                     <form method="POST">
                         {% csrf_token %}
                         {{ comment_form|materializecss }}

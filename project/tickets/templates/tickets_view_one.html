@@ -25,9 +25,9 @@
                     <!-- Ticket Status (Open | In Progress | Closed) -->
                     <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
                         <!-- Ticket Type (Bug vs Feature) -->
-                        {% if ticket.ticket_type_id == 1 %}
+                        {% if ticket.ticket_type.ticket_type == 'Bug' %}
                         <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-                        {% elif ticket.ticket_type_id == 2 %}
+                        {% elif ticket.ticket_type.ticket_type == 'Feature' %}
                         <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
                         {% endif %}
                     </span>
@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col s12">
                         <!-- TICKET TITLE -->
-                        <h4 class="bold center-align">{{ ticket.title }}</h4>
+                        <h1 class="bold center-align">{{ ticket.title }}</h1>
                         <div class="divider {% include 'partials/status_color.html' %}"></div>
                         <div class="row">
 
@@ -68,12 +68,12 @@
 
                                     <!-- ticket progress ( open | in progress | closed ) -->
                                     <div class="col s6">
-                                        <h2 class="{% include 'partials/status_color.html' %}-text">
-                                            <i {% if ticket.ticket_status_id == 1 %}class="fas fa-hourglass-start tooltipped"
-                                            {% elif ticket.ticket_status_id == 2 %}class="fas fa-tools tooltipped"
-                                            {% elif ticket.ticket_status_id == 3 %}class="fas fa-check-circle tooltipped"
+                                        <h1 class="i-stats {% include 'partials/status_color.html' %}-text">
+                                            <i {% if ticket.ticket_status.ticket_status == 'Open' %}class="fas fa-hourglass-start tooltipped"
+                                            {% elif ticket.ticket_status.ticket_status == 'In Progress' %}class="fas fa-tools tooltipped"
+                                            {% elif ticket.ticket_status.ticket_status == 'Closed' %}class="fas fa-check-circle tooltipped"
                                             {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
-                                        </h2>
+                                        </h1>
                                         {{ ticket.ticket_status|upper }}<br>
                                         <small>
                                             {% if ticket.ticket_status == "Closed" %}
@@ -91,10 +91,10 @@
                                     <!-- views -->
                                     <div class="col s6">
                                         <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
+                                            <h1 class="i-stats">
                                                 <i class="far fa-eye tooltipped" data-position="bottom"
                                                     data-tooltip="VIEWS"></i>
-                                            </h2>
+                                            </h1>
                                         </span>
                                         {{ ticket.views }}
                                     </div>
@@ -102,10 +102,10 @@
                                     <!-- upvotes -->
                                     <div class="col s6">
                                         <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
+                                            <h1 class="i-stats">
                                                 <i class="far fa-thumbs-up tooltipped" data-position="bottom"
                                                     data-tooltip="UPVOTES"></i>
-                                            </h2>
+                                            </h1>
                                         </span>
                                         {{ ticket.upvotes }}
                                         {% if user.id in voters %}
@@ -119,10 +119,10 @@
                                     <!-- date created -->
                                     <div class="col s6">
                                         <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
+                                            <h1 class="i-stats">
                                                 <i class="far fa-calendar-plus tooltipped" data-position="bottom"
                                                     data-tooltip="DATE CREATED"></i>
-                                            </h2>
+                                            </h1>
                                         </span>
                                         {{ ticket.date_created|naturalday:"d E, Y"|upper }}<br>
                                         <small>{{ ticket.date_created|time:"@H:i (T)" }}</small>
@@ -150,10 +150,10 @@
                                     <!-- donations gross total -->
                                     <div class="col s6">
                                         <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
+                                            <h1 class="i-stats">
                                                 <i class="fas fa-hand-holding-usd tooltipped" data-position="bottom"
                                                     data-tooltip="DONATIONS"></i>
-                                            </h2>
+                                            </h1>
                                         </span>
                                         &euro;{{ ticket.total_donations }}
                                     </div>
@@ -161,9 +161,9 @@
                                     <!-- donations percentage -->
                                     <div class="col s6">
                                         <span class="{% include 'partials/status_color.html' %}-text">
-                                            <h2>
+                                            <h1 class="i-stats">
                                                 <i class="fas fa-trophy tooltipped" data-position="bottom" data-tooltip="GOAL"></i>
-                                            </h2>
+                                            </h1>
                                         </span>
                                         {{ ticket.total_donations }}%
                                     </div>
@@ -178,15 +178,15 @@
                                         <!-- Edit (if permitted) -->
                                         <a href="{% url 'tickets_edit' ticket.id %}" class="white-text">
                                             <div class="col s6 blue">
-                                                <h4><i class="far fas fa-edit"></i></h4>
-                                                <h6 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h6>
+                                                <h1 class="i-stats"><i class="far fas fa-edit"></i></h1>
+                                                <h3 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h3>
                                             </div>
                                         </a>
                                         <!-- Delete (if permitted) -->
                                         <a href="#modal-tickets-delete" class="modal-trigger white-text">
                                             <div class="col s6 red">
-                                                <h4><i class="far fas fa-trash-alt"></i></h4>
-                                                <h6 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h6>
+                                                <h1 class="i-stats"><i class="far fas fa-trash-alt"></i></h1>
+                                                <h3 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h3>
                                             </div>
                                         </a>
                                     </div>
@@ -232,8 +232,8 @@
 <!-- DELETE TICKET MODAL -->
 <div id="modal-tickets-delete" class="modal white-text">
     <div class="modal-content center-align bold">
-        <h4 class="green-text">Confirm Deletion</h4>
-        <h5>Are you sure you want to delete this {{ ticket.ticket_type }}?</h5>
+        <h1 class="green-text">Confirm Deletion</h1>
+        <h3>Are you sure you want to delete this {{ ticket.ticket_type }}?</h3>
         <p>This action cannot be undone.</p>
         <a href="{% url 'tickets_delete' ticket.id %}" class="btn green text-shadow-2">
             <i class="far fa-trash-alt right" aria-hidden="true"></i>Yes
