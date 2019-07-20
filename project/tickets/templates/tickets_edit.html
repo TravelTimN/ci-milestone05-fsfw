@@ -12,66 +12,67 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col s12 center-align white-text">
+<div class="container">
+    <div class="row">
+        <div class="col s12 center-align white-text">
 
-        <form method="POST">
-            {% csrf_token %}
-            <div class="card form text-shadow-2">
-                <div class="card-content card-content-new-ticket">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card form text-shadow-2">
+                    <div class="card-content card-content-new-ticket">
 
-                    <div class="card-badge-div">
-                        <!-- Ticket Status (Open | In Progress | Closed) -->
-                        <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
-                            <!-- Ticket Type (Bug vs Feature) -->
-                            {% if ticket.ticket_type == "Bug" %}
-                            <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-                            {% elif ticket.ticket_type == "Feature" %}
-                            <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
-                            {% endif %}
-                        </span>
-                    </div>
+                        <div class="card-badge-div">
+                            <!-- Ticket Status (Open | In Progress | Closed) -->
+                            <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
+                                <!-- Ticket Type (Bug vs Feature) -->
+                                {% if ticket.ticket_type == "Bug" %}
+                                <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+                                {% elif ticket.ticket_type == "Feature" %}
+                                <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
+                                {% endif %}
+                            </span>
+                        </div>
 
-                    <div class="row">
-                        <div class="col s12">
-                            <h1 class="bold">
-                                Edit
-                                <span class="{% include 'partials/status_color.html' %}-text">
-                                    {{ ticket.ticket_type }}
-                                </span>
-                            </h1>
+                        <div class="row">
+                            <div class="col s12">
+                                <h1 class="bold">
+                                    Edit
+                                    <span class="{% include 'partials/status_color.html' %}-text">
+                                        {{ ticket.ticket_type }}
+                                    </span>
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12">
+                                {{ ticket_form.title|materializecss:'icon=fas fa-file-alt white-text' }}
+                                {{ ticket_form.description|materializecss:'icon=fas fa-align-left white-text' }}
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col s12">
-                            {{ ticket_form.title|materializecss:'icon=fas fa-file-alt white-text' }}
-                            {{ ticket_form.description|materializecss:'icon=fas fa-align-left white-text' }}
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s12 m5 offset-m1">
+                                <button type="submit" class="btn btn-large green bold text-shadow-2">Save
+                                    <i class="fas fa-save material-icons right hide-on-small-and-down"
+                                        aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="col s12 m5">
+                                <button type="reset" class="btn btn-large red bold text-shadow-2" onclick="history.go(-1)">
+                                    Cancel
+                                    <i class="fas fa-times-circle material-icons right hide-on-small-and-down"
+                                        aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </form>
 
-                <div class="card-action">
-                    <div class="row">
-                        <div class="col s12 m5 offset-m1">
-                            <button type="submit" class="btn btn-large green bold text-shadow-2">Save
-                                <i class="fas fa-save material-icons right hide-on-small-and-down"
-                                    aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="col s12 m5">
-                            <button type="reset" class="btn btn-large red bold text-shadow-2" onclick="history.go(-1)">
-                                Cancel
-                                <i class="fas fa-times-circle material-icons right hide-on-small-and-down"
-                                    aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
+        </div>
     </div>
 </div>
-
 {% endblock %}

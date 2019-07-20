@@ -12,30 +12,31 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col s12 center-align">
-        <div class="form">
-            <canvas id="pieTotalBugsFeatures" height="100"></canvas>
+<div class="container">
+    <div class="row">
+        <div class="col s12 center-align">
+            <div class="form">
+                <canvas id="pieTotalBugsFeatures" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 center-align">
+            <div class="form">
+                <canvas id="barTicketStatus" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 center-align">
+            <div class="form">
+                <canvas id="horizontalbarTimescale" height="100"></canvas>
+            </div>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col s12 center-align">
-        <div class="form">
-            <canvas id="barTicketStatus" height="100"></canvas>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s12 center-align">
-        <div class="form">
-            <canvas id="horizontalbarTimescale" height="100"></canvas>
-        </div>
-    </div>
-</div>
-
 {% endblock %}
 
 {% block js %}
