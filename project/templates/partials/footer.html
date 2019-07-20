@@ -1,0 +1,171 @@
+{% load staticfiles %}
+{% load humanize %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" type="text/css">
+
+<div class="footer-main">
+    <div class="row white-text">
+
+        <!-- QUICK LINKS -->
+        <div class="col s12 m4">
+            <h2 class="center-align">
+                Quick Links
+            </h2>
+            <div class="form">
+                <ul class="footer-list">
+                    <a href="{% url 'index' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-home fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Home Page
+                        </li>
+                    </a>
+                    {% if user.is_superuser %}
+                    <a href="{% url 'superuser' %}" class="red-text">
+                        <li>
+                            <i class="fas fa-user-shield fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Admin Panel
+                        </li>
+                    </a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-user fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            My Profile
+                        </li>
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'tickets_view_all' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-ticket-alt fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Tickets
+                        </li>
+                    </a>
+                    <a href="{% url 'get_all_stats' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-chart-pie fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Statistics
+                        </li>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-sign-out-alt fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Log Out
+                        </li>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-sign-in-alt fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Log In
+                        </li>
+                    </a>
+                    <a href="{% url 'register' %}" class="white-text">
+                        <li>
+                            <i class="fas fa-user-plus fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            Register
+                        </li>
+                    </a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- LATEST TICKETS -->
+        <div class="col s12 m4">
+            <h2 class="center-align">
+                Latest Tickets
+            </h2>
+            <div class="form">
+                <ul class="footer-list">
+                    {% for ticket in tickets_last_five %}
+                    <a href="{% url 'tickets_view_one' ticket.id %}" class="white-text">
+                        <li>
+                            <div class="row">
+                                <div class="col s3 m4 footer-ticket-date center-align bold">
+                                    {{ ticket.date_created|naturalday:"d" }}<br>
+                                    {{ ticket.date_created|naturalday:"E"|upper }}<br>
+                                    {{ ticket.date_created|naturalday:"Y" }}
+                                </div>
+                                <div class="col s9 m8">
+                                    <span class="footer-ticket-details">
+                                        {% if ticket.ticket_type.ticket_type == 'Bug' %}
+                                        <i class="fas fa-bug fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                                        {% elif ticket.ticket_type.ticket_type == 'Feature' %}
+                                        <i class="fas fa-magic fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                                        {% endif %}
+                                        {{ ticket.title|truncatechars:35 }}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                    {% if not forloop.last %}
+                    <div class="divider"></div>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- CONTACT US -->
+        <div class="col s12 m4">
+            <h2 class="center-align">
+                Contact Us
+            </h2>
+            <div class="form">
+                <ul class="footer-list">
+                    <li>
+                        <p>
+                            <i class="fas fa-envelope fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            <span class="bold">help@unicorn.com</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-phone fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            <span class="bold">+353 (0)1 555-1234</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-map-marker-alt fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                            <span class="rainbow-text bold">Unicorn Attractor</span><br>
+                            123 Main Street<br>
+                            Dublin 1, D01 F5P2<br>
+                            Ireland
+                        </p>
+                        <div id="map"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+
+<!-- COPYRIGHT -->
+<div class="container footer-bottom white-text">
+    <span class="row center-align">
+        <div class="col s12">
+            <h2>
+                &copy; <span id="year"></span>
+                <br class="hide-on-med-and-up">
+                <span class="rainbow-text">Unicorn Attractor</span>
+            </h2>
+        </div>
+    </span>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var map = L.map("map", {
+            layers: [L.tileLayer(
+                "http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {}
+            )],
+            center: [53.347284, -6.259111],
+            zoom: 9,
+            minZoom: 7,
+            maxZoom: 20,
+        });
+    });
+</script>

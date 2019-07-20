@@ -27,18 +27,14 @@
     </header>
 
     <main>
-        {% block main %}
-        {% endblock %}
-    </main>
-
-    <section class="container">
         {% include "partials/messages.html" %}
 
         {% block content %}
         {% endblock %}
-    </section>
+    </main>
 
     <footer>
+        {% include "partials/footer.html" %}
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
