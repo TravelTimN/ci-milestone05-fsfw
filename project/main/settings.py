@@ -4,9 +4,11 @@ import dj_database_url
 # using Virtual Environments
 if os.path.exists("env.py"):
     import env
-    DEBUG = True
-else:
-    DEBUG = False
+    # DEBUG = True
+# else:
+    # DEBUG = False
+DEBUG = True
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
