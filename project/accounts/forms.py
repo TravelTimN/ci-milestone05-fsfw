@@ -111,6 +111,9 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     """ Form to update user Profile """
+    image = forms.ImageField(
+        widget=forms.FileInput())
+
     class Meta:
         model = Profile
         fields = ["image"]
