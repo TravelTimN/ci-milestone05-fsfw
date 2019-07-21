@@ -7,6 +7,7 @@ if os.path.exists("env.py"):
     DEBUG = True
 else:
     DEBUG = False
+    STATICFILES_STORAGE = "custom_storages.StaticStorage"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -128,7 +129,7 @@ AWS_DEFAULT_ACL = None
 
 # STATIC FILES
 STATICFILES_LOCATION = "static"
-STATICFILES_STORAGE = "custom_storages.StaticStorage"
+# STATICFILES_STORAGE = "custom_storages.StaticStorage"
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
