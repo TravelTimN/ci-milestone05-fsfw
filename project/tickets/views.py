@@ -58,7 +58,8 @@ def tickets_new_bug(request):
         ticket_form = TicketForm(request.POST)
         if ticket_form.is_valid():
             ticket_form.instance.author = request.user
-            ticket_form.instance.ticket_type = "Bug"
+            ticket_form.instance.ticket_type_id = 1
+            ticket_form.instance.ticket_status_id = 1
             new_ticket = ticket_form.save()
             new_ticket_id = new_ticket.pk
             messages.success(
@@ -99,7 +100,7 @@ def tickets_new_feature(request):
             # authorization is valid - payment successful
             if customer.paid:
                 ticket_form.instance.author = request.user
-                ticket_form.instance.ticket_type = "Feature"
+                ticket_form.instance.ticket_type_id = 2
                 ticket_form.instance.total_donations = donation_amount
                 # update user Profile with additional donation amount
                 get_user_donations = Profile.objects.values_list(
@@ -110,7 +111,9 @@ def tickets_new_feature(request):
                         total_donated=new_user_donations)
                 # update ticket status to In Progress if €100 goal is achieved
                 if donation_amount >= int(100):
-                    ticket_form.instance.ticket_status = "In Progress"
+                    ticket_form.instance.ticket_status_id = 2
+                else:
+                    ticket_form.instance.ticket_status_id = 1
                 new_ticket = ticket_form.save()
                 new_ticket_id = new_ticket.pk
                 messages.success(
@@ -254,7 +257,7 @@ def upvote_add(request, pk):
                 # update ticket status to In Progress if €100 goal is achieved
                 if new_total_donations >= int(100):
                     Ticket.objects.filter(
-                        id=ticket.pk).update(ticket_status="In Progress")
+                        id=ticket.pk).update(ticket_status_id=2)
                 messages.success(
                     request, f"Thank You for your Donation!\
                         €{donation_amount} was charged to your card.")
