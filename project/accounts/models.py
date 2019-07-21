@@ -1,7 +1,12 @@
 from django.db import models
+from django.core.files.storage import default_storage as storage
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from PIL import Image
+from PIL import Image, ImageOps
+
+
+def upload_to(instance, filename):
+    return "profiles/%s/%s" % (instance.user.username, filename)
 
 
 class Profile(models.Model):
@@ -11,8 +16,8 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(
-        default="profile_imgs/default.png",
-        upload_to="profile_imgs",
+        default="profiles/default.png",
+        upload_to=upload_to,
         blank=True,
         null=True)
     total_donated = models.IntegerField(
@@ -21,17 +26,28 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
-    def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+    def save(self):
         """
         - installed 'django-cleanup' to auto-remove old image.
         - installed 'pillow' to resize larger images.
+        - resizes all image formats except '.gif' as these cannot be resized
         """
-        img = Image.open(self.image.path)
-        if img.height > 200 or img.width > 200:
-            new_img_size = (200, 200)
-            img.thumbnail(new_img_size)
-            img.save(self.image.path)
+        super(Profile, self).save()
+        if self.image:
+            img = Image.open(self.image)
+            if img.format.lower() != "gif":
+                size = 300
+                thumb = (size, size)
+                method = Image.ANTIALIAS
+                center = (0.5, 0.5)
+                extension = "png"
+                if img.height > size or img.width > size:
+                    img.thumbnail((size, size), method)
+                    new = ImageOps.fit(img, thumb, method, centering=center)
+                    temp = storage.open(self.image.name, "w")
+                    new.save(temp, extension)
+                    temp.close()
+                    super(Profile, self).save()
 
 
 def create_profile(sender, created, instance, **kwargs):

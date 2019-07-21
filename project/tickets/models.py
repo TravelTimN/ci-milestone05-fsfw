@@ -14,6 +14,10 @@ class TicketType(models.Model):
         unique=True,
         choices=TICKET_TYPE_CHOICES)
 
+    class Meta:
+        verbose_name=("Ticket Type")
+        verbose_name_plural=("Ticket Types")
+
     def __str__(self):
         return self.ticket_type
 
@@ -29,6 +33,10 @@ class TicketStatus(models.Model):
         max_length=11,
         unique=True,
         choices=TICKET_STATUS_CHOICES)
+
+    class Meta:
+        verbose_name=("Ticket Status")
+        verbose_name_plural=("Ticket Status")
 
     def __str__(self):
         return self.ticket_status

@@ -21,8 +21,8 @@
 
                         <!-- PROFILE PHOTO -->
                         <div class="col s12 m4 center">
-                            <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="responsive-img circle"
-                                lazyload="on">
+                            <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="circle"
+                                width="200" height="200" lazyload="on">
                         </div>
 
                         <!-- USER DETAILS -->
@@ -109,16 +109,17 @@
                     <div class="col s12 m3">
                         <img src="{{ user.profile.image.url }}" width="75" height="75" class="circle white" lazyload="on">
                     </div>
-                    <div class="col s12 m9 left-align">
-                        {{ profile_form.image }}
+                    <div class="col s12 m9 left-align text-shadow-2">
+                        {{ profile_form.image|materializecss }}
                     </div>
                 </div>
-                <div class="row center-align">
+                <div class="row">
                     <div class="col s12 m6 offset-m3">
                         <button type="submit" class="btn btn-large green bold text-shadow-2">
                             Save
                             <i class="fas fa-save right"></i>
                         </button>
+                        <small class="red-text">Note: image will be cropped to 300px (except GIFs)</small>
                     </div>
                 </div>
             </form>
