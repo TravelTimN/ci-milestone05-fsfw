@@ -26,13 +26,13 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         - installed 'django-cleanup' to auto-remove old image.
         - installed 'pillow' to resize larger images.
         - resizes all image formats except '.gif' as these cannot be resized
         """
-        super(Profile, self).save()
+        super(Profile, self).save(*args, **kwargs)
         if self.image:
             img = Image.open(self.image)
             if img.format.lower() != "gif":
@@ -47,7 +47,7 @@ class Profile(models.Model):
                     temp = storage.open(self.image.name, "w")
                     new.save(temp, extension)
                     temp.close()
-                    super(Profile, self).save()
+                    super(Profile, self).save(*args, **kwargs)
 
 
 def create_profile(sender, created, instance, **kwargs):
