@@ -72,8 +72,9 @@
         </div>
 
         <!-- LATEST TICKETS -->
-        <!-- set variable for 'today' -->
-        {% now "j F Y" as today %}
+        <!-- set variables for 'today' -->
+        {% now "j F Y" as today %}{% now "j" as today_day %}{% now "F" as today_month %}{% now "Y" as today_year %}
+
         <div class="col s12 m4">
             <h2 class="center-align">
                 Latest Tickets
@@ -86,12 +87,19 @@
                             <div class="row">
                                 <div class="col s3 m4 footer-ticket-date center-align bold">
                                     {% if ticket.date_created.date|date:"j F Y" == today %}
-                                    TODAY<br>
-                                    {{ ticket.date_created|naturaltime }}
+                                        TODAY<br>
+                                        {{ ticket.date_created|naturaltime }}
+                                    {% elif ticket.date_created.date|date:"j"|safe == today_day|add:"-1"|safe %}
+                                        {% if ticket.date_created.date|date:"F"|safe == today_month|safe %}
+                                        {% if ticket.date_created.date|date:"Y"|safe == today_year %}
+                                        YESTERDAY<br>
+                                        {{ ticket.date_created|naturaltime }}
+                                        {% endif %}
+                                        {% endif %}
                                     {% else %}
-                                    {{ ticket.date_created|naturalday:"d" }}<br>
-                                    {{ ticket.date_created|naturalday:"E"|upper }}<br>
-                                    {{ ticket.date_created|naturalday:"Y" }}
+                                        {{ ticket.date_created|naturalday:"d" }}<br>
+                                        {{ ticket.date_created|naturalday:"E"|upper }}<br>
+                                        {{ ticket.date_created|naturalday:"Y" }}
                                     {% endif %}
                                 </div>
                                 <div class="col s9 m8">
