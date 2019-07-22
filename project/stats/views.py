@@ -18,44 +18,44 @@ def get_all_stats(request):
     """ ----- FEATURES ----- """
     # top 5 most voted
     features_top_five = Ticket.objects.filter(
-        ticket_type="Feature").order_by("-upvotes")[:5]
+        ticket_type="2").order_by("-upvotes")[:5]
     # total features
     features_total = Ticket.objects.filter(
-        ticket_type="Feature").count()
+        ticket_type="2").count()
     # total features 'Closed'
     features_closed = Ticket.objects.filter(
-        ticket_type="Feature", ticket_status="Closed").count()
+        ticket_type="2", ticket_status="3").count()
     # total features 'In Progress'
     features_in_progress = Ticket.objects.filter(
-        ticket_type="Feature", ticket_status="In Progress").count()
+        ticket_type="2", ticket_status="2").count()
     # total features 'Open'
     features_open = Ticket.objects.filter(
-        ticket_type="Feature", ticket_status="Open").count()
+        ticket_type="2", ticket_status="1").count()
     features_monthly = Ticket.objects.filter(
         date_edited__range=[date_search_start, date_search_end],
-        ticket_type="Feature").count()
+        ticket_type="2").count()
     features_weekly = round(features_monthly / 4, 2)
     features_daily = round(features_monthly / 30, 2)
 
     """ ----- BUGS ----- """
     # top 5 most voted
     bugs_top_five = Ticket.objects.filter(
-        ticket_type="Bug").order_by("-upvotes")[:5]
+        ticket_type="1").order_by("-upvotes")[:5]
     # total bugs
     bugs_total = Ticket.objects.filter(
-        ticket_type="Bug").count()
+        ticket_type="1").count()
     # total bugs 'Closed'
     bugs_closed = Ticket.objects.filter(
-        ticket_type="Bug", ticket_status="Closed").count()
+        ticket_type="1", ticket_status="3").count()
     # total bugs 'In Progress'
     bugs_in_progress = Ticket.objects.filter(
-        ticket_type="Bug", ticket_status="In Progress").count()
+        ticket_type="1", ticket_status="2").count()
     # total bugs 'Open'
     bugs_open = Ticket.objects.filter(
-        ticket_type="Bug", ticket_status="Open").count()
+        ticket_type="1", ticket_status="1").count()
     bugs_monthly = Ticket.objects.filter(
         date_edited__range=[date_search_start, date_search_end],
-        ticket_type="Bug").count()
+        ticket_type="1").count()
     bugs_weekly = round(bugs_monthly / 4, 2)
     bugs_daily = round(bugs_monthly / 30, 2)
 
