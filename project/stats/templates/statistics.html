@@ -5,37 +5,178 @@
 {% block css %}
 <style>
     body {
-        background: url("{% static 'img/bg-02.png' %}") no-repeat center center fixed;
+        background: url("{% static 'img/bg-statistics.png' %}") no-repeat center center fixed;
         background-size: cover;
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="bg-statistics">
+    <div class="landing-title center-align white-text">
+        <h1>
+            <span class="rainbow-text bold upper">Statistics</span>
+        </h1>
+    </div>
+</div>
+
 <div class="container">
-    <div class="row">
-        <div class="col s12 center-align">
-            <div class="form">
-                <canvas id="pieTotalBugsFeatures" height="100"></canvas>
+
+    <!-- TOP 3 SUPPORTERS (DONORS) -->
+    <div class="row form">
+        <div class="col s12 m5 l7 center-align">
+            <h2 class="white-text text-shadow-2">Top 3 Supporters</h2>
+            <p class="rainbow-text bold">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque consequatur quia laboriosam
+                odit nam dolorem asperiores qui voluptas aperiam, iste quasi blanditiis dolorum error distinctio?
+                Sequi provident illo molestias totam exercitationem officiis aliquam ratione, nemo eum fugit, eaque
+                culpa odit amet, laborum repellat!
+            </p>
+        </div>
+        <div class="col s12 m7 l5">
+            <ul class="collection">
+                {% for top_user in users_top_three %}
+                <li class="collection-item avatar grey darken-4 text-shadow-2">
+                    <img src="{{ top_user.image.url }}" alt="{{ top_user.user.username }}" class="circle white"
+                        lazyload="on">
+                    {% if forloop.first %}
+                    <span class="gold-text bold">
+                        <span class="title upper">GOLD MEDAL</span>
+                        <p>{{ top_user.user.username }}<br>
+                            &euro;{{ top_user.total_donated }} donated
+                        </p>
+                        <span class="secondary-content">
+                            <i class="fas fa-trophy fa-lg fa-fw gold-text"></i>
+                        </span>
+                    </span>
+                    {% elif forloop.last %}
+                    <span class="bronze-text bold">
+                        <span class="title upper">BRONZE MEDAL</span>
+                        <p>{{ top_user.user.username }}<br>
+                            &euro;{{ top_user.total_donated }} donated
+                        </p>
+                        <span class="secondary-content">
+                            <i class="fas fa-trophy fa-lg fa-fw bronze-text"></i>
+                        </span>
+                    </span>
+                    {% else %}
+                    <span class="silver-text bold">
+                        <span class="title upper">SILVER MEDAL</span>
+                        <p>{{ top_user.user.username }}<br>
+                            &euro;{{ top_user.total_donated }} donated
+                        </p>
+                        <span class="secondary-content">
+                            <i class="fas fa-trophy fa-lg fa-fw silver-text"></i>
+                        </span>
+                    </span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- TOP 5 BY UPVOTES -->
+    <div class="row form">
+        <div class="row">
+            <div class="col s12 center-align">
+                <h2 class="white-text text-shadow-2">Top 5 Tickets by Upvotes</h2>
+            </div>
+        </div>
+        <div class="row">
+            <!-- bugs -->
+            <div class="col s12 m6">
+                <ul class="collection with-header white-text">
+                    <li class="collection-header grey darken-4">
+                        <h2>
+                            <i class="fas fa-bug fa-lg fa-fw bug-text"></i>
+                            BUGS
+                        </h2>
+                    </li>
+                    {% for top_bug in bugs_top_five %}
+                    <li>
+                        <a href="{% url 'tickets_view_one' top_bug.id %}" class="collection-item grey darken-4">
+                            <span class="white-text">
+                                <i class="fas fa-thumbs-up fa-fw white-text"></i>{{ top_bug.upvotes }}
+                            </span>
+                            <span class="bug-text bold">{{ top_bug.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- features -->
+            <div class="col s12 m6">
+                <ul class="collection with-header white-text">
+                    <li class="collection-header grey darken-4">
+                        <h2>
+                            <i class="fas fa-magic fa-lg fa-fw feature-text"></i>
+                            FEATURES
+                        </h2>
+                    </li>
+                    {% for top_feature in features_top_five %}
+                    <li>
+                        <a href="{% url 'tickets_view_one' top_feature.id %}" class="collection-item grey darken-4">
+                            <span class="white-text">
+                                <i class="fas fa-thumbs-up fa-fw white-text"></i>{{ top_feature.upvotes }}
+                            </span>
+                            <span class="feature-text bold">{{ top_feature.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col s12 center-align">
-            <div class="form">
-                <canvas id="barTicketStatus" height="100"></canvas>
-            </div>
+    <!-- TICKET STATUS -->
+    <div class="row form">
+        <div class="col s12 m5 center-align">
+            <h2 class="white-text text-shadow-2">Ticket Status</h2>
+            <p class="rainbow-text bold">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque consequatur quia laboriosam
+                odit nam dolorem asperiores qui voluptas aperiam, iste quasi blanditiis dolorum error distinctio?
+                Sequi provident illo molestias totam exercitationem officiis aliquam ratione, nemo eum fugit, eaque
+                culpa odit amet, laborum repellat!
+            </p>
+        </div>
+        <div class="col s12 m7 center-align">
+            <canvas id="barTicketStatus" width="300" height="250"></canvas>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col s12 center-align">
-            <div class="form">
-                <canvas id="horizontalbarTimescale" height="100"></canvas>
-            </div>
+    <!-- BUGS vs FEATURES -->
+    <div class="row form">
+        <div class="col s12 m6 center-align">
+            <h2 class="white-text text-shadow-2">Bugs vs Features</h2>
+            <p class="rainbow-text bold">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque consequatur quia laboriosam
+                odit nam dolorem asperiores qui voluptas aperiam, iste quasi blanditiis dolorum error distinctio?
+                Sequi provident illo molestias totam exercitationem officiis aliquam ratione, nemo eum fugit, eaque
+                culpa odit amet, laborum repellat!
+            </p>
+        </div>
+        <div class="col s12 m6 center-align">
+            <canvas id="pieTotalBugsFeatures" height="250"></canvas>
         </div>
     </div>
+
+    <!-- TICKET TIMELINE -->
+    <div class="row form">
+        <div class="col s12 m5 center-align">
+            <h2 class="white-text text-shadow-2">Ticket Timeline</h2>
+            <p class="rainbow-text bold">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque consequatur quia laboriosam
+                odit nam dolorem asperiores qui voluptas aperiam, iste quasi blanditiis dolorum error distinctio?
+                Sequi provident illo molestias totam exercitationem officiis aliquam ratione, nemo eum fugit, eaque
+                culpa odit amet, laborum repellat!
+            </p>
+        </div>
+        <div class="col s12 m7 center-align">
+            <canvas id="barTimeline" width="300" height="250"></canvas>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 
@@ -43,53 +184,17 @@
 <script>
     $(document).ready(function () {
 
-        // variables from stats/views.py file
-        // var users_top_three = {{ users_top_three|safe }};
-        // var features_top_five = {{ features_top_five|safe }};
-        var features_total = {{ features_total|safe }};
-        var features_closed = {{ features_closed|safe }};
-        var features_in_progress = {{ features_in_progress|safe }};
-        var features_open = {{ features_open|safe }};
-        var features_monthly = {{ features_monthly|safe }};
-        var features_weekly = {{ features_weekly|safe }};
-        var features_daily = {{ features_daily|safe }};
-        // var bugs_top_five = {{ bugs_top_five|safe }};
-        var bugs_total = {{ bugs_total|safe }};
-        var bugs_closed = {{ bugs_closed|safe }};
-        var bugs_in_progress = {{ bugs_in_progress|safe }};
-        var bugs_open = {{ bugs_open|safe }};
-        var bugs_monthly = {{ bugs_monthly|safe }};
-        var bugs_weekly = {{ bugs_weekly|safe }};
-        var bugs_daily = {{ bugs_daily|safe }};
-
         Chart.defaults.global.defaultFontColor = "#FFFFFF";
         Chart.defaults.global.defaultFontSize = 20;
 
-        new Chart($("#pieTotalBugsFeatures"), {
-            type: "pie",
-            data: {
-                labels: ["BUGS", "FEATURES"],
-                datasets: [{
-                    label: "Total Bugs vs. Features",
-                    data: [bugs_total, features_total],
-                    backgroundColor: [
-                        "rgba(76, 175, 80, 0.75)",
-                        "rgba(244, 67, 54, 0.75)"
-                    ],
-                    hoverBackgroundColor: [
-                        "#4CAF50",
-                        "#F44336"
-                    ],
-                    borderColor: [
-                        "#000000",
-                        "#000000"
-                    ],
-                    borderWidth: 1
-                }]
-            }
-        });
+        /* BAR CHART : Ticket Status */
+        var bugs_open = {{ bugs_open|safe }};
+        var features_open = {{ features_open|safe }};
+        var bugs_in_progress = {{ bugs_in_progress|safe }};
+        var features_in_progress = {{ features_in_progress|safe }};
+        var bugs_closed = {{ bugs_closed|safe }};
+        var features_closed = {{ features_closed|safe }};
 
-        //
         new Chart($("#barTicketStatus"), {
             type: "bar",
             data: {
@@ -97,24 +202,21 @@
                 datasets: [{
                     label: "Open",
                     data: [bugs_open, features_open],
-                    backgroundColor: "rgba(76, 175, 80, 0.75)",
-                    hoverBackgroundColor: "#4CAF50",
-                    borderColor: "#4CAF50",
-                    borderWidth: 5
+                    backgroundColor: "#FC1714",
+                    hoverBackgroundColor: "rgba(252, 23, 20, 0.75)",
+                    borderWidth: 0
                 }, {
                     label: "In Progress",
                     data: [bugs_in_progress, features_in_progress],
-                    backgroundColor: "rgba(255, 193, 7, 0.75)",
-                    hoverBackgroundColor: "#FFC107",
-                    borderColor: "#FFC107",
-                    borderWidth: 5
+                    backgroundColor: "#F9FC14",
+                    hoverBackgroundColor: "rgba(249, 252, 20, 0.75)",
+                    borderWidth: 0
                 }, {
                     label: "Closed",
                     data: [bugs_closed, features_closed],
-                    backgroundColor: "rgba(244, 67, 54, 0.75)",
-                    hoverBackgroundColor: "#F44336",
-                    borderColor: "#F44336",
-                    borderWidth: 5
+                    backgroundColor: "#14FC18",
+                    hoverBackgroundColor: "rgba(20, 252, 24, 0.75)",
+                    borderWidth: 0
                 }]
             },
             options: {
@@ -129,32 +231,54 @@
             }
         });
 
-        //
-        new Chart($("#horizontalbarTimescale"), {
-            type: "horizontalBar",
+        /* PIE CHART : Bugs vs Features */
+        var bugs_total = {{ bugs_total|safe }};
+        var features_total = {{ features_total|safe }};
+
+        new Chart($("#pieTotalBugsFeatures"), {
+            type: "pie",
+            data: {
+                labels: ["BUGS", "FEATURES"],
+                datasets: [{
+                    label: "Total Bugs vs. Features",
+                    data: [bugs_total, features_total],
+                    backgroundColor: ["#FD8D14", "#1484FC"],
+                    hoverBackgroundColor: ["rgba(253, 141, 20, 0.75)", "rgba(20, 132, 252, 0.75)"],
+                    borderWidth: 0
+                }]
+            }
+        });
+
+        /* BAR CHART : Ticket Timeline */
+        var bugs_monthly = {{ bugs_monthly|safe }};
+        var bugs_weekly = {{ bugs_weekly|safe }};
+        var bugs_daily = {{ bugs_daily|safe }};
+        var features_monthly = {{ features_monthly|safe }};
+        var features_weekly = {{ features_weekly|safe }};
+        var features_daily = {{ features_daily|safe }};
+
+        new Chart($("#barTimeline"), {
+            type: "bar",
             data: {
                 labels: ["BUGS", "FEATURES"],
                 datasets: [{
                     label: "Monthly",
                     data: [bugs_monthly, features_monthly],
-                    backgroundColor: "rgba(76, 175, 80, 0.75)",
-                    hoverBackgroundColor: "#4CAF50",
-                    borderColor: "#4CAF50",
-                    borderWidth: 5
+                    backgroundColor: "#8D14FD",
+                    hoverBackgroundColor: "rgba(76, 175, 80, 0.75)",
+                    borderWidth: 0
                 }, {
                     label: "Weekly",
                     data: [bugs_weekly, features_weekly],
-                    backgroundColor: "rgba(255, 193, 7, 0.75)",
-                    hoverBackgroundColor: "#FFC107",
-                    borderColor: "#FFC107",
-                    borderWidth: 5
+                    backgroundColor: "#1484FD",
+                    hoverBackgroundColor: "rgba(255, 193, 7, 0.75)",
+                    borderWidth: 0
                 }, {
                     label: "Daily",
                     data: [bugs_daily, features_daily],
-                    backgroundColor: "rgba(244, 67, 54, 0.75)",
-                    hoverBackgroundColor: "#F44336",
-                    borderColor: "#F44336",
-                    borderWidth: 5
+                    backgroundColor: "#FD1484",
+                    hoverBackgroundColor: "rgba(253, 20, 132, 0.75)",
+                    borderWidth: 0
                 }]
             },
             options: {

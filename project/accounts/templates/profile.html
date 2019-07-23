@@ -21,7 +21,7 @@
 
                         <!-- PROFILE PHOTO -->
                         <div class="col s12 m4 center">
-                            <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="circle"
+                            <img src="{{ user.profile.image.url }}" alt="{{ user }} Photo" class="circle responsive-img"
                                 width="200" height="200" lazyload="on">
                         </div>
 
@@ -93,7 +93,11 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col s12 m6">
-                        <h2 class="green-text bold">{{ user.username }}</h2>
+                        <h2 class="green-text bold">
+                            {{ user.username }}
+                        </h2>
+                        <small class="red-text">usernames cannot be changed</small>
+                        <br><br>
                     </div>
                     <div class="col s12 m6">
                         {{ update_form.email|materializecss:'icon=fas fa-at green-text' }}
@@ -114,7 +118,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12 m6 offset-m3">
+                    <div class="col s12 m8 offset-m2">
                         <button type="submit" class="btn btn-large green bold text-shadow-2">
                             Save
                             <i class="fas fa-save right"></i>
