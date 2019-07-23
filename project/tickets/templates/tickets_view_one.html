@@ -75,16 +75,29 @@
                                                 {% elif ticket.ticket_status.ticket_status == 'Closed' %}class="fas fa-check-circle tooltipped"
                                                 {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
                                             </h1>
+                                            {% if user.is_superuser %}
+                                            <!-- if superuser / admin ... then allow editing of ticket status -->
+                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=1" type="submit"
+                                                class="btn btn-admin red tooltipped" data-position="top" data-tooltip="Open"></a>
+                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=2" type="submit"
+                                                class="btn btn-admin amber tooltipped" data-position="top" data-tooltip="In Progress"></a>
+                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=3" type="submit"
+                                                class="btn btn-admin green tooltipped" data-position="top" data-tooltip="Closed"></a>
+                                            <br><small>edit status</small>
+                                            {% else %}
+                                            <!-- otherwise show the ticket status to users -->
                                             {{ ticket.ticket_status|upper }}<br>
                                             <small>
                                                 {% if ticket.ticket_status == "Closed" %}
-                                                    {{ ticket.date_edited|naturalday:"j N Y" }}
+                                                {{ ticket.date_edited|naturalday:"j N Y" }}
                                                 {% elif ticket.date_created.date|date:"j F Y" == today %}
-                                                    <span class="new badge amber black-text" data-badge-caption="NEW!"></span>
+                                                <span class="new badge amber black-text"
+                                                    data-badge-caption="NEW!"></span>
                                                 {% else %}
-                                                    {{ ticket.date_created|timesince }}
+                                                {{ ticket.date_created|timesince }}
                                                 {% endif %}
                                             </small>
+                                            {% endif %}
                                         </div>
                                     </div>
 
@@ -193,6 +206,7 @@
                                         </div>
                                         {% endif %}
                                     {% endif %}
+
                                 </div>
 
                             </div>

@@ -149,6 +149,9 @@ def tickets_view_one(request, pk):
     upvotes = Upvote.objects.filter(ticket_id=ticket.pk).values("user_id")
     voters = [vote["user_id"] for vote in upvotes]
     donors = User.objects.filter(id__in=voters)
+    # render drop-down list for superusers to update status
+    ticket_status_list = TicketStatus.objects.all()
+    tkt_status = ticket.ticket_status.id
     # POST methods
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -172,6 +175,8 @@ def tickets_view_one(request, pk):
         "donors": donors,
         "publishable": settings.STRIPE_PUBLISHABLE,
         "ticket": ticket,
+        "ticket_status_list": ticket_status_list,
+        "tkt_status": tkt_status,
         "voters": voters,
     }
     return render(request, "tickets_view_one.html", context)
@@ -289,4 +294,19 @@ def upvote_remove(request, pk):
         user_id=request.user.id).delete()
     messages.success(
         request, f"Your vote has been removed.")
+    return redirect(tickets_view_one, ticket.pk)
+
+
+@login_required
+def admin_ticket_status(request, pk):
+    """ Allows Superuser to modify Ticket Status """
+    ticket = get_object_or_404(Ticket, pk=pk)
+    # remove a ticket view to avoid duplicates
+    ticket.views -= 1
+    ticket.save()
+    tkt_status = request.GET.get("tkt_status")
+    Ticket.objects.filter(id=ticket.pk).update(
+        ticket_status=tkt_status, date_edited=timezone.now())
+    messages.success(
+        request, f"Ticket Status has been updated")
     return redirect(tickets_view_one, ticket.pk)
