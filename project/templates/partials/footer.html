@@ -72,8 +72,8 @@
         </div>
 
         <!-- LATEST TICKETS -->
-        <!-- set variables for 'today' -->
-        {% now "j F Y" as today %}{% now "j" as today_day %}{% now "F" as today_month %}{% now "Y" as today_year %}
+        <!-- set variable for 'today' -->
+        {% now "j F Y" as today %}
 
         <div class="col s12 m4">
             <h2 class="center-align">
@@ -89,17 +89,10 @@
                                     {% if ticket.date_created.date|date:"j F Y" == today %}
                                         TODAY<br>
                                         {{ ticket.date_created|naturaltime }}
-                                    {% elif ticket.date_created.date|date:"j"|safe == today_day|add:"-1"|safe %}
-                                        {% if ticket.date_created.date|date:"F"|safe == today_month|safe %}
-                                        {% if ticket.date_created.date|date:"Y"|safe == today_year %}
-                                        YESTERDAY<br>
-                                        {{ ticket.date_created|naturaltime }}
-                                        {% endif %}
-                                        {% endif %}
                                     {% else %}
-                                        {{ ticket.date_created|naturalday:"d" }}<br>
-                                        {{ ticket.date_created|naturalday:"E"|upper }}<br>
-                                        {{ ticket.date_created|naturalday:"Y" }}
+                                        {{ ticket.date_created|date:"d" }}<br>
+                                        {{ ticket.date_created|date:"E"|upper }}<br>
+                                        {{ ticket.date_created|date:"Y" }}
                                     {% endif %}
                                 </div>
                                 <div class="col s9 m8">
