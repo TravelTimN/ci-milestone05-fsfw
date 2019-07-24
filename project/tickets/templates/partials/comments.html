@@ -1,67 +1,61 @@
 {% load materializecss %}
 {% load humanize %}
 <div class="card form white-text text-shadow-2">
+    <h1 class="bold center-align">
+        <i class="fas fa-comments"></i> Comments
+        <!-- show total number of comments -->
+        (<span class="{% include './ticket_status_color.html' %}-text">{{ comments|length }}</span>)
+    </h1>
+
     <div class="card-content white-text">
-        <h1 class="bold center-align">
-            <i class="fas fa-comments"></i>
-            Comments
-            (<span class="{% include './status_color.html' %}-text">{{ comments|length }}</span>)
-        </h1>
-        <!-- <div class="divider {% include './status_color.html' %}"></div> -->
 
         <ul class="collection">
-        {% for comment in comments %}
-        <li class="collection-item avatar grey darken-4">
-            <img src="{{ comment.commenter.profile.image.url }}" alt="{{ user }}" class="circle white" lazyload="on">
-            <span class="title {% include './status_color.html' %}-text">
-                {{ comment.commenter.username }}
-            </span>
-            <small class="{% include './status_color.html' %}-text text-lighten-3">
-                {{ comment.date_commented|naturaltime }}
-            </small>
-            <p>
-                {{ comment.comment }}
-            </p>
-        </li>
-        {% empty %}
-        <li class="collection-item avatar grey darken-4">
-            <span class="title {% include './status_color.html' %}-text">
-                No Comments
-            </span>
-        </li>
-        {% endfor %}
+            {% for comment in comments %}
+                <!-- add each comment to a collection -->
+                <li class="collection-item avatar grey darken-4">
+                    <img src="{{ comment.commenter.profile.image.url }}" alt="{{ comment.commenter }}" class="circle white"
+                        lazyload="on">
+                    <span class="title {% include './ticket_status_color.html' %}-text bold">
+                        {{ comment.commenter.username }}
+                    </span>
+                    <small class="{% include './ticket_status_color.html' %}-text text-lighten-3">
+                        {{ comment.date_commented|naturaltime }}
+                    </small>
+                    <p>
+                        {{ comment.comment|linebreaksbr }}
+                    </p>
+                </li>
+            {% endfor %}
         </ul>
-        
 
-        {% if ticket.ticket_status == "Closed" %}
-        THIS TICKET AND COMMENTS ARE CLOSED<br>
-        To open a new {{ ticket.ticket_type }}-Ticket,
-        <a href="{% url 'tickets_new_'|add:ticket.ticket_type|lower %}" class="bold">click here!</a>
-        {% else %}
-
-            {% if user.is_authenticated %}
-            <a href="#modal-comments-add" class="modal-trigger btn bold {% include './status_color.html' %}">Add Comment</a>
-
-            <!-- ADD COMMENT MODAL -->
-            <div id="modal-comments-add" class="modal white-text">
-                <div class="modal-content center-align bold">
-                    <h1 class="green-text bold">Add Comment</h1>
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ comment_form|materializecss }}
-                        <button type="submit" class="btn btn-large green bold text-shadow-2">
-                            Add
-                            <i class="fas fa-comment-medical right"></i>
-                        </button>
-                        <a class="modal-close btn btn-large red bold text-shadow-2">
-                            Cancel
-                            <i class="fas fa-times-circle right hide-on-small-and-down" aria-hidden="true"></i>
-                        </a>
-                    </form>
+        {% if user.is_authenticated %}
+            <!-- allow users that are logged-in to post a new comment -->
+            {% if ticket.ticket_status.ticket_status == "Closed" %}
+                <!-- disable comments if ticket is closed -->
+                <div class="center-align bold">
+                    Ticket and Comments are now closed.<br>
+                    Want to open a new
+                    <a href="{% url 'tickets_new_'|add:ticket.ticket_type.ticket_type|lower %}" class="bold">
+                        {{ ticket.ticket_type.ticket_type }} Ticket
+                    </a>?
                 </div>
-            </div>
+            {% else %}
+                <!-- user is logged in and ticket status is not Closed || allow comments -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <textarea name="comment" id="id_comment" cols="40" rows="10" minlength="5" maxlength="2000"
+                        placeholder="Add a new comment..."></textarea>
+                    <button type="submit" class="btn green bold text-shadow-2">Comment</button>
+                </form>
             {% endif %}
-
+        {% else %}
+            <!-- if not logged-in, redirect to login/register pages -->
+            <div class="center-align bold">
+                Please
+                <a href="{% url 'login' %}" class="title {% include './ticket_status_color.html' %}-text">Log in</a> or
+                <a href="{% url 'register' %}" class="title {% include './ticket_status_color.html' %}-text">Register</a>
+                to add comments.
+            </div>
         {% endif %}
 
     </div>

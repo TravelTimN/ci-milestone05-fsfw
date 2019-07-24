@@ -72,7 +72,7 @@
 
 					<div class="card-badge-div">
 						<!-- Ticket Status (Open | In Progress | Closed) -->
-						<span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
+						<span class="card-badge card-badge-{% include 'partials/ticket_status_color.html' %}">
 							<!-- Ticket Type (Bug vs Feature) -->
 							{% if ticket.ticket_type.ticket_type == 'Bug' %}
 								<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
@@ -83,7 +83,7 @@
 					</div>
 
 					<!-- Ticket Title & Description -->
-					<span class="{% include 'partials/status_color.html' %}-text">
+					<span class="{% include 'partials/ticket_status_color.html' %}-text">
 						<div class="card-content">
 							<h2 class="bold">
 								<span class="white-text">
@@ -105,7 +105,7 @@
 					</span>
 
 					<!-- Ticket Stats -->
-					<div class="card-action {% include 'partials/status_color.html' %} darken-5">
+					<div class="card-action {% include 'partials/ticket_status_color.html' %} darken-5">
 						<div class="row center-align">
 							<div class="col s4 tooltipped" data-position="top" data-tooltip="UPVOTES">
 								<i class="far fa-thumbs-up fa-lg" aria-hidden="true"></i><br>
