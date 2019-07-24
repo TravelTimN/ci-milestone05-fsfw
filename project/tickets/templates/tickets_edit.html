@@ -23,7 +23,7 @@
 
                         <div class="card-badge-div">
                             <!-- Ticket Status (Open | In Progress | Closed) -->
-                            <span class="card-badge card-badge-{% include 'partials/status_color.html' %}">
+                            <span class="card-badge card-badge-{% include 'partials/ticket_status_color.html' %}">
                                 <!-- Ticket Type (Bug vs Feature) -->
                                 {% if ticket.ticket_type == "Bug" %}
                                 <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
                             <div class="col s12">
                                 <h1 class="bold">
                                     Edit
-                                    <span class="{% include 'partials/status_color.html' %}-text">
+                                    <span class="{% include 'partials/ticket_status_color.html' %}-text">
                                         {{ ticket.ticket_type }}
                                     </span>
                                 </h1>

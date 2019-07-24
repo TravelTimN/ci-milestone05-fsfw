@@ -1,5 +1,6 @@
 <ul class="pagination center-align form">
     {% if tickets.has_previous %}
+    <!-- display pagination 'back' buttons -->
     <li>
         <a href="?page=1{{ get_args }}" class="white-text">
             <i class="fas fa-angle-double-left"></i>
@@ -13,18 +14,22 @@
     {% endif %}
 
     {% for num in tickets.paginator.page_range %}
+        <!-- loop through pagination 'page' numbers -->
         {% if tickets.number == num %}
-        <li class="active disabled green text-shadow-2">
-            <a class="white-text">{{ num }}</a>
-        </li>
+            <!-- set 'active' class but disable the 'current page -->
+            <li class="active disabled green text-shadow-2">
+                <a class="white-text">{{ num }}</a>
+            </li>
         {% elif num > tickets.number|add:'-3' and num < tickets.number|add:'3' %}
-        <li>
-            <a href="?page={{ num }}{{ get_args }}" class="white-text">{{ num }}</a>
-        </li>
+            <!-- get the previous 2 and next 2 page numbers -->
+            <li>
+                <a href="?page={{ num }}{{ get_args }}" class="white-text">{{ num }}</a>
+            </li>
         {% endif %}
     {% endfor %}
 
     {% if tickets.has_next %}
+    <!-- display pagination 'next' buttons -->
     <li>
         <a href="?page={{ tickets.next_page_number }}{{ get_args }}" class="white-text">
             <i class="fas fa-angle-right"></i>
