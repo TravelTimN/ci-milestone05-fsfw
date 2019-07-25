@@ -5,13 +5,22 @@
 {% block css %}
 <style>
     body {
-        background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+        background: url("{% static 'img/bg-unicorn-dark.png' %}") no-repeat center center fixed;
         background-size: cover;
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- title and background -->
+<div class="bg-unicorn-light">
+    <div class="landing-title center-align white-text">
+        <h1>
+            <span class="rainbow-text bold upper">New Bug</span>
+        </h1>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col s12 center-align white-text">
@@ -19,25 +28,26 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="card form text-shadow-2">
-                    <div class="card-content card-content-new-ticket">
+                    <div class="card-content card-content-new-ticket bug-text">
 
-                            <div class="card-badge-div">
-                                <span class="card-badge card-badge-amber">
-                                    <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                        <!-- top-right corner 'badge' -->
+                        <div class="card-badge-div">
+                            <span class="card-badge card-badge-bug">
+                                <i class="fas fa-bug fa-lg white-text" aria-hidden="true"></i>
+                            </span>
+                        </div>
 
                         <div class="row">
                             <div class="col s12">
-                                <h1 class="bold">
-                                    New Bug
+                                <h1 class="bold upper">
+                                    Bug
                                 </h1>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s12">
-                                {{ ticket_form.title|materializecss:'icon=fas fa-file-alt amber-text' }}
-                                {{ ticket_form.description|materializecss:'icon=fas fa-align-left amber-text' }}
+                                {{ ticket_form.title|materializecss:'icon=fas fa-file-alt' }}
+                                {{ ticket_form.description|materializecss:'icon=fas fa-align-left' }}
                             </div>
                         </div>
                     </div>
@@ -45,12 +55,15 @@
                     <div class="card-action">
                         <div class="row">
                             <div class="col s12 m5 offset-m1">
-                                <button type="submit" class="btn btn-large green bold text-shadow-2">Save
+                                <!-- save / submit new bug -->
+                                <button type="submit" class="btn btn-large green bold text-shadow-2">
+                                    Save
                                     <i class="fas fa-save material-icons right hide-on-small-and-down"
                                         aria-hidden="true"></i>
                                 </button>
                             </div>
                             <div class="col s12 m5">
+                                <!-- cancel / do not submit new bug -->
                                 <a href="{% url 'tickets_view_all' %}" class="btn btn-large red bold text-shadow-2">
                                     Cancel
                                     <i class="fas fa-times-circle material-icons right hide-on-small-and-down"
@@ -61,7 +74,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

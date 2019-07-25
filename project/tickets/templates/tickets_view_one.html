@@ -16,9 +16,12 @@
 <!-- set variable for 'today' -->
 {% now "j F Y" as today %}
 
-<div class="bg-white">
-    <div class="landing-title center-align white-text bold upper">
-        <h3>Ticket Details</h3>
+<!-- title and background -->
+<div class="bg-unicorn-light">
+    <div class="landing-title center-align white-text">
+        <h1>
+            <span class="rainbow-text bold upper">Ticket Details</span>
+        </h1>
     </div>
 </div>
 
@@ -29,7 +32,7 @@
 
                 <!-- top-right corner badge based on ticket status -->
                 <div class="card-badge-div">
-                    <span class="card-badge card-badge-{% include 'partials/ticket_status_color.html' %}">
+                    <span class="card-badge card-badge-{{ ticket.ticket_type.ticket_type|lower }}">
                         {% if ticket.ticket_type.ticket_type == 'Bug' %}
                             <!-- bug -->
                             <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
@@ -43,28 +46,34 @@
                 <div class="card-content white-text">
                     <div class="row">
                         <div class="col s12">
-                            <!-- ticket title -->
-                            <h1 class="bold center-align">{{ ticket.title }}</h1>
-                            <div class="divider {% include 'partials/ticket_status_color.html' %}"></div>
+                            <!-- ticket type + ticket number -->
+                            <h1 class="bold center-align {% include 'partials/ticket_type_color.html' %}-text upper">
+                                {{ ticket.ticket_type.ticket_type }} #{{ ticket.id }}
+                            </h1>
+                            <div class="divider"></div>
                             <div class="row">
 
-                                <!-- TICKET DESCRIPTION -->
+                                <!-- TICKET DETAILS -->
                                 <div class="col s12 m7 justify">
                                     <br>
-                                    <p class="{% include 'partials/ticket_type_color.html' %}-text bold">
-                                        {{ ticket.ticket_type|upper }} #{{ ticket.id }}
+                                    <span class="{% include 'partials/ticket_status_color.html' %}-text bold upper">
+                                        {{ ticket.ticket_type.ticket_type }} Title:
+                                    </span>
+                                    <p class="upper">
+                                        {{ ticket.title }}
                                     </p>
                                     <br>
-                                    <p class="bold upper">
-                                        Ticket Details:
+                                    <span class="{% include 'partials/ticket_status_color.html' %}-text bold upper">
+                                        {{ ticket.ticket_type.ticket_type }} Details:
+                                    </span>
+                                    <p>
+                                        {{ ticket.description|linebreaksbr }}
                                     </p>
-                                    <p>{{ ticket.description|linebreaksbr }}</p>
                                 </div>
 
                                 <!-- TICKET STATS -->
                                 <div class="col s12 m5 center-align">
-                                    <div class="divider hide-on-med-and-up {% include 'partials/ticket_status_color.html' %}">
-                                    </div>
+                                    <div class="divider hide-on-med-and-up"></div>
                                     <div class="row bold">
 
                                         <!-- author -->
@@ -76,7 +85,7 @@
                                             {{ ticket.author }}
                                         </div>
 
-                                        <!-- ticket progress ( open | in progress | closed ) -->
+                                        <!-- ticket status -->
                                         <div class="col s6">
                                             <h1 class="i-stats {% include 'partials/ticket_status_color.html' %}-text">
                                                 <i {% if ticket.ticket_status.ticket_status == 'Open' %}class="fas fa-hourglass-start tooltipped"
@@ -85,36 +94,37 @@
                                                     {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
                                             </h1>
                                             {% if user.is_superuser %}
-                                            <!-- if superuser / admin ... then allow editing of ticket status -->
-                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=1"
-                                                type="submit" class="btn btn-admin red tooltipped" data-position="top"
-                                                data-tooltip="Open"></a>
-                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=2"
-                                                type="submit" class="btn btn-admin amber tooltipped" data-position="top"
-                                                data-tooltip="In Progress"></a>
-                                            <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=3"
-                                                type="submit" class="btn btn-admin green tooltipped" data-position="top"
-                                                data-tooltip="Closed"></a>
-                                            <br><small>edit status</small>
+                                                <!-- if superuser / admin ... then allow editing of ticket status -->
+                                                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=1"
+                                                    type="submit" class="btn btn-admin red tooltipped" data-position="top"
+                                                    data-tooltip="Open"></a>
+                                                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=2"
+                                                    type="submit" class="btn btn-admin amber tooltipped" data-position="top"
+                                                    data-tooltip="In Progress"></a>
+                                                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=3"
+                                                    type="submit" class="btn btn-admin green tooltipped" data-position="top"
+                                                    data-tooltip="Closed"></a>
+                                                <br><small>edit status</small>
                                             {% else %}
-                                            <!-- otherwise show the ticket status to users -->
-                                            {{ ticket.ticket_status|upper }}<br>
-                                            <small>
-                                                {% if ticket.ticket_status == "Closed" %}
-                                                {{ ticket.date_edited|naturalday:"j N Y" }}
-                                                {% elif ticket.date_created.date|date:"j F Y" == today %}
-                                                <span class="new badge amber black-text"
-                                                    data-badge-caption="NEW!"></span>
-                                                {% else %}
-                                                {{ ticket.date_created|timesince }}
-                                                {% endif %}
-                                            </small>
+                                                <!-- otherwise show the ticket status to users -->
+                                                {{ ticket.ticket_status|upper }}<br>
+                                                <small>
+                                                    {% if ticket.ticket_status == "Closed" %}
+                                                        {{ ticket.date_edited|naturalday:"j N Y" }}
+                                                    {% elif ticket.date_created.date|date:"j F Y" == today %}
+                                                        <!-- show 'NEW' badge if ticket created 'today' -->
+                                                        <span class="new badge amber black-text"
+                                                            data-badge-caption="NEW!"></span>
+                                                    {% else %}
+                                                        {{ ticket.date_created|timesince }}
+                                                    {% endif %}
+                                                </small>
                                             {% endif %}
                                         </div>
                                     </div>
 
                                     <div class="row bold">
-                                        <!-- views -->
+                                        <!-- total views -->
                                         <div class="col s6">
                                             <span class="{% include 'partials/ticket_status_color.html' %}-text">
                                                 <h1 class="i-stats">
@@ -125,7 +135,7 @@
                                             {{ ticket.views }}
                                         </div>
 
-                                        <!-- upvotes -->
+                                        <!-- total upvotes -->
                                         <div class="col s6">
                                             <span class="{% include 'partials/ticket_status_color.html' %}-text">
                                                 <h1 class="i-stats">
@@ -135,8 +145,8 @@
                                             </span>
                                             {{ ticket.upvotes }}
                                             {% if user.id in voters %}
-                                            <i class="fas fa-check fa-lg green-text tooltipped" data-position="top"
-                                                data-tooltip="I support this!"></i>
+                                                <i class="fas fa-check fa-lg green-text tooltipped" data-position="top"
+                                                    data-tooltip="I support this!"></i>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -157,91 +167,97 @@
                                         <!-- date last edited -->
                                         <div class="col s6">
                                             {% if ticket.date_created.date != ticket.date_edited.date %}
-                                            {% include 'partials/date_edited.html' %}
+                                                <!-- if ticket created date isn't last edited date -->
+                                                {% include 'partials/date_edited.html' %}
                                             {% else %}
-                                            {% if ticket.date_created.time.hour != ticket.date_edited.time.hour %}
-                                            {% include 'partials/date_edited.html' %}
-                                            {% else %}
-                                            {% if ticket.date_created.time.minute != ticket.date_edited.time.minute %}
-                                            {% include 'partials/date_edited.html' %}
-                                            {% endif %}
-                                            {% endif %}
+                                                {% if ticket.date_created.time.hour != ticket.date_edited.time.hour %}
+                                                    <!-- last edit was same as date created, but different hour -->
+                                                    {% include 'partials/date_edited.html' %}
+                                                {% else %}
+                                                    {% if ticket.date_created.time.minute != ticket.date_edited.time.minute %}
+                                                        <!-- last edit was same as date created, but different minute -->
+                                                        {% include 'partials/date_edited.html' %}
+                                                    {% endif %}
+                                                {% endif %}
                                             {% endif %}
                                         </div>
                                     </div>
 
                                     {% if ticket.ticket_type == "Feature" and ticket.total_donations >= 100 %}
-                                    <div class="divider {% include 'partials/ticket_status_color.html' %}"></div>
-                                    <div class="row bold">
-                                        <!-- donations gross total -->
-                                        <div class="col s6">
-                                            <span class="{% include 'partials/ticket_status_color.html' %}-text">
-                                                <h1 class="i-stats">
-                                                    <i class="fas fa-hand-holding-usd tooltipped" data-position="bottom"
-                                                        data-tooltip="DONATIONS"></i>
-                                                </h1>
-                                            </span>
-                                            &euro;{{ ticket.total_donations }}
-                                        </div>
+                                    <!-- if 'Feature' has met goal of €100 -->
+                                        <div class="divider"></div>
+                                        <div class="row bold">
+                                            <!-- donations gross total -->
+                                            <div class="col s6">
+                                                <span class="{% include 'partials/ticket_status_color.html' %}-text">
+                                                    <h1 class="i-stats">
+                                                        <i class="fas fa-hand-holding-usd tooltipped" data-position="bottom"
+                                                            data-tooltip="DONATIONS"></i>
+                                                    </h1>
+                                                </span>
+                                                &euro;{{ ticket.total_donations }}
+                                            </div>
 
-                                        <!-- donations percentage -->
-                                        <div class="col s6">
-                                            <span class="{% include 'partials/ticket_status_color.html' %}-text">
-                                                <h1 class="i-stats">
-                                                    <i class="fas fa-trophy tooltipped" data-position="bottom"
-                                                        data-tooltip="GOAL"></i>
-                                                </h1>
-                                            </span>
-                                            {{ ticket.total_donations }}%
+                                            <!-- donations percentage -->
+                                            <div class="col s6">
+                                                <span class="{% include 'partials/ticket_status_color.html' %}-text">
+                                                    <h1 class="i-stats">
+                                                        <i class="fas fa-trophy tooltipped" data-position="bottom"
+                                                            data-tooltip="GOAL"></i>
+                                                    </h1>
+                                                </span>
+                                                {{ ticket.total_donations }}%
+                                            </div>
                                         </div>
-                                    </div>
                                     {% endif %}
 
-                                    <!-- edit | delete (only available if status is not 'Closed') -->
+                                    <!-- edit | delete buttons -->
                                     {% if ticket.ticket_status != "Closed" %}
-                                    {% if user.id == ticket.author.id or user.is_superuser %}
-                                    <div class="divider {% include 'partials/ticket_status_color.html' %}"></div>
-                                    <div class="row">
-                                        <!-- Edit (if permitted) -->
-                                        <a href="{% url 'tickets_edit' ticket.id %}" class="white-text">
-                                            <div class="col s6 blue">
-                                                <h1 class="i-stats"><i class="far fas fa-edit"></i></h1>
-                                                <h3 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h3>
+                                        <!-- only available if status is not 'Closed') -->
+                                        {% if user.id == ticket.author.id or user.is_superuser %}
+                                            <!-- and if user is ticket author or superuser/admin -->
+                                            <div class="divider"></div>
+                                            <div class="row">
+                                                <!-- Edit Button -->
+                                                <a href="{% url 'tickets_edit' ticket.id %}" class="white-text">
+                                                    <div class="col s6 blue btn-tkt-lg">
+                                                        <h1 class="i-stats"><i class="far fas fa-edit"></i></h1>
+                                                        <h3 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h3>
+                                                    </div>
+                                                </a>
+                                                <!-- Delete Button -->
+                                                <a href="#modal-tickets-delete" class="modal-trigger white-text">
+                                                    <div class="col s6 red btn-tkt-lg">
+                                                        <h1 class="i-stats"><i class="far fas fa-trash-alt"></i></h1>
+                                                        <h3 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h3>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                        <!-- Delete (if permitted) -->
-                                        <a href="#modal-tickets-delete" class="modal-trigger white-text">
-                                            <div class="col s6 red">
-                                                <h1 class="i-stats"><i class="far fas fa-trash-alt"></i></h1>
-                                                <h3 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    {% endif %}
+                                        {% endif %}
                                     {% endif %}
 
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- UPVOTE OPTION -->
+                <!-- UPVOTE PARTIAL -->
                 {% include "partials/upvotes.html" %}
             </div>
             <br><br>
 
-            <!-- COMMENTS -->
+            <!-- COMMENTS PARTIAL -->
             {% include "partials/comments.html" %}
         </div>
 
         <div class="col s12 center-align">
-            <div class="divider {% include 'partials/ticket_status_color.html' %}"></div>
-            <!-- back -->
+            <div class="divider"></div>
+            <!-- back button to return to all tickets -->
             <span class="bold text-shadow-2">
-                <a href="{% url 'tickets_view_all' %}" class="btn btn-large {% include 'partials/ticket_status_color.html' %}">
-                    Back
+                <a href="{% url 'tickets_view_all' %}"
+                    class="btn btn-large {% include 'partials/ticket_status_color.html' %}">
+                    Tickets
                     <i class="fas fa-chevron-circle-left left" aria-hidden="true"></i>
                 </a>
             </span>
@@ -249,20 +265,23 @@
     </div>
 
 
-    <!-- DELETE TICKET MODAL -->
+    <!-- MODAL - DELETE TICKET -->
     <div id="modal-tickets-delete" class="modal white-text">
         <div class="modal-content center-align bold">
             <h1 class="green-text">Confirm Deletion</h1>
             <h3>Are you sure you want to delete this {{ ticket.ticket_type }}?</h3>
             <p>This action cannot be undone.</p>
+            <!-- delete ticket -->
             <a href="{% url 'tickets_delete' ticket.id %}" class="btn green text-shadow-2">
                 <i class="far fa-trash-alt right" aria-hidden="true"></i>Yes
             </a>
+            <!-- cancel - do not delete ticket -->
             <a class="btn modal-close red text-shadow-2">
                 <i class="fas fa-reply right"></i>No
             </a>
         </div>
     </div>
+
 </div>
 {% endblock %}
 
