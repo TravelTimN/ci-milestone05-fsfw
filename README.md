@@ -1,5 +1,18 @@
 # [Unicorn Attractor](#)
 
+Welcome to the new and exciting Augmented Reality (AR) app - **Unicorn Attractor**!
+
+**Unicorn Attractor** allows players to explore the world while on the search for magical Unicorns. Once you've downloaded the app (*available on Android and iOS devices*), you'll be able to use your mobile phone's GPS to locate, snatch, and train virtual Unicorns! As you build your Unicorn herd with your fellow Bronies, you'll earn more XP.
+
+This exciting app helps to promote physical activity in the outdoors, combined with the virtual world of *Equestria* through your mobile phone. If you're extremely lucky, perhaps you'll have what it takes to find and snatch the elusive Alicorn! (*Alicorns are winged Unicorns; they have wings like a Pegasus, and a horn like a Unicorn*)
+
+The best part? **Unicorn Attractor** is absolutely free to enjoy with your friends and Bronies!
+
+If you have any issues or requests regarding the the app, please head over to our support page: [Unicorn Attractor Support Page](#). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
+
+- **BUGS** - If you have any problems or issues using the app, please open a new *Bug* Ticket.
+- **FEATURES** - If you think we've missed something, or you'd like to see something added to the app, please open a new *Feature* Ticket. (***NOTE**: Features require a small donation, and can gain more donations if others support your Feature.*)
+
 ---
 
 ## Table of Contents
@@ -40,7 +53,12 @@
 
 ## UX
 
-This project is part of my [Code Institute](https://codeinstitute.net/) Full Stack Software Development studies, specifically the **Full Stack Frameworks** module. The objective for this milestone project is to "*Create a web application that allows users to submit tickets to an online issue tracker called the **UnicornAttractor**, where bugs can be submitted for free, but feature requests require a nominal fee*".
+This project is part of my [Code Institute](https://codeinstitute.net/) Full Stack Software Development studies, specifically the **Full Stack Frameworks** module. The objective for this milestone project is to "*Create a web application that allows users to submit tickets to an online issue tracker called the **Unicorn Attractor**, where bugs can be submitted for free, but feature requests require a nominal fee*".
+
+*DISCLAIMER: The Unicorn Attractor 'app' does not actually exist for download. The 'app' itself is part of the project concept, whereby the project itself is what I've developed. As exciting as the Unicorn Attractor 'app' sounds, you'll just have to check out these two actual augmented reality apps instead, where my inspiration came from.*
+
+- **[Harry Potter - Wizards Unite](https://www.harrypotterwizardsunite.com)**
+- **[Pokémon GO](https://www.pokemongo.com)**
 
 ### User Stories
 
@@ -56,27 +74,61 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 - *delete* my own **tickets** *(bugs and features)*. :white_check_mark:
 - be able to **log out**. :white_check_mark:
 - be able to **change my password**. :white_check_mark:
-- be able to **delete my account**.
 - *see* the **total views** of each *bug and feature*. :white_check_mark:
 - *comment* on **bugs and features** that I relate to.
-- *up-vote* **bugs** for *free* that I relate to.
-- *pay a nominal fee to up-vote* **features** that I support.
-- *earn* various **badges** for *active participation* using the app.
-- *view* **statistics** of tickets such as "*highest-grossed features*" and "*most up-voted bugs*".
+- *upvote* **bugs** for *free* that I relate to.
+- *pay a nominal fee to upvote* **features** that I support.
+- *view* **statistics** of tickets such as "*highest-grossed features*" and "*most upvoted bugs*".
+- *earn* various **badges** for *active participation* using the app. :x:
 
 :white_check_mark: *denotes items that have been successfully implemented*
 
+:x: *denotes items that have not been implemented yet*
+
 ### Design
 
-*pending*
+Since the app is called **Unicorn Attractor**, I figured *cute* and *full of colorful rainbows* would match the overall theme. In addition, there are plenty of *unicorns* across the site.
 
 #### Framework
 
-*pending*
+- [Materialize 1.0.0](https://materializecss.com/)
+    - I really like the modern and clean layout of Materialize as a framework, with its simple-to-understand documentation.
+- [jQuery 3.4.1](https://code.jquery.com/jquery/)
+    - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
+- [Django 1.11.22](https://www.djangoproject.com/download/)
+    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize.
 
 #### Color Scheme
 
-*pending*
+In keeping with the overall *rainbow / unicorn* theme, I have opted for a bright and colorful scheme.
+
+**Ticket Type Color Scheme**
+
+| Bug | Feature |
+| --- | --- |
+| ![#FD8D14](https://placehold.it/15/FD8D14/FD8D14) | ![#1484FC](https://placehold.it/15/1484FC/1484FC) |
+| **#FD8D14** | **#1484FC** |
+
+**Ticket Status Color Scheme**
+
+| Open | In Progress | Closed |
+| --- | --- | --- |
+| ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FFC107](https://placehold.it/15/FFC107/FFC107) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) |
+| **#F44336** | **#FFC107** | **#4CAF50** |
+
+**Top Supports / Donors**
+
+| Gold | Silver | Bronze |
+| --- | --- | --- |
+| ![#D6AF36](https://placehold.it/15/D6AF36/D6AF36) | ![#A7A7AD](https://placehold.it/15/A7A7AD/A7A7AD) | ![#A77044](https://placehold.it/15/A77044/A77044) |
+| **#D6AF36** | **#A7A7AD** | **#A77044** |
+
+**Rainbow Color Scheme**
+
+| Red | Orange | Yellow | Green | Blue | Indigo | Purple |
+| --- | --- | --- | --- | --- | --- | --- |
+| ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FF9800](https://placehold.it/15/FF9800/FF9800) | ![#FFEB3B](https://placehold.it/15/FFEB3B/FFEB3B) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) | ![#2196F3](https://placehold.it/15/2196F3/2196F3) | ![#3F51B5](https://placehold.it/15/3F51B5/3F51B5) | ![#9C27B0](https://placehold.it/15/9C27B0/9C27B0) |
+| **#F44336** | **#FF9800** | **#FFEB3B** | **#4CAF50** | **#2196F3** | **#3F51B5** | **#9C27B0** |
 
 #### Icons
 
