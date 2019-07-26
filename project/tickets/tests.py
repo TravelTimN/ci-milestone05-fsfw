@@ -42,13 +42,13 @@ class TestTicketsViews(TestCase):
         Ticket.objects.create(
             title="Test Bug",
             description="Test description on new Bug Ticket",
-            ticket_status="Open",
-            ticket_type="Bug").save()
+            ticket_status=1,
+            ticket_type=1).save()
         Ticket.objects.create(
             title="Test Feature",
             description="Test description on new Feature Ticket",
-            ticket_status="Open",
-            ticket_type="Feature").save()
+            ticket_status=1,
+            ticket_type=2).save()
         self.client.post(
             "/accounts/register/",
             {"email": "Test@Email.com",
