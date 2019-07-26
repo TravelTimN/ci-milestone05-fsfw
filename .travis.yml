@@ -2,7 +2,8 @@ language: python
 python:
     - "3.6"
 before_install:
-    cd project
+    - cd project
+    - sudo apt-get update
 install: "pip install -r requirements.txt"
 script:
     - SECRET_KEY="Trav1$t3sT" python manage.py test
