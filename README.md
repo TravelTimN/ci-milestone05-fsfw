@@ -240,7 +240,7 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 <summary>Click to expand the full <b>requirements.txt</b></summary>
 
 | Package | Version | Description |
-| :--- | :---: | :--- |
+| :--- | :--- | :--- |
 | boto3 | 1.9.179 | The AWS SDK for Python |
 | botocore | 1.12.179 | Foundation for AWS-CLI command line utilities |
 | certifi | 2019.3.9 | Collection of Root Certificates for validating the trustworthiness of SSL |
