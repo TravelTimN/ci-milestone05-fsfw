@@ -258,13 +258,15 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 | jmespath | 0.9.4 | Allows you to declaratively specify how to extract elements from a JSON document |
 | olefile | 0.46 | Python package to parse, read and write Microsoft OLE2 files |
 | Pillow | 5.3.0 | Adds support for opening, manipulating, and saving many different image file formats |
+| postgres | 2.2.2 | High-value abstraction over psycopg2 |
 | psycopg2 | 2.7.3.2 | Most popular PostgreSQL database adapter for Python |
+| psycopg2-binary | 2.8.3 | Python-PostgreSQL Database Adapter |
 | pycurl | 7.43.0.2 | Used to fetch objects identified by a URL from a Python program |
 | python-dateutil | 2.6.1 | Provides powerful extensions to the standard datetime module |
 | pytz | 2018.9 | Brings the Olson tz database into Python |
 | requests | 2.22.0 | Makes HTTP requests simpler and more human-friendly |
 | s3transfer | 0.2.1 | Python library for managing Amazon S3 transfers |
-| six | 1.5.2 | A Python 2 and 3 compatibility library |
+| six | 1.12.0 | A Python 2 and 3 compatibility library |
 | stripe | 2.29.4 | Python library for Stripe’s API |
 | urllib3 | 1.25.3 | Powerful, sanity-friendly HTTP client for Python |
 | webencodings | 0.5.1 | Character encoding aliases for legacy web content |
