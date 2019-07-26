@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from datetime import date, timedelta
+from django.utils import timezone
+from datetime import timedelta
 from accounts.models import Profile
 from tickets.models import Ticket
 
@@ -12,8 +13,8 @@ def get_all_stats(request):
     users_top_three = Profile.objects.all().order_by("-total_donated")[:3]
 
     """ ----- MONTHLY / WEEKLY / DAILY ----- """
-    date_search_start = date.today() - timedelta(days=30)
-    date_search_end = date.today()
+    date_search_start = timezone.now() - timedelta(days=30)
+    date_search_end = timezone.now()
 
     """ ----- FEATURES ----- """
     # top 5 most voted
