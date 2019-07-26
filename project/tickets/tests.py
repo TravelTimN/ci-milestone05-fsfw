@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.shortcuts import reverse, get_object_or_404
 from tickets.forms import TicketForm, DonationForm, CommentForm
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketStatus, TicketType
 
 
 # ----- FORMS ----- #
@@ -39,16 +39,20 @@ class TestCommentForm(TestCase):
 # ----- VIEWS ----- #
 class TestTicketsViews(TestCase):
     def setUp(self):
+        TicketStatus.objects.create(ticket_status="Open")
+        TicketStatus.objects.create(ticket_status="In Progess")
+        TicketType.objects.create(ticket_type="Bug")
+        TicketType.objects.create(ticket_type="Feature")
         Ticket.objects.create(
             title="Test Bug",
             description="Test description on new Bug Ticket",
-            ticket_status_id=1,
-            ticket_type_id=1).save()
+            ticket_status=TicketStatus(id=1),
+            ticket_type=TicketType(id=1)).save()
         Ticket.objects.create(
             title="Test Feature",
             description="Test description on new Feature Ticket",
-            ticket_status_id=1,
-            ticket_type_id=2).save()
+            ticket_status=TicketStatus(id=1),
+            ticket_type=TicketType(id=2)).save()
         self.client.post(
             "/accounts/register/",
             {"email": "Test@Email.com",
@@ -64,44 +68,44 @@ class TestTicketsViews(TestCase):
         self.assertTemplateUsed(page, "tickets_view_all.html")
 
     def test_tickets_view_one(self):
-        ticket = Ticket.objects.filter(title="Test Bug")[0]
+        ticket = Ticket.objects.get(title="Test Bug")
         response = self.client.get(
             "/tickets/{0}".format(ticket.pk), follow=True)
         self.assertIn(b"Sound familiar? Let us know!", response.content)
 
     def test_tickets_new_bug(self):
         self.client.post(
-            "/tickets/new/bug",
+            "/tickets/bug/new",
             {"title": "Test Another Bug",
                 "description": "Test description on another Bug Ticket",
-                "ticket_status": "Open",
-                "ticket_type": "Bug"})
+                "ticket_status": "1",
+                "ticket_type": "1"})
         ticket = Ticket.objects.filter(title="Test Another Bug")[0]
         self.assertEqual("Test Another Bug", ticket.title)
 
     def test_tickets_upvote_bug(self):
-        ticket = Ticket.objects.filter(title="Test Bug")[0]
+        ticket = Ticket.objects.get(title="Test Bug")
         upvotes = ticket.upvotes
         self.assertEqual(upvotes, 0)
         self.client.get(
             "/tickets/upvote/add/{0}".format(ticket.pk), follow=True)
-        upvote_add = Ticket.objects.filter(title="Test Bug")[0].upvotes
+        upvote_add = Ticket.objects.get(title="Test Bug").upvotes
         self.assertEqual(upvote_add, 1)
 
     def test_tickets_upvote_remove(self):
-        ticket = Ticket.objects.filter(title="Test Bug")[0]
+        ticket = Ticket.objects.get(title="Test Bug")
         upvotes = ticket.upvotes
         self.assertEqual(upvotes, 0)
         self.client.get(
             "/tickets/upvote/add/{0}".format(ticket.pk), follow=True)
-        upvote_add = Ticket.objects.filter(title="Test Bug")[0].upvotes
+        upvote_add = Ticket.objects.get(title="Test Bug").upvotes
         self.client.get(
             "/tickets/upvote/remove/{0}".format(ticket.pk), follow=True)
-        upvote_remove = Ticket.objects.filter(title="Test Bug")[0].upvotes
+        upvote_remove = Ticket.objects.get(title="Test Bug").upvotes
         self.assertEqual(upvote_remove, 0)
 
     def test_tickets_upvote_feature_with_payment(self):
-        ticket = Ticket.objects.filter(title="Test Feature")[0]
+        ticket = Ticket.objects.get(title="Test Feature")
         response = self.client.get(
             "/tickets/{0}#modal-feature-payment".format(ticket.pk),
             follow=True)
@@ -110,7 +114,7 @@ class TestTicketsViews(TestCase):
             response.content)
 
     def test_tickets_edit(self):
-        ticket = Ticket.objects.filter(title="Test Bug")[0]
+        ticket = Ticket.objects.get(title="Test Bug")
         response = self.client.get(
             "/tickets/edit/{0}".format(ticket.pk), follow=True)
         self.assertIn(
@@ -118,14 +122,14 @@ class TestTicketsViews(TestCase):
             response.content)
 
     def test_tickets_edit_saved(self):
-        ticket = Ticket.objects.filter(
-            description="Test description on new Bug Ticket")[0]
+        ticket = Ticket.objects.get(
+            description="Test description on new Bug Ticket")
         self.assertEqual(ticket.title, "Test Bug")
         self.client.post("/tickets/edit/{0}".format(ticket.pk), data={
             "title": "Test Bug Updated",
             "description": "Test description on new Bug Ticket"}, follow=True)
-        new_ticket_title = Ticket.objects.filter(
-            description="Test description on new Bug Ticket")[0].title
+        new_ticket_title = Ticket.objects.get(
+            description="Test description on new Bug Ticket").title
         self.assertEqual(new_ticket_title, "Test Bug Updated")
 
     def test_tickets_delete(self):
