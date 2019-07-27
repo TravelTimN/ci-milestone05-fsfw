@@ -1,5 +1,5 @@
 # environmental variables
-env.py
+.env
 
 # VS Code
 .vscode

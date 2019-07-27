@@ -263,6 +263,7 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 | psycopg2-binary | 2.8.3 | Python-PostgreSQL Database Adapter |
 | pycurl | 7.43.0.2 | Used to fetch objects identified by a URL from a Python program |
 | python-dateutil | 2.6.1 | Provides powerful extensions to the standard datetime module |
+| python-dotenv | 0.10.3 | Adds .env support in development and deployments using 12-factor principles |
 | pytz | 2018.9 | Brings the Olson tz database into Python |
 | requests | 2.22.0 | Makes HTTP requests simpler and more human-friendly |
 | s3transfer | 0.2.1 | Python library for managing Amazon S3 transfers |

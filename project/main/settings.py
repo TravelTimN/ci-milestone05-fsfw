@@ -1,9 +1,10 @@
 import os
 import dj_database_url
 
-# using Virtual Environments
-if os.path.exists("env.py"):
-    import env
+# load Environmental Variables if debug=true
+if os.path.exists(".env"):
+    from dotenv import load_dotenv
+    load_dotenv()
     DEBUG = True
 else:
     DEBUG = False
