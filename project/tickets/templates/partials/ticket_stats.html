@@ -1,0 +1,166 @@
+{% load humanize %}
+<div class="col s12 m5 center-align">
+    <div class="divider hide-on-med-and-up"></div>
+    <div class="row bold">
+
+        <!-- author -->
+        <div class="col s6">
+            <img src="{{ ticket.author.profile.image.url }}" width="85px" height="85px"
+                alt="{{ ticket.author }}" class="circle white tooltipped"
+                data-position="bottom" data-tooltip="AUTHOR" lazyload="on">
+            <br>
+            {{ ticket.author }}
+        </div>
+
+        <!-- ticket status -->
+        <div class="col s6">
+            <h1 class="i-stats {% include './ticket_status_color.html' %}-text">
+                <i {% if ticket.ticket_status.ticket_status == 'Open' %}class="fas fa-hourglass-start tooltipped"
+                    {% elif ticket.ticket_status.ticket_status == 'In Progress' %}class="fas fa-tools tooltipped"
+                    {% elif ticket.ticket_status.ticket_status == 'Closed' %}class="fas fa-check-circle tooltipped"
+                    {% endif %} data-position="bottom" data-tooltip="STATUS"></i>
+            </h1>
+            {% if user.is_superuser %}
+                <!-- if superuser / admin ... then allow editing of ticket status -->
+                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=1"
+                    type="submit" class="btn btn-admin red tooltipped" data-position="top"
+                    data-tooltip="Open"></a>
+                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=2"
+                    type="submit" class="btn btn-admin amber tooltipped" data-position="top"
+                    data-tooltip="In Progress"></a>
+                <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=3"
+                    type="submit" class="btn btn-admin green tooltipped" data-position="top"
+                    data-tooltip="Closed"></a>
+                <br><small>edit status</small>
+            {% else %}
+                <!-- otherwise show the ticket status to users -->
+                {{ ticket.ticket_status|upper }}<br>
+                <small>
+                    {% if ticket.ticket_status == "Closed" %}
+                        {{ ticket.date_edited|naturalday:"j N Y" }}
+                    {% elif ticket.date_created.date|date:"j F Y" == today %}
+                        <!-- show 'NEW' badge if ticket created 'today' -->
+                        <span class="new badge amber black-text"
+                            data-badge-caption="NEW!"></span>
+                    {% else %}
+                        {{ ticket.date_created|timesince }}
+                    {% endif %}
+                </small>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row bold">
+        <!-- total views -->
+        <div class="col s6">
+            <span class="{% include './ticket_status_color.html' %}-text">
+                <h1 class="i-stats">
+                    <i class="far fa-eye tooltipped" data-position="bottom"
+                        data-tooltip="VIEWS"></i>
+                </h1>
+            </span>
+            {{ ticket.views }}
+        </div>
+
+        <!-- total upvotes -->
+        <div class="col s6">
+            <span class="{% include './ticket_status_color.html' %}-text">
+                <h1 class="i-stats">
+                    <i class="far fa-thumbs-up tooltipped" data-position="bottom"
+                        data-tooltip="UPVOTES"></i>
+                </h1>
+            </span>
+            {{ ticket.upvotes }}
+            {% if user.id in voters %}
+                <i class="fas fa-check fa-lg green-text tooltipped" data-position="top"
+                    data-tooltip="I support this!"></i>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row bold">
+        <!-- date created -->
+        <div class="col s6">
+            <span class="{% include './ticket_status_color.html' %}-text">
+                <h1 class="i-stats">
+                    <i class="far fa-calendar-plus tooltipped" data-position="bottom"
+                        data-tooltip="DATE CREATED"></i>
+                </h1>
+            </span>
+            {{ ticket.date_created|naturalday:"d E, Y"|upper }}<br>
+            <small>{{ ticket.date_created|time:"@H:i (T)" }}</small>
+        </div>
+
+        <!-- date last edited -->
+        <div class="col s6">
+            {% if ticket.date_created.date != ticket.date_edited.date %}
+                <!-- if ticket created date isn't last edited date -->
+                {% include './date_edited.html' %}
+            {% else %}
+                {% if ticket.date_created.time.hour != ticket.date_edited.time.hour %}
+                    <!-- last edit was same as date created, but different hour -->
+                    {% include './date_edited.html' %}
+                {% else %}
+                    {% if ticket.date_created.time.minute != ticket.date_edited.time.minute %}
+                        <!-- last edit was same as date created, but different minute -->
+                        {% include './date_edited.html' %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if ticket.ticket_type == "Feature" and ticket.total_donations >= 100 %}
+    <!-- if 'Feature' has met goal of €100 -->
+        <div class="divider"></div>
+        <div class="row bold">
+            <!-- donations gross total -->
+            <div class="col s6">
+                <span class="{% include './ticket_status_color.html' %}-text">
+                    <h1 class="i-stats">
+                        <i class="fas fa-hand-holding-usd tooltipped" data-position="bottom"
+                            data-tooltip="DONATIONS"></i>
+                    </h1>
+                </span>
+                &euro;{{ ticket.total_donations }}
+            </div>
+
+            <!-- donations percentage -->
+            <div class="col s6">
+                <span class="{% include './ticket_status_color.html' %}-text">
+                    <h1 class="i-stats">
+                        <i class="fas fa-trophy tooltipped" data-position="bottom"
+                            data-tooltip="GOAL"></i>
+                    </h1>
+                </span>
+                {{ ticket.total_donations }}%
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- edit | delete buttons -->
+    {% if ticket.ticket_status != "Closed" %}
+        <!-- only available if status is not 'Closed') -->
+        {% if user.id == ticket.author.id or user.is_superuser %}
+            <!-- and if user is ticket author or superuser/admin -->
+            <div class="divider"></div>
+            <div class="row">
+                <!-- Edit Button -->
+                <a href="{% url 'tickets_edit' ticket.id %}" class="white-text">
+                    <div class="col s6 blue btn-tkt-lg">
+                        <h1 class="i-stats"><i class="far fas fa-edit"></i></h1>
+                        <h3 class="bold">EDIT<br>{{ ticket.ticket_type|upper }}</h3>
+                    </div>
+                </a>
+                <!-- Delete Button -->
+                <a href="#modal-tickets-delete" class="modal-trigger white-text">
+                    <div class="col s6 red btn-tkt-lg">
+                        <h1 class="i-stats"><i class="far fas fa-trash-alt"></i></h1>
+                        <h3 class="bold">DELETE<br>{{ ticket.ticket_type|upper }}</h3>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</div>

@@ -25,6 +25,7 @@ class TicketForm(forms.ModelForm):
         fields = ["title", "description"]
 
 
+# ----- DONATIONS ----- #
 class DonationForm(forms.Form):
     donation_amount = forms.IntegerField(
         label="Donation Amount",

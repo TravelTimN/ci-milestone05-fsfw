@@ -1,0 +1,69 @@
+<!-- link to ticket display -->
+<a href="{% url 'tickets_view_one' ticket.id %}">
+    <div class="col s12 m6">
+        <div class="card form bold white-text text-shadow-2 hoverable">
+
+            <!-- top-right corner badge based on ticket status -->
+            {% include "./ticket_badge.html" %}
+
+            <!-- Ticket Title & Description -->
+            <div class="card-content white-text">
+                <h2 class="bold truncate">
+                    #{{ ticket.id }}
+                    <br>
+                    <small>
+                        Type:
+                        <span class="{% include './ticket_type_color.html' %}-text">
+                            {{ ticket.ticket_type|upper }}
+                        </span>
+                        <br>
+                        Status:
+                        <span class="{% include './ticket_status_color.html' %}-text">
+                            {{ ticket.ticket_status|upper }}
+                        </span>
+                        <br>
+                        Author:
+                        <img src="{{ ticket.author.profile.image.url }}" style="vertical-align:middle" width="25px"
+                            height="25px" alt="{{ ticket.author }}" class="circle white" lazyload="on">
+                        {{ ticket.author.username }}
+                    </small>
+                </h2>
+
+                <div class="divider"></div>
+
+                <span class="card-title truncate">
+                    {{ ticket.title }}
+                </span>
+                <p class="truncate">
+                    <i class="fas fa-info-circle white-text" title="{{ ticket.description }}"></i>
+                    {{ ticket.description }}
+                </p>
+            </div>
+
+            <!-- Ticket Stats -->
+            <div class="card-action {% include './ticket_status_color.html' %} darken-5">
+                <div class="row center-align">
+                    <div class="col s4 tooltipped" data-position="top" data-tooltip="UPVOTES">
+                        <i class="far fa-thumbs-up fa-lg" aria-hidden="true"></i><br>
+                        <span class="white-text">{{ ticket.upvotes }}</span>
+                    </div>
+                    <div class="col s4 tooltipped" data-position="top" data-tooltip="VIEWS">
+                        <i class="far fa-eye fa-lg" aria-hidden="true"></i><br>
+                        <span class="white-text">{{ ticket.views }}</span>
+                    </div>
+                    <div class="col s4 tooltipped" data-position="top" data-tooltip="DONATIONS">
+                        <i class="fas fa-hand-holding-usd fa-lg" aria-hidden="true"></i><br>
+                        <span class="white-text">
+                            {% if ticket.ticket_type.ticket_type == 'Feature' %}
+                            &euro;{{ ticket.total_donations }}
+                            {% else %}
+                            FREE
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</a>

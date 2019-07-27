@@ -25,6 +25,7 @@
     <div class="row">
         <div class="col s12 center-align white-text">
 
+            <!-- form to add new Bug -->
             <form method="POST">
                 {% csrf_token %}
                 <div class="card form text-shadow-2">
@@ -44,6 +45,7 @@
                                 </h1>
                             </div>
                         </div>
+                        <!-- ticket title and description fields -->
                         <div class="row">
                             <div class="col s12">
                                 {{ ticket_form.title|materializecss:'icon=fas fa-file-alt' }}

@@ -1,0 +1,82 @@
+<div class="row">
+    <h1 class="white-text center-align upper" id="filter">Filter Tickets</h1>
+
+    <!-- Form for Searching / Filtering Tickets -->
+    <form action="." method="GET" class="form white-text">
+        <div class="row">
+
+            <!-- filter drop-downs -->
+            <div class="col s6 l3">
+                <fieldset class="fieldset-filter grey darken-4 center-align">
+                    <legend>
+                        <h2>Ticket</h2>
+                    </legend>
+                    <!-- filter by TICKET STATUS -->
+                    <select name="tkt_status" id="tkt_status" class="browser-default">
+                        <option value="">Status</option>
+                        {% for status in ticket_status_list %}
+                        <option value="{{ status.id }}" {% if status.id|safe in tkt_status|safe %}selected{% endif %}>
+                            {{ status }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <!-- filter by TICKET TYPE -->
+                    <select name="tkt_type" id="tkt_type" class="browser-default">
+                        <option value="">Type</option>
+                        {% for type in ticket_type_list %}
+                        <option value="{{ type.id }}" {% if type.id|safe in tkt_type|safe %}selected{% endif %}>
+                            {{ type }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+            </div>
+
+            <!-- filter by VOTES -->
+            <div class="col s6 l3">
+                <fieldset class="fieldset-filter grey darken-4 center-align">
+                    <legend>
+                        <h2>Votes</h2>
+                    </legend>
+                    <input type="number" id="upvotes_min" class="validate" name="upvotes_min"
+                        value="{% if upvotes_min  %}{{ upvotes_min }}{% endif %}" placeholder="MIN">
+                    <label for="upvotes_min" class="hide"></label>
+                    <br>
+                    <input type="number" id="upvotes_max" class="validate" name="upvotes_max"
+                        value="{% if upvotes_max  %}{{ upvotes_max }}{% endif %}" placeholder="MAX">
+                    <label for="upvotes_max"></label>
+                </fieldset>
+            </div>
+
+            <!-- filter by VIEWS -->
+            <div class="col s6 l3">
+                <fieldset class="fieldset-filter grey darken-4 center-align">
+                    <legend>
+                        <h2>Views</h2>
+                    </legend>
+                    <input type="number" id="views_min" class="validate" name="views_min"
+                        value="{% if views_min  %}{{ views_min }}{% endif %}" placeholder="MIN">
+                    <label for="views_min"></label>
+                    <br>
+                    <input type="number" id="views_max" class="validate" name="views_max"
+                        value="{% if views_max  %}{{ views_max }}{% endif %}" placeholder="MAX">
+                    <label for="views_max"></label>
+                </fieldset>
+            </div>
+
+            <!-- Filter buttons -->
+            <div class="col s6 l3">
+                <fieldset class="fieldset-filter grey darken-4 center-align">
+                    <legend>
+                        <h2>Filter</h2>
+                    </legend>
+                    <button type="submit" class="btn blue bold text-shadow-2"
+                        formaction="#filter">Search</button><br><br>
+                    <a href="{% url 'tickets_view_all' %}" class="btn red bold text-shadow-2"
+                        formaction="#filter">Reset</a>
+                </fieldset>
+            </div>
+
+        </div>
+    </form>
+</div>

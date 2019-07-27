@@ -87,6 +87,7 @@
                             <div class="row">
                                 <div class="col s3 m4 footer-ticket-date center-align bold">
                                     {% if ticket.date_created.date|date:"j F Y" == today %}
+                                        <span class="amber-text">NEW!</span><br>
                                         TODAY<br>
                                         {{ ticket.date_created|naturaltime }}
                                     {% else %}
@@ -98,9 +99,9 @@
                                 <div class="col s9 m8">
                                     <span class="footer-ticket-details">
                                         {% if ticket.ticket_type.ticket_type == 'Bug' %}
-                                        <i class="fas fa-bug fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                                        <i class="fas fa-bug fa-lg fa-fw bug-text text-shadow-2" aria-hidden="true"></i>
                                         {% elif ticket.ticket_type.ticket_type == 'Feature' %}
-                                        <i class="fas fa-magic fa-lg fa-fw text-shadow-2" aria-hidden="true"></i>
+                                        <i class="fas fa-magic fa-lg fa-fw feature-text text-shadow-2" aria-hidden="true"></i>
                                         {% endif %}
                                         {{ ticket.title|truncatechars:75 }}
                                     </span>

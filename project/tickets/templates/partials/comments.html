@@ -1,7 +1,7 @@
 {% load materializecss %}
 {% load humanize %}
 <div class="card form white-text text-shadow-2">
-    <h1 class="bold center-align">
+    <h1 class="bold center-align" id="comments">
         <i class="fas fa-comments"></i> Comments
         <!-- show total number of comments -->
         (<span class="{% include './ticket_status_color.html' %}-text">{{ comments|length }}</span>)
@@ -44,8 +44,8 @@
                 <form method="POST">
                     {% csrf_token %}
                     <textarea name="comment" id="id_comment" cols="40" rows="10" minlength="5" maxlength="2000"
-                        placeholder="Add a new comment..."></textarea>
-                    <button type="submit" class="btn green bold text-shadow-2">Comment</button>
+                        placeholder="[{{ user.username }}] add a new comment ..."></textarea>
+                    <button type="submit" class="btn green bold text-shadow-2" formaction="#comments">Comment</button>
                 </form>
             {% endif %}
         {% else %}

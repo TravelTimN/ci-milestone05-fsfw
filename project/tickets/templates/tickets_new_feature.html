@@ -25,8 +25,9 @@
     <div class="row">
         <div class="col s12 center-align white-text">
 
+            <!-- form to add new Feature -->
             <form method="POST" action="{% url 'tickets_new_feature' %}" id="payment-form"
-                data-token="{{ publishable }}">
+                data-token="{{ publishable }}" class="center-align">
                 {% csrf_token %}
                 <div class="card form text-shadow-2">
                     <div class="card-content card-content-new-ticket feature-text">
@@ -45,21 +46,23 @@
                                 </h1>
                             </div>
                         </div>
+                        <!-- ticket title and description fields -->
                         <div class="row">
                             <div class="col s12">
                                 {{ ticket_form.title|materializecss:'icon=fas fa-file-alt' }}
                                 {{ ticket_form.description|materializecss:'icon=fas fa-align-left' }}
                             </div>
-                            <div class="col s12 m8 offset-m2 center-align">
-                                <p class="range-field">
-                                    {{ donation_form.donation_amount }}
-                                </p>
-                                <small class="white-text bold">SLIDE TO PICK YOUR DONATION AMOUNT</small>
-                            </div>
                         </div>
+                        <!-- slider to pick donation amount -->
+                        <p class="range-field">
+                            {{ donation_form.donation_amount }}
+                        </p>
+                        <small class="feature-text bold">SLIDE TO PICK DONATION AMOUNT</small>
+                        <br><br>
+
+                        <!-- Stripe Payment -->
                         <div class="row">
                             <div class="col s12">
-                                <!-- Stripe payment -->
                                 <fieldset>
                                     <legend>
                                         <h1>
@@ -70,6 +73,7 @@
                                         </h1>
                                     </legend>
                                     <label for="card-element">Credit or Debit card</label>
+                                    <!-- Stripe widget inserted below -->
                                     <div id="card-element"></div>
                                     <div id="card-errors" class="white-text red" role="alert"></div>
                                 </fieldset>
@@ -88,6 +92,7 @@
                                 </button>
                             </div>
                             <div class="col s12 m5">
+                                <!-- cancel payment / revert back to all tickets -->
                                 <a href="{% url 'tickets_view_all' %}" class="btn btn-large red bold text-shadow-2">
                                     Cancel
                                     <i class="fas fa-times-circle right hide-on-small-and-down" aria-hidden="true"></i>

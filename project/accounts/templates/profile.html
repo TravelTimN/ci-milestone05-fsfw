@@ -100,13 +100,13 @@
                         <br><br>
                     </div>
                     <div class="col s12 m6">
-                        {{ update_form.email|materializecss:'icon=fas fa-at green-text' }}
+                        {{ update_form.email|materializecss }}
                     </div>
                     <div class="col s12 m6">
-                        {{ update_form.first_name|materializecss:'icon=fas fa-id-card green-text' }}
+                        {{ update_form.first_name|materializecss }}
                     </div>
                     <div class="col s12 m6">
-                        {{ update_form.last_name|materializecss:'icon=fas fa-id-card green-text' }}
+                        {{ update_form.last_name|materializecss }}
                     </div>
                 </div>
                 <div class="row">
@@ -118,11 +118,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12 m8 offset-m2">
+                    <div class="col s8 offset-s2">
                         <button type="submit" class="btn btn-large green bold text-shadow-2">
                             Save
                             <i class="fas fa-save right"></i>
                         </button>
+                        <br>
                         <small class="red-text">Note: image will be cropped to 300px (except GIFs)</small>
                     </div>
                 </div>

@@ -1,0 +1,11 @@
+<div class="card-badge-div">
+    <span class="card-badge card-badge-{{ ticket.ticket_type.ticket_type|lower }}">
+        {% if ticket.ticket_type.ticket_type == 'Bug' %}
+        <!-- bug -->
+        <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+        {% elif ticket.ticket_type.ticket_type == 'Feature' %}
+        <!-- feature -->
+        <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
+        {% endif %}
+    </span>
+</div>
