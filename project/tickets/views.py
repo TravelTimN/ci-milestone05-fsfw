@@ -24,14 +24,18 @@ def tickets_view_all(request):
     tkt_type = request.GET.get("tkt_type")
     upvotes_min = request.GET.get("upvotes_min")
     upvotes_max = request.GET.get("upvotes_max")
+    views_min = request.GET.get("views_min")
+    views_max = request.GET.get("views_max")
     # filter by search parameters
     tickets = Ticket.objects.all()
     tickets = tickets.filter(ticket_status__id=tkt_status) if tkt_status else tickets
     tickets = tickets.filter(ticket_type__id=tkt_type) if tkt_type else tickets
     tickets = tickets.filter(upvotes__gte=upvotes_min) if upvotes_min else tickets
     tickets = tickets.filter(upvotes__lte=upvotes_max) if upvotes_max else tickets
+    tickets = tickets.filter(views__gte=views_min) if views_min else tickets
+    tickets = tickets.filter(views__lte=views_max) if views_max else tickets
     # pagination
-    paginator = Paginator(tickets, 8)
+    paginator = Paginator(tickets, 6)
     try:
         tickets = paginator.page(page)
     except PageNotAnInteger:
@@ -47,6 +51,8 @@ def tickets_view_all(request):
         "tkt_type": tkt_type,
         "upvotes_min": upvotes_min,
         "upvotes_max": upvotes_max,
+        "views_min": views_min,
+        "views_max": views_max,
     }
     return render(request, "tickets_view_all.html", context)
 
@@ -63,7 +69,7 @@ def tickets_new_bug(request):
             new_ticket = ticket_form.save()
             new_ticket_id = new_ticket.pk
             messages.success(
-                request, f"SUCCESS! Ticket for a BUG created!")
+                request, f"Thank you for your Bug Report!")
             return redirect(tickets_view_one, new_ticket_id)
     else:
         ticket_form = TicketForm()
@@ -117,13 +123,12 @@ def tickets_new_feature(request):
                 new_ticket = ticket_form.save()
                 new_ticket_id = new_ticket.pk
                 messages.success(
-                    request, f"SUCCESS! Ticket for a FEATURE created!\
+                    request, f"Thank you for your Feature Request!\
                         €{donation_amount} was charged to your card.")
                 return redirect(tickets_view_one, new_ticket_id)
             else:
                 messages.error(request, f"Unable to take payment!")
         else:
-            print(ticket_form.errors)
             messages.error(request, f"There was an error. Please try again.")
     else:
         ticket_form = TicketForm()
@@ -163,7 +168,7 @@ def tickets_view_one(request, pk):
             ticket.views -= 2
             ticket.save()
             messages.success(
-                request, f"Your comment was added!")
+                request, f"Comment successfully added!")
             return redirect(tickets_view_one, ticket.pk)
     else:
         comment_form = CommentForm()
@@ -264,13 +269,12 @@ def upvote_add(request, pk):
                     Ticket.objects.filter(
                         id=ticket.pk).update(ticket_status_id=2)
                 messages.success(
-                    request, f"Thank You for your Donation!\
+                    request, f"Thank you for your donation!\
                         €{donation_amount} was charged to your card.")
                 return redirect(tickets_view_one, ticket.pk)
             else:
                 messages.error(request, f"Unable to take payment!")
         else:
-            print(ticket_form.errors)
             messages.error(request, f"There was an error. Please try again.")
     else:
         Upvote.objects.create(
@@ -293,7 +297,7 @@ def upvote_remove(request, pk):
         ticket_id=ticket.pk,
         user_id=request.user.id).delete()
     messages.success(
-        request, f"Your vote has been removed.")
+        request, f"Your vote was removed.")
     return redirect(tickets_view_one, ticket.pk)
 
 
@@ -308,5 +312,5 @@ def admin_ticket_status(request, pk):
     Ticket.objects.filter(id=ticket.pk).update(
         ticket_status=tkt_status, date_edited=timezone.now())
     messages.success(
-        request, f"Ticket Status has been updated")
+        request, f"Ticket Status updated")
     return redirect(tickets_view_one, ticket.pk)

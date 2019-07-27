@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load materializecss %}
 {% load staticfiles %}
-{% block title %} | Edit Ticket - Bug ({{ ticket.id }}){% endblock %}
+{% block title %} | Edit {{ ticket.ticket_type }} ({{ ticket.id }}){% endblock %}
 {% block css %}
 <style>
     body {
-        background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+        background: url("{% static 'img/bg-unicorn-dark.png' %}") no-repeat center center fixed;
         background-size: cover;
     }
 </style>
@@ -21,37 +21,30 @@
                 <div class="card form text-shadow-2">
                     <div class="card-content card-content-new-ticket">
 
-                        <div class="card-badge-div">
-                            <!-- Ticket Status (Open | In Progress | Closed) -->
-                            <span class="card-badge card-badge-{% include 'partials/ticket_status_color.html' %}">
-                                <!-- Ticket Type (Bug vs Feature) -->
-                                {% if ticket.ticket_type == "Bug" %}
-                                <i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-                                {% elif ticket.ticket_type == "Feature" %}
-                                <i class="fas fa-magic fa-lg" aria-hidden="true"></i>
-                                {% endif %}
-                            </span>
-                        </div>
+                        <!-- top-right corner badge based on ticket status -->
+                        {% include "partials/ticket_badge.html" %}
 
+                        <!-- page title -->
                         <div class="row">
                             <div class="col s12">
                                 <h1 class="bold">
-                                    Edit
-                                    <span class="{% include 'partials/ticket_status_color.html' %}-text">
-                                        {{ ticket.ticket_type }}
+                                    <span class="{% include 'partials/ticket_type_color.html' %}-text">
+                                        Edit {{ ticket.ticket_type }}
                                     </span>
                                 </h1>
                             </div>
                         </div>
 
+                        <!-- ticket title and description can be edited -->
                         <div class="row">
-                            <div class="col s12">
-                                {{ ticket_form.title|materializecss:'icon=fas fa-file-alt white-text' }}
-                                {{ ticket_form.description|materializecss:'icon=fas fa-align-left white-text' }}
+                            <div class="col s12 {% include 'partials/ticket_type_color.html' %}-text">
+                                {{ ticket_form.title|materializecss:'icon=fas fa-file-alt' }}
+                                {{ ticket_form.description|materializecss:'icon=fas fa-align-left' }}
                             </div>
                         </div>
                     </div>
 
+                    <!-- submit and cancel buttons -->
                     <div class="card-action">
                         <div class="row">
                             <div class="col s12 m5 offset-m1">

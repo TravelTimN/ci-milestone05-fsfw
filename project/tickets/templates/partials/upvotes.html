@@ -37,7 +37,7 @@
                             <!-- user already voted || allow removal if a Bug || disabled for Features -->
                             <a href="{% url 'upvote_remove' ticket.pk %}"
                                 class="btn {% include './ticket_status_color.html' %}"
-                                {% if ticket.ticket_type.ticket_type == 'Feature' %}disabled{% endif %}>
+                                {% if not user.is_superuser %}{% if ticket.ticket_type.ticket_type == 'Feature' %}disabled{% endif %}{% endif %}>
                                 <i class="fas fa-thumbs-down left fa-lg" aria-hidden="true"></i>
                                 REMOVE
                             </a>
@@ -127,26 +127,24 @@
 <!-- FEATURE Upvote Modal -->
 <div id="modal-feature-payment" class="modal white-text">
     <div class="modal-content center-align bold">
-        <h1 class="green-text bold">Upvote Feature</h1>
+        <h1>Upvote Feature</h1>
         <h3 class="red center-align upper">Important: Upvote Payments are Non-Refundable!</h3>
         <br>
         <!-- Stripe payment form -->
-        <form method="POST" action="{% url 'upvote_add' ticket.id %}" id="payment-form" data-token="{{ publishable }}">
+        <form method="POST" action="{% url 'upvote_add' ticket.id %}"
+            id="payment-form" data-token="{{ publishable }}" class="center-align">
             {% csrf_token %}
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <!-- materializecss slider to select donation amount -->
-                    <p class="range-field">
-                        {{ donation_form.donation_amount }}
-                    </p>
-                    <small class="amber-text bold">SLIDE TO PICK YOUR DONATION AMOUNT</small>
-                </div>
-            </div>
+            <!-- materializecss slider to select donation amount -->
+            <p class="range-field">
+                {{ donation_form.donation_amount }}
+            </p>
+            <small class="feature-text bold">SLIDE TO PICK DONATION AMOUNT</small>
+            <br><br>
 
             <fieldset>
                 <!-- legend dynamically updated based on slider donation cost using JavaScript -->
                 <legend>
-                    <h1>Donation for <span class="amber-text">&euro;<span id="total-cost"></span></span></h1>
+                    <h1>Donation for <span class="feature-text">&euro;<span id="total-cost"></span></span></h1>
                 </legend>
                 <label for="card-element">Credit or Debit card</label>
                 <!-- Stripe widget inserted below -->

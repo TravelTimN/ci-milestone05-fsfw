@@ -5,132 +5,87 @@
 {% block css %}
 <style>
 	body {
-		background: url("{% static 'img/bg-03.png' %}") no-repeat center center fixed;
+		background: url("{% static 'img/bg-unicorn-bugs-dark.png' %}") no-repeat center center fixed;
 		background-size: cover;
 	}
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- title and background -->
+<div class="bg-unicorn-bugs">
+	<div class="landing-title center-align white-text">
+		<h1>
+			<span class="rainbow-text bold upper">Tickets</span>
+		</h1>
+	</div>
+</div>
+
 <div class="container">
 
+	<!-- add new tickets if logged-in -->
 	{% if user.is_authenticated %}
-	<a href="{% url 'tickets_new_bug' %}" class="btn btn-large green text-shadow-2">
-		New Bug
-		<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-	</a>
-
-	<a href="{% url 'tickets_new_feature' %}" class="btn btn-large green text-shadow-2">
-		New Feature
-		<i class="fas fa-magic fa-lg" aria-hidden="true"></i>
-	</a>
-	{% endif %}
-	<br><br>
-
-	<div class="divider"></div>
-	<form action="." method="GET" class="form">
-		<div class="row">
-			<div class="input-field col s12 m2">
-				<select name="tkt_status" id="tkt_status" class="browser-default">
-					<option value="">Filter by Status</option>
-					{% for status in ticket_status_list %}
-					<option value="{{ status.id }}" {% if status.id|safe in tkt_status|safe %}selected{% endif %}>{{ status }}</option>
-					{% endfor %}
-				</select>
-			</div>
-			<div class="input-field col s12 m2">
-				<select name="tkt_type" id="tkt_type" class="browser-default">
-					<option value="">Filter by Type</option>
-					{% for type in ticket_type_list %}
-					<option value="{{ type.id }}" {% if type.id|safe in tkt_type|safe %}selected{% endif %}>{{ type }}</option>
-					{% endfor %}
-				</select>
-			</div>
-			<div class="input-field col s2">
-				<input type="number" id="upvotes_min" class="validate" name="upvotes_min"
-					value="{% if upvotes_min  %}{{ upvotes_min }}{% endif %}">
-				<label for="upvotes_min" class="active">Min. Upvotes</label>
-			</div>
-			<div class="input-field col s2">
-				<input type="number" id="upvotes_max" class="validate" name="upvotes_max"
-					value="{% if upvotes_max  %}{{ upvotes_max }}{% endif %}">
-				<label for="upvotes_max" class="active">Max. Upvotes</label>
+	<div class="row text-shadow-2">
+		<h1 class="white-text center-align upper">New Tickets</h1>
+		<div class="col s12 m6">
+			<!-- bug -->
+			<div class="card form white-text center-align">
+				<div class="card-badge-div">
+					<span class="card-badge card-badge-bug">
+						<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
+					</span>
+				</div>
+				<h2 class="upper">Bugs</h2>
+				<p>
+					Having problems with the app?<br>
+					Let us know!<br>
+					Open a new Bug Report!
+				</p>
+				<p>
+					Bugs are always FREE to open!
+				</p>
+				<div class="divider"></div>
+				<a href="{% url 'tickets_new_bug' %}" class="btn btn-large bug bold">
+					New Bug
+				</a>
 			</div>
 		</div>
-		<button type="submit" class="btn">Search</button>
-		<a class="btn" href="{% url 'tickets_view_all' %}">Reset</a>
-	</form>
-	<div class="divider"></div>
+
+		<div class="col s12 m6">
+			<!-- feature -->
+			<div class="card form white-text center-align">
+				<div class="card-badge-div">
+					<span class="card-badge card-badge-feature">
+						<i class="fas fa-magic fa-lg" aria-hidden="true"></i>
+					</span>
+				</div>
+				<h2 class="upper">Features</h2>
+				<p>
+					Want to see something new?<br>
+					Make your voice count!<br>
+					Submit a Feature Request!
+				</p>
+				<p>
+					Features require a small donation.
+				</p>
+				<div class="divider"></div>
+				<a href="{% url 'tickets_new_feature' %}" class="btn btn-large feature bold">
+					New Feature
+				</a>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="divider divider-rainbow"></div>
+
+	<!-- Search | Filter Tickets -->
+	{% include "partials/ticket_filter.html" %}
 
 	<div class="row">
-
 		<!-- Ticket Cards -->
 		{% for ticket in tickets %}
-		<a href="{% url 'tickets_view_one' ticket.id %}">
-			<div class="col s12 m6">
-				<div class="card form bold white-text text-shadow-2 hoverable">
-
-					<div class="card-badge-div">
-						<!-- Ticket Status (Open | In Progress | Closed) -->
-						<span class="card-badge card-badge-{% include 'partials/ticket_status_color.html' %}">
-							<!-- Ticket Type (Bug vs Feature) -->
-							{% if ticket.ticket_type.ticket_type == 'Bug' %}
-								<i class="fas fa-bug fa-lg" aria-hidden="true"></i>
-							{% elif ticket.ticket_type.ticket_type == 'Feature' %}
-								<i class="fas fa-magic fa-lg" aria-hidden="true"></i>
-							{% endif %}
-						</span>
-					</div>
-
-					<!-- Ticket Title & Description -->
-					<span class="{% include 'partials/ticket_status_color.html' %}-text">
-						<div class="card-content">
-							<h2 class="bold">
-								<span class="white-text">
-									#{{ ticket.id }} -
-									{{ ticket.ticket_type|upper }}
-								</span>
-								({{ ticket.ticket_status }})
-							</h2>
-							<div class="divider"></div>
-							<br>
-							<span class="card-title truncate">
-								{{ ticket.title }}
-							</span>
-							<p class="truncate">
-								<i class="fas fa-info-circle white-text" title="{{ ticket.description }}"></i>
-								{{ ticket.description }}
-							</p>
-						</div>
-					</span>
-
-					<!-- Ticket Stats -->
-					<div class="card-action {% include 'partials/ticket_status_color.html' %} darken-5">
-						<div class="row center-align">
-							<div class="col s4 tooltipped" data-position="top" data-tooltip="UPVOTES">
-								<i class="far fa-thumbs-up fa-lg" aria-hidden="true"></i><br>
-								<span class="white-text">{{ ticket.upvotes }}</span>
-							</div>
-							<div class="col s4 tooltipped" data-position="top" data-tooltip="VIEWS">
-								<i class="far fa-eye fa-lg" aria-hidden="true"></i><br>
-								<span class="white-text">{{ ticket.views }}</span>
-							</div>
-							{% if ticket.ticket_type.ticket_type == 'Feature' %}
-							<div class="col s4 tooltipped" data-position="top" data-tooltip="DONATED">
-								<i class="fas fa-hand-holding-usd fa-lg" aria-hidden="true"></i><br>
-								<span class="white-text">
-								&euro;{{ ticket.total_donations }}
-								</span>
-							</div>
-							{% else %}
-							FREE<br>UPVOTES
-							{% endif %}
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</a>
+			{% include "partials/ticket_card.html" %}
 		{% empty %}
 		<h1 class="upper white-text center-align">
 			Sorry - no tickets found
@@ -140,7 +95,7 @@
 	</div>
 
 	<!-- PAGINATION -->
-	<div class="divider"></div>
+	<div class="divider divider-rainbow"></div>
 	{% include "partials/pagination.html" %}
 
 </div>
