@@ -12,15 +12,6 @@
 {% endblock %}
 
 {% block content %}
-<!-- title and background -->
-<div class="bg-unicorn-light">
-    <div class="landing-title center-align white-text">
-        <h1>
-            <span class="rainbow-text bold upper">New Feature</span>
-        </h1>
-    </div>
-</div>
-
 <div class="container">
     <div class="row">
         <div class="col s12 center-align white-text">
@@ -42,7 +33,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <h1 class="bold upper">
-                                    Feature
+                                    New Feature
                                 </h1>
                             </div>
                         </div>
@@ -93,10 +84,11 @@
                             </div>
                             <div class="col s12 m5">
                                 <!-- cancel payment / revert back to all tickets -->
-                                <a href="{% url 'tickets_view_all' %}" class="btn btn-large red bold text-shadow-2">
+                                <button type="reset" class="btn btn-large red bold text-shadow-2"
+                                    onclick="history.go(-1)">
                                     Cancel
                                     <i class="fas fa-times-circle right hide-on-small-and-down" aria-hidden="true"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
