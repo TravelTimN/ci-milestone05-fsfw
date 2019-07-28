@@ -28,12 +28,18 @@ def tickets_view_all(request):
     views_max = request.GET.get("views_max")
     # filter by search parameters
     tickets = Ticket.objects.all()
-    tickets = tickets.filter(ticket_status__id=tkt_status) if tkt_status else tickets
-    tickets = tickets.filter(ticket_type__id=tkt_type) if tkt_type else tickets
-    tickets = tickets.filter(upvotes__gte=upvotes_min) if upvotes_min else tickets
-    tickets = tickets.filter(upvotes__lte=upvotes_max) if upvotes_max else tickets
-    tickets = tickets.filter(views__gte=views_min) if views_min else tickets
-    tickets = tickets.filter(views__lte=views_max) if views_max else tickets
+    tickets = tickets.filter(
+        ticket_status__id=tkt_status) if tkt_status else tickets
+    tickets = tickets.filter(
+        ticket_type__id=tkt_type) if tkt_type else tickets
+    tickets = tickets.filter(
+        upvotes__gte=upvotes_min) if upvotes_min else tickets
+    tickets = tickets.filter(
+        upvotes__lte=upvotes_max) if upvotes_max else tickets
+    tickets = tickets.filter(
+        views__gte=views_min) if views_min else tickets
+    tickets = tickets.filter(
+        views__lte=views_max) if views_max else tickets
     # pagination
     paginator = Paginator(tickets, 6)
     try:

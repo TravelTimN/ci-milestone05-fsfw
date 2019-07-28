@@ -7,7 +7,7 @@ from PIL import Image, ImageOps
 
 # ----- PHOTO UPLOAD LOCATION ----- #
 def upload_to(instance, filename):
-    return "profiles/%s/%s" % (instance.user.username, filename)
+    return "profiles/%s/%s" % (instance.user.username.lower(), filename)
 
 
 # ----- PROFILE ----- #

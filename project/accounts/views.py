@@ -22,7 +22,7 @@ def login(request):
     """ Logs the user into the app """
     if request.user.is_authenticated:
         return redirect(reverse("index"))
-    if request.method=="POST":
+    if request.method == "POST":
         login_form = UserLoginForm(request.POST)
         # validate the log in form
         if login_form.is_valid():
@@ -57,7 +57,7 @@ def register(request):
     """ Renders the registration page """
     if request.user.is_authenticated:
             return redirect(reverse("profile"))
-    if request.method=="POST":
+    if request.method == "POST":
         register_form = UserRegistrationForm(request.POST)
         if register_form.is_valid():
             register_form.save()
@@ -83,7 +83,7 @@ def register(request):
 def profile(request):
     """ The user's profile page """
     user = User.objects.get(email=request.user.email)
-    if request.method=="POST":
+    if request.method == "POST":
         update_form = UserUpdateForm(
             request.POST,
             instance=request.user)
