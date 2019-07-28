@@ -6,6 +6,7 @@ from django.core.validators import RegexValidator
 from accounts.models import Profile
 
 
+# ----- LOG IN FORM ----- #
 class UserLoginForm(forms.Form):
     """ Form to log in """
     username = forms.CharField()
@@ -13,6 +14,7 @@ class UserLoginForm(forms.Form):
         widget=forms.PasswordInput)
 
 
+# ----- REGISTER FORM ----- #
 class UserRegistrationForm(UserCreationForm):
     """ Form to register new users """
     username = forms.CharField(
@@ -83,6 +85,7 @@ class UserRegistrationForm(UserCreationForm):
         return password2
 
 
+# ----- UPDATE USER DETAILS FORM ----- #
 class UserUpdateForm(forms.ModelForm):
     """ Form to update User details """
     email = forms.CharField(
@@ -109,6 +112,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = ["email", "first_name", "last_name"]
 
 
+# ----- UPDATE PROFILE FORM ----- #
 class ProfileUpdateForm(forms.ModelForm):
     """ Form to update user Profile """
     image = forms.ImageField(

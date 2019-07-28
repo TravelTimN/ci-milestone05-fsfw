@@ -5,10 +5,12 @@ from django.db.models.signals import post_save
 from PIL import Image, ImageOps
 
 
+# ----- PHOTO UPLOAD LOCATION ----- #
 def upload_to(instance, filename):
     return "profiles/%s/%s" % (instance.user.username, filename)
 
 
+# ----- PROFILE ----- #
 class Profile(models.Model):
     """
     Ensure user/profile always remain associated and
@@ -35,12 +37,14 @@ class Profile(models.Model):
         super(Profile, self).save(*args, **kwargs)
         if self.image:
             img = Image.open(self.image)
+            # continue if image format is not .gif
             if img.format.lower() != "gif":
                 size = 300
                 thumb = (size, size)
                 method = Image.ANTIALIAS
                 center = (0.5, 0.5)
                 extension = "png"
+                # if greater than 300px on any side, then resize it to 300x300
                 if img.height > size or img.width > size:
                     img.thumbnail((size, size), method)
                     new = ImageOps.fit(img, thumb, method, centering=center)
@@ -50,9 +54,9 @@ class Profile(models.Model):
                     super(Profile, self).save(*args, **kwargs)
 
 
+# ----- LINK PROFILE TO USER ON CREATION ----- #
 def create_profile(sender, created, instance, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
 
 post_save.connect(create_profile, sender=User)

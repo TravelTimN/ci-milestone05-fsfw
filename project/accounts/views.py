@@ -24,6 +24,7 @@ def login(request):
         return redirect(reverse("index"))
     if request.method=="POST":
         login_form = UserLoginForm(request.POST)
+        # validate the log in form
         if login_form.is_valid():
             user = auth.authenticate(
                 username=request.POST["username"],
@@ -90,6 +91,7 @@ def profile(request):
             request.POST,
             request.FILES,
             instance=request.user.profile)
+        # validate forms for updating user and profile
         if update_form.is_valid() and profile_form.is_valid():
             update_form.save()
             profile_form.save()
