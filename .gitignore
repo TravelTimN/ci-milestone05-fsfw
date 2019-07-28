@@ -14,6 +14,7 @@ __pycache__/
 # coverage test files
 htmlcov/
 .coverage
+.coveragerc
 
 # local files
 static/
