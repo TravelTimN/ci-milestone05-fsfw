@@ -3,6 +3,7 @@
 {% block title %} | Home{% endblock %}
 
 {% block content %}
+<!-- main header -->
 <div class="bg-main-unicorn-found">
     <div class="landing-header center-align white-text">
         <h1>
@@ -11,6 +12,7 @@
     </div>
 </div>
 
+<!-- intro about app -->
 <section class="section section-dark center-align white-text text-shadow-2">
     <h2 class="upper bold">
         The new and exciting augmented reality app!
@@ -48,17 +50,20 @@
         </h3>
         <div class="col s12 m2 offset-m4 center-align">
             <a href="https://www.apple.com/ie/ios/app-store" target="_blank" rel="noopener">
-                <img src="{% static 'img/btn-app-store.png' %}" width="150" alt="App Store" lazyload="on">
+                <img src="{% static 'img/btn-app-store.png' %}" class="hoverable" width="150" alt="App Store"
+                    lazyload="on">
             </a>
         </div>
         <div class="col s12 m2 center-align">
             <a href="https://play.google.com/store/apps" target="_blank" rel="noopener">
-                <img src="{% static 'img/btn-google-play.png' %}" width="150" alt="Google Play" lazyload="on">
+                <img src="{% static 'img/btn-google-play.png' %}" class="hoverable" width="150" alt="Google Play"
+                    lazyload="on">
             </a>
         </div>
     </div>
 </section>
 
+<!-- main separator app background -->
 <div class="bg-main-app01">
     <div class="landing-header center-align">
         <h2>
@@ -67,6 +72,7 @@
     </div>
 </div>
 
+<!-- additional info about the app -->
 <section class="section section-light center-align grey-text text-darken-2">
     <div class="row">
         <div class="col s12 m4">
@@ -149,6 +155,7 @@
     </div>
 </section>
 
+<!-- main separator app background -->
 <div class="bg-main-app02">
     <div class="landing-header center-align">
         <h2>
@@ -157,17 +164,22 @@
     </div>
 </div>
 
-<section class="section section-dark center-align white-text">
+<!-- fun facts about Scotland's national animal ... the unicorn -->
+<section class="section section-dark center-align white-text text-shadow-2">
     <h2 class="upper bold">
         Did You Know?
     </h2>
-    <img src="{% static 'img/royal-coat-of-arms-scotland.png' %}" alt="Royal Crest of Arms - Scotland" width="150" height="150" lazyload="on">
+    <img src="{% static 'img/royal-coat-of-arms-scotland.png' %}" title="Royal Coat of Arms of Scotland"
+        alt="Royal Coat of Arms of Scotland" width="150" height="150" lazyload="on">
+    <br>
+    <small>Royal Coat of Arms of Scotland</small>
     <h3>
         In Celtic mythology the unicorn was a symbol of purity and innocence, as well as masculinity and power. Tales of
         dominance and chivalry associated with the unicorn may be why it was chosen as Scotland’s national animal.
     </h3>
 </section>
 
+<!-- main separator statistics background -->
 <div class="bg-main-statistics">
     <div class="landing-header center-align">
         <h2>
@@ -176,19 +188,70 @@
     </div>
 </div>
 
-<section class="section section-light center-align grey-text text-darken-2">
-    <h2 class="upper bold">
-        Ticket Support
-    </h2>
-    <h3>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum cum distinctio facere soluta, sunt ab dolores
-        tempore commodi, harum tenetur molestias quas placeat facilis aut repudiandae ullam id inventore modi labore.
-        Hic voluptatem laboriosam nesciunt, ex in alias incidunt assumenda, quisquam exercitationem vero cum unde magni
-        eveniet. Explicabo veritatis ipsam sed cum quasi molestias aperiam consectetur repellendus aut cupiditate odit
-        temporibus perferendis quibusdam sequi debitis odio quia aspernatur, natus illum impedit repudiandae doloremque
-        sapiente ex!
-    </h3>
-</section>
+<!-- ticket support -->
+<section class="section section-light center-align bold grey-text text-darken-2">
+    <h2 class="upper">Ticket Support</h2>
+    <div class="divider"></div>
+    <p>
+        Sometimes things break or don't work as well as we expect. Now you can submit tickets online!
+    </p>
+    <p>
+        Whether you notice something wrong with the app, or if there's something you think we could improve,
+        be sure to check out the existing tickets, or feel free to open a new ticket!
+    </p>
 
+    <div class="row">
+        <div class="col s12 m6">
+            <!-- bug -->
+            <div class="card hoverable center-align grey darken-4 white-text">
+                <div class="card-badge-div">
+                    <span class="card-badge card-badge-bug">
+                        <i class="fas fa-bug fa-lg white-text text-shadow-2" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <br>
+                <h2 class="upper bug-text">Bugs</h2>
+                <p>
+                    Problems with the app?
+                    <br>
+                    Please submit a Bug Report!
+                </p>
+                <p class="bug-text">
+                    Bugs are always FREE!
+                </p>
+                <br>
+            </div>
+        </div>
+
+        <div class="col s12 m6">
+            <!-- feature -->
+            <div class="card hoverable center-align grey darken-4 white-text">
+                <div class="card-badge-div">
+                    <span class="card-badge card-badge-feature">
+                        <i class="fas fa-magic fa-lg white-text text-shadow-2" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <br>
+                <h2 class="upper feature-text">Features</h2>
+                <p>
+                    Fancy something new?
+                    <br>
+                    Open a Feature Request!
+                </p>
+                <p class="feature-text">
+                    Features require a donation.
+                </p>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        Be sure to check out the Tickets Page for existing issues and requests!
+        <br>
+        You can also open a new Bug or Feature ticket from the Tickets Page.
+    </p>
+    <a href="{% url 'tickets_view_all' %}" class="btn btn-large green text-shadow-2">Go To Tickets</a>
+</section>
 
 {% endblock %}
