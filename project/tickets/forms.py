@@ -31,8 +31,8 @@ class DonationForm(forms.Form):
         label="Donation Amount",
         widget=forms.NumberInput(
             attrs={
-                "type":"range", "step":"5", "value":"10",
-                "min":"5", "max":"100"}),
+                "type": "range", "step": "5", "value": "10",
+                "min": "5", "max": "100"}),
         required=False)
 
 

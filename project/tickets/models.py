@@ -15,8 +15,8 @@ class TicketType(models.Model):
         choices=TICKET_TYPE_CHOICES)
 
     class Meta:
-        verbose_name=("Ticket Type")
-        verbose_name_plural=("Ticket Types")
+        verbose_name = ("Ticket Type")
+        verbose_name_plural = ("Ticket Types")
 
     def __str__(self):
         return self.ticket_type
@@ -35,8 +35,8 @@ class TicketStatus(models.Model):
         choices=TICKET_STATUS_CHOICES)
 
     class Meta:
-        verbose_name=("Ticket Status")
-        verbose_name_plural=("Ticket Status")
+        verbose_name = ("Ticket Status")
+        verbose_name_plural = ("Ticket Status")
 
     def __str__(self):
         return self.ticket_status

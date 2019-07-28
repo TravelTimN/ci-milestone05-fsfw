@@ -49,8 +49,8 @@ class UserRegistrationForm(UserCreationForm):
         required=True,
         validators=[RegexValidator(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&-]{8,25}$",
-                message=("Passwords should contain a lowercase (a-z),\
-                    an uppercase (A-Z), and a number (0-9).\
+            message=("Passwords should contain a lowercase (a-z),\
+                an uppercase (A-Z), and a number (0-9).\
                     Optional special characters: @$!%*?&-"))])
     password2 = forms.CharField(
         label="Repeat Password",
@@ -69,8 +69,7 @@ class UserRegistrationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         username = self.cleaned_data.get("username")
-        if User.objects.filter(
-            email=email).exclude(username=username):
+        if User.objects.filter(email=email).exclude(username=username):
             raise forms.ValidationError(
                 f"A user with that email address already exists.")
         return email
