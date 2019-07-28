@@ -2,12 +2,12 @@
     {% if tickets.has_previous %}
     <!-- display pagination 'back' buttons -->
     <li>
-        <a href="?page=1{{ get_args }}" class="white-text">
+        <a href="?page=1{{ get_args }}#filter" class="green-text">
             <i class="fas fa-angle-double-left"></i>
         </a>
     </li>
     <li>
-        <a href="?page={{ tickets.previous_page_number }}{{ get_args }}" class="white-text">
+        <a href="?page={{ tickets.previous_page_number }}{{ get_args }}#filter" class="green-text">
             <i class="fas fa-angle-left"></i>
         </a>
     </li>
@@ -23,7 +23,7 @@
         {% elif num > tickets.number|add:'-3' and num < tickets.number|add:'3' %}
             <!-- get the previous 2 and next 2 page numbers -->
             <li>
-                <a href="?page={{ num }}{{ get_args }}" class="white-text">{{ num }}</a>
+                <a href="?page={{ num }}{{ get_args }}#filter" class="white-text">{{ num }}</a>
             </li>
         {% endif %}
     {% endfor %}
@@ -31,12 +31,12 @@
     {% if tickets.has_next %}
     <!-- display pagination 'next' buttons -->
     <li>
-        <a href="?page={{ tickets.next_page_number }}{{ get_args }}" class="white-text">
+        <a href="?page={{ tickets.next_page_number }}{{ get_args }}#filter" class="green-text">
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li>
-        <a href="?page={{ tickets.paginator.num_pages }}{{ get_args }}" class="white-text">
+        <a href="?page={{ tickets.paginator.num_pages }}{{ get_args }}#filter" class="green-text">
             <i class="fas fa-angle-double-right"></i>
         </a>
     </li>
