@@ -313,7 +313,47 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 
 ### Automated Testing
 
-*pending*
+<details>
+<summary>Click to expand the full <b>Coverage Report</b></summary>
+
+| **Name** | **Stmts** | **Miss** | **Branch** | **BrPart** | **Cover** |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| *accounts/__ init __* | 0 | 0 | 0 | 0 | **100%** |
+| *accounts/admin* | 3 | 0 | 0 | 0 | **100%** |
+| *accounts/apps* | 3 | 3 | 0 | 0 | **0%** |
+| *accounts/backends* | 18 | 14 | 4 | 0 | **18%** |
+| *accounts/forms* | 45 | 2 | 6 | 2 | **92%** |
+| *accounts/models* | 34 | 8 | 8 | 3 | **74%** |
+| *accounts/tests* | 61 | 0 | 0 | 0 | **100%** |
+| *accounts/urls* | 4 | 0 | 0 | 0 | **100%** |
+| *accounts/urls_reset* | 4 | 0 | 0 | 0 | **100%** |
+| *accounts/views* | 59 | 27 | 22 | 5 | **51%** |
+| *custom_storages* | 6 | 0 | 0 | 0 | **100%** |
+| *main/__ init __* | 0 | 0 | 0 | 0 | **100%** |
+| *main/settings* | 55 | 4 | 6 | 3 | **89%** |
+| *main/urls* | 11 | 1 | 2 | 1 | **85%** |
+| *main/wsgi* | 4 | 4 | 0 | 0 | **0%** |
+| *manage* | 13 | 6 | 2 | 1 | **53%** |
+| *stats/__ init __* | 0 | 0 | 0 | 0 | **100%** |
+| *stats/admin* | 1 | 0 | 0 | 0 | **100%** |
+| *stats/apps* | 3 | 3 | 0 | 0 | **0%** |
+| *stats/models* | 1 | 0 | 0 | 0 | **100%** |
+| *stats/tests* | 6 | 0 | 0 | 0 | **100%** |
+| *stats/urls* | 3 | 0 | 0 | 0 | **100%** |
+| *stats/views* | 35 | 0 | 20 | 0 | **100%** |
+| *tickets/__ init __* | 0 | 0 | 0 | 0 | **100%** |
+| *tickets/admin* | 7 | 0 | 0 | 0 | **100%** |
+| *tickets/apps* | 3 | 3 | 0 | 0 | **0%** |
+| *tickets/context_processors* | 13 | 1 | 2 | 1 | **87%** |
+| *tickets/forms* | 17 | 0 | 0 | 0 | **100%** |
+| *tickets/models* | 46 | 3 | 0 | 0 | **93%** |
+| *tickets/tests* | 83 | 0 | 0 | 0 | **100%** |
+| *tickets/urls* | 3 | 0 | 0 | 0 | **100%** |
+| *tickets/views* | 173 | 77 | 32 | 5 | **51%** |
+| --- | --- | --- | --- | --- | --- |
+| **TOTAL** | **714** | **156** | **104** | **21** | **75%** |
+
+</details>
 
 ##### back to [top](#table-of-contents)
 
