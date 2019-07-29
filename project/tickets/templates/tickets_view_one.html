@@ -28,14 +28,14 @@
                     <div class="row">
                         <div class="col s12">
                             <!-- ticket type + ticket number -->
-                            <h1 class="bold center-align {% include 'partials/ticket_status_color.html' %}-text upper">
+                            <h1 class="bold font-londrina center-align {% include 'partials/ticket_status_color.html' %}-text upper">
                                 {{ ticket.ticket_type.ticket_type }} #{{ ticket.id }}
                             </h1>
                             <div class="divider"></div>
                             <div class="row">
 
                                 <!-- TICKET DETAILS -->
-                                <div class="col s12 m7 justify">
+                                <div class="col s12 m7">
                                     <br>
                                     <span class="{% include 'partials/ticket_status_color.html' %}-text bold upper">
                                         {{ ticket.ticket_type.ticket_type }} Title:
@@ -47,7 +47,7 @@
                                     <span class="{% include 'partials/ticket_status_color.html' %}-text bold upper">
                                         {{ ticket.ticket_type.ticket_type }} Details:
                                     </span>
-                                    <h4>
+                                    <h4 class="justify tkt-description">
                                         {{ ticket.description|linebreaksbr }}
                                     </h4>
                                 </div>

@@ -30,7 +30,7 @@
                             <div class="row">
                                 <div class="col s12">
                                     <!-- username -->
-                                    <h1 class="bold">{{ user.username }}</h1>
+                                    <h1 class="bold font-londrina">{{ user.username }}</h1>
                                 </div>
                                 <div class="col s12">
                                     <!-- email address -->
@@ -96,7 +96,7 @@
     <!-- PROFILE MODAL -->
     <div id="modal-profile-edit" class="modal white-text">
         <div class="modal-content center-align">
-            <h1 class="bold">Edit Profile</h1>
+            <h1 class="bold font-londrina">Edit Profile</h1>
             <!-- multipart form to edit profile details and photo -->
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -134,13 +134,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s8 offset-s2">
+                    <div class="col s12 m6">
                         <!-- save / update profile -->
                         <button type="submit" class="btn btn-large feature bold text-shadow-2">
                             Save
-                            <i class="fas fa-save right"></i>
+                            <i class="fas fa-save right" aria-hidden="true"></i>
                         </button>
-                        <br>
+                    </div>
+                    <div class="col s12 m6">
+                        <a class="btn btn-large modal-close red bold text-shadow-2">
+                            Cancel
+                            <i class="fas fa-times-circle right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="col s12">
                         <small class="red-text">Note: image will be cropped to 300px (except GIFs)</small>
                     </div>
                 </div>
