@@ -5,7 +5,7 @@
 
         <!-- author -->
         <div class="col s6">
-            <img src="{{ ticket.author.profile.image.url }}" width="85px" height="85px"
+            <img src="{{ ticket.author.profile.image.url }}" width="85" height="85"
                 alt="{{ ticket.author }}" class="circle white tooltipped"
                 data-position="bottom" data-tooltip="AUTHOR" lazyload="on">
             <br>
@@ -23,13 +23,13 @@
             {% if user.is_superuser %}
                 <!-- if superuser / admin ... then allow editing of ticket status -->
                 <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=1"
-                    type="submit" class="btn btn-admin red tooltipped" data-position="top"
+                    class="btn btn-admin red tooltipped" data-position="top"
                     data-tooltip="Open"></a>
                 <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=2"
-                    type="submit" class="btn btn-admin amber tooltipped" data-position="top"
+                    class="btn btn-admin amber tooltipped" data-position="top"
                     data-tooltip="In Progress"></a>
                 <a href="{% url 'admin_ticket_status' ticket.id %}?tkt_status=3"
-                    type="submit" class="btn btn-admin green tooltipped" data-position="top"
+                    class="btn btn-admin green tooltipped" data-position="top"
                     data-tooltip="Closed"></a>
                 <br><small>edit status</small>
             {% else %}
@@ -53,23 +53,23 @@
     <div class="row bold">
         <!-- total views -->
         <div class="col s6">
-            <span class="{% include './ticket_status_color.html' %}-text">
+            <div class="{% include './ticket_status_color.html' %}-text">
                 <h1 class="i-stats">
                     <i class="far fa-eye tooltipped" data-position="bottom"
                         data-tooltip="VIEWS"></i>
                 </h1>
-            </span>
+            </div>
             {{ ticket.views }}
         </div>
 
         <!-- total upvotes -->
         <div class="col s6">
-            <span class="{% include './ticket_status_color.html' %}-text">
+            <div class="{% include './ticket_status_color.html' %}-text">
                 <h1 class="i-stats">
                     <i class="far fa-thumbs-up tooltipped" data-position="bottom"
                         data-tooltip="UPVOTES"></i>
                 </h1>
-            </span>
+            </div>
             {{ ticket.upvotes }}
             {% if user.id in voters %}
                 <i class="fas fa-check fa-lg green-text tooltipped" data-position="top"
@@ -81,12 +81,12 @@
     <div class="row bold">
         <!-- date created -->
         <div class="col s6">
-            <span class="{% include './ticket_status_color.html' %}-text">
+            <div class="{% include './ticket_status_color.html' %}-text">
                 <h1 class="i-stats">
                     <i class="far fa-calendar-plus tooltipped" data-position="bottom"
                         data-tooltip="DATE CREATED"></i>
                 </h1>
-            </span>
+            </div>
             {{ ticket.date_created|naturalday:"d E, Y"|upper }}<br>
             <small>{{ ticket.date_created|time:"@H:i (T)" }}</small>
         </div>
@@ -116,23 +116,23 @@
         <div class="row bold">
             <!-- donations gross total -->
             <div class="col s6">
-                <span class="{% include './ticket_status_color.html' %}-text">
+                <div class="{% include './ticket_status_color.html' %}-text">
                     <h1 class="i-stats">
                         <i class="fas fa-hand-holding-usd tooltipped" data-position="bottom"
                             data-tooltip="DONATIONS"></i>
                     </h1>
-                </span>
+                </div>
                 &euro;{{ ticket.total_donations }}
             </div>
 
             <!-- donations percentage -->
             <div class="col s6">
-                <span class="{% include './ticket_status_color.html' %}-text">
+                <div class="{% include './ticket_status_color.html' %}-text">
                     <h1 class="i-stats">
                         <i class="fas fa-trophy tooltipped" data-position="bottom"
                             data-tooltip="GOAL"></i>
                     </h1>
-                </span>
+                </div>
                 {{ ticket.total_donations }}%
             </div>
         </div>
