@@ -49,7 +49,7 @@
                             lazyload="on">
                         {% if forloop.first %}
                             <!-- if 1st - make GOLD -->
-                            <span class="gold-text bold">
+                            <div class="gold-text bold">
                                 <span class="title upper">GOLD MEDAL</span>
                                 <p>{{ top_user.user.username }}<br>
                                     &euro;{{ top_user.total_donated }} donated
@@ -57,10 +57,10 @@
                                 <span class="secondary-content">
                                     <i class="fas fa-trophy fa-lg fa-fw gold-text"></i>
                                 </span>
-                            </span>
+                            </div>
                         {% elif forloop.last %}
                             <!-- elif 3rd - make BRONZE -->
-                            <span class="bronze-text bold">
+                            <div class="bronze-text bold">
                                 <span class="title upper">BRONZE MEDAL</span>
                                 <p>{{ top_user.user.username }}<br>
                                     &euro;{{ top_user.total_donated }} donated
@@ -68,10 +68,10 @@
                                 <span class="secondary-content">
                                     <i class="fas fa-trophy fa-lg fa-fw bronze-text"></i>
                                 </span>
-                            </span>
+                            </div>
                         {% else %}
                             <!-- elif 2nd - make SILVER -->
-                            <span class="silver-text bold">
+                            <div class="silver-text bold">
                                 <span class="title upper">SILVER MEDAL</span>
                                 <p>{{ top_user.user.username }}<br>
                                     &euro;{{ top_user.total_donated }} donated
@@ -79,7 +79,7 @@
                                 <span class="secondary-content">
                                     <i class="fas fa-trophy fa-lg fa-fw silver-text"></i>
                                 </span>
-                            </span>
+                            </div>
                         {% endif %}
                     </li>
                 {% endfor %}
