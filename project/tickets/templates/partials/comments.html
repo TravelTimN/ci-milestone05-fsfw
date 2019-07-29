@@ -2,7 +2,8 @@
 {% load humanize %}
 <div class="card form white-text text-shadow-2">
     <h1 class="bold center-align" id="comments">
-        <i class="fas fa-comments"></i> Comments
+        <i class="fas fa-comments"></i>
+        <span class="font-londrina">Comments</span>
         <!-- show total number of comments -->
         (<span class="{% include './ticket_status_color.html' %}-text">{{ comments|length }}</span>)
     </h1>
