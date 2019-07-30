@@ -379,7 +379,7 @@ To ensure a broad range of users can successfully use the site, I tested it acro
 - **Edge** (*v.42.17134.1.0*)
 - **Firefox** (*v.68.0.1*)
 - **Safari** (*v.12.1.2*)
-- **Opera** (v.62.0.3331.99*)
+- **Opera** (*v.62.0.3331.99*)
 - **Internet Explorer** (*v.11.885.17134.0*)
 
 I have also created a testing matrix ([raw Excel file here](testing/testing-ci-milestone05-fsfw.xlsx?raw=true)).
@@ -388,6 +388,7 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-ci-m
 ![Testing Matrix](testing/testing-matrix.png "Testing Matrix")
 
 **Chrome's DevTools Audit Report**
+
 | Performance | Accessibility | Best Practices | SEO |
 | :---: | :---: | :---: | :---: |
 | 100% | 84% | 79% | 85% |
@@ -396,10 +397,11 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-ci-m
 
 ### Known Issues
 
-During development, I encountered one semi-urgent issued after making one of my GitHub commits. I quickly opened an *issue* on GitHub so I would remember to revisit this problem and resolve it.
+During development, I encountered one semi-urgent issue after making one of my GitHub commits. I quickly opened an *Issue* on GitHub so I would remember to revisit this problem and resolve it.
 
 - [Reset Password functionality [broken]](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/6)
     - This was fixed and pushed with [commit 39749a2](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/39749a2915272ab21aae0b9f82c9d75724f7dc3e).
+    - ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
 
 ### Automated Testing
 
@@ -478,14 +480,33 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
 - [Mini Web Tool](https://www.miniwebtool.com/django-secret-key-generator/) - Used to generate a Django Secret Key.
 - [Shields.io](https://shields.io) - Used to create markdown badges for my README.
 - [ERD Plus](https://erdplus.com) - Used to create my relational database schema.
+- [Techsini](https://techsini.com/multi-mockup/) - Used to create the README mockup image
 
 ### Media
 
-*pending*
+- [bauhinia.org](http://www.bauhinia.org/assets/thumbnail/images/image/cover-20180709_1530869692_800_500_thumb.png) - wallpaper used as background
+- [crunchbase.com](https://news.crunchbase.com/wp-content/uploads/2018/01/unicorn_1.png) - wallpaper used as background
+- [dreamardor.com](https://www.dreamardor.com/wp-content/uploads/2018/05/matrix-different-wallpaper-wallpapers-pestanac-rainbow.jpg) - wallpaper used as background
+- [flaticon.com](https://www.flaticon.com/free-icon/unicorn_616628) - favicon
+- [gmcrafts.co.uk](https://www.gmcrafts.co.uk/wp-content/uploads/2018/11/Pink-Unicorn-With-Rainbow-Main-Product-Image-700x700.jpg) - unicorn used on background image
+- [happylabel.cz](https://www.happylabel.cz/en/round-stickers-no-name/1555-unicorn.html) - unicorn used on background image
+- [ianmartin.com](https://ianmartin.com/wp-content/uploads/2017/10/IT-unicorn-information-tech-graphic-1030x728.png) - wallpaper used as background
+- [pixabay.com](https://pixabay.com/photos/pokemon-pokemon-go-pocket-monster-1543354/) - mock app wallpaper used as background
+- [pixabay.com](https://pixabay.com/photos/pokemon-go-pokemon-street-lawn-1569794/) - mock app wallpaper used as background
+- [shareicon.net](https://www.shareicon.net/data/256x256/2016/06/29/624820_shield_256x256.png) - admin icon used for Admin user
+- [vecteezy.com](https://www.vecteezy.com/vector-art/102454-insect-cute-sticker) - bugs used on background image
+- [vectorstock.com](https://www.vectorstock.com/royalty-free-vector/cartoon-unicorn-with-a-rainbow-mane-sweet-pony-vector-19046336) - unicorn used on background image
+- [vectorstock.com](https://www.vectorstock.com/royalty-free-vector/unicorns-fart-rainbows-vector-17448926) - unicorn used on background image
+
 
 ### Code
 
-*pending*
+- Profile Image cropping assistance (*Pillow*):
+    - [stackoverflow #1](https://stackoverflow.com/a/8469920)
+    - [stackoverflow #2](https://stackoverflow.com/a/18255863)
+    - [stackoverflow #3](https://stackoverflow.com/a/6350402)
+- Tickets Badge (top-right corner triangle concept):
+    - [codepen](https://codepen.io/j_holtslander/pen/YvOWLq)
 
 ### Acknowledgements
 
@@ -493,5 +514,7 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
     - My Code Institute mentor.
 - [Chris Quinn](https://github.com/10xOXR)
     - My accountability partner on all projects.
+- [Sean Murphy](https://github.com/nazarja)
+    - Massive thanks to Sean for testing my projects throughout this course!
 
 ##### back to [top](#table-of-contents)
