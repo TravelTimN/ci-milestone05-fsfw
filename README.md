@@ -1,6 +1,12 @@
-[![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw)
+![Unicorn Attractor mockups](design/mockups.png?raw=true "Unicorn Attractor mockups")
 
-# [Unicorn Attractor](#)
+# [Unicorn Attractor](https://unicorn-attractor-2bn.herokuapp.com/)
+
+![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=1.11.22&color=092E20)
+
+[![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
+
+![GitHub repo size](https://img.shields.io/github/repo-size/traveltimn/ci-milestone05-fsfw?color=orange) ![GitHub pull requests](https://img.shields.io/github/issues-pr/traveltimn/ci-milestone05-fsfw) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/traveltimn/ci-milestone05-fsfw) ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
 
 Welcome to the new and exciting Augmented Reality (AR) app - **Unicorn Attractor**!
 
@@ -10,9 +16,9 @@ This exciting app helps to promote physical activity in the outdoors, combined w
 
 The best part? **Unicorn Attractor** is absolutely free to enjoy with your friends and Bronies!
 
-If you have any issues or requests regarding the the app, please head over to our support page: [Unicorn Attractor Support Page](#). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
+If you have any issues or requests regarding the the app, please head over to our support page: [Unicorn Attractor Support Page](https://unicorn-attractor-2bn.herokuapp.com/). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
 
-- **BUGS** - If you have any problems or issues using the app, please open a new *Bug* Ticket.
+- **BUGS** - If you have any problems or issues using the app, please open a new *Bug* Ticket. Bug requests are always free!
 - **FEATURES** - If you think we've missed something, or you'd like to see something added to the app, please open a new *Feature* Ticket. (***NOTE**: Features require a small donation, and can gain more donations if others support your Feature.*)
 
 ---
@@ -76,6 +82,7 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 - *delete* my own **tickets** *(bugs and features)*. :white_check_mark:
 - be able to **log out**. :white_check_mark:
 - be able to **change my password**. :white_check_mark:
+- *filter and search* amongst all **tickets**. :white_check_mark:
 - *see* the **total views** of each *bug and feature*. :white_check_mark:
 - *comment* on **bugs and features** that I relate to. :white_check_mark:
 - *upvote* **bugs** for *free* that I relate to. :white_check_mark:
@@ -102,35 +109,35 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
 
 #### Color Scheme
 
-*Color Scheme* - **Ticket Type**
+*Color Palette*: **Ticket Type**
 
 | Bugs | Features |
 | :---: | :---: |
 | ![#FD8D14](https://placehold.it/15/FD8D14/FD8D14) | ![#1484FC](https://placehold.it/15/1484FC/1484FC) |
 | #FD8D14 | #1484FC |
 
-*Color Scheme* - **Ticket Status**
+*Color Palette*: **Ticket Status**
 
 | Open | In Progress | Closed |
 | :---: | :---: | :---: |
 | ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FFC107](https://placehold.it/15/FFC107/FFC107) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) |
 | #F44336 | #FFC107 | #4CAF50 |
 
-*Color Scheme* - **Top Supports / Donors**
+*Color Palette*: **Top Supports / Donors**
 
 | Gold | Silver | Bronze |
 | :---: | :---: | :---: |
 | ![#D6AF36](https://placehold.it/15/D6AF36/D6AF36) | ![#A7A7AD](https://placehold.it/15/A7A7AD/A7A7AD) | ![#A77044](https://placehold.it/15/A77044/A77044) |
 | #D6AF36 | #A7A7AD | #A77044 |
 
-*Color Scheme* - **Rainbow**
+*Color Palette*: **Rainbow**
 
 | Red | Orange | Yellow | Green | Blue | Indigo | Purple |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FF9800](https://placehold.it/15/FF9800/FF9800) | ![#FFEB3B](https://placehold.it/15/FFEB3B/FFEB3B) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) | ![#2196F3](https://placehold.it/15/2196F3/2196F3) | ![#3F51B5](https://placehold.it/15/3F51B5/3F51B5) | ![#9C27B0](https://placehold.it/15/9C27B0/9C27B0) |
 | #F44336 | #FF9800 | #FFEB3B | #4CAF50 | #2196F3 | #3F51B5 | #9C27B0 |
 
-All of these colors (plus a few others) are set at `:root` level within my *CSS file*. This also allows me to reuse my colors as classes across the site, instead of having to assign the colors each and every time.
+All of these colors (plus a few others) are set at `:root` level within my *CSS file*. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
 
 #### Icons
 
@@ -139,7 +146,11 @@ All of these colors (plus a few others) are set at `:root` level within my *CSS 
 
 #### Typography
 
-*pending*
+- [Google Fonts](https://fonts.google.com/)
+    - [Open Sans](https://fonts.google.com/specimen/Open+Sans) : default font across the entire site.
+    - [Dosis](https://fonts.google.com/specimen/Dosis) : font used for *Unicorn Attractor* logo text.
+    - [Fontdiner Swanky](https://fonts.google.com/specimen/Fontdiner+Swanky) : font used for larger headers.
+    - [Londrina Solid](https://fonts.google.com/specimen/Londrina+Solid) : font used for smaller headers.
 
 ### Wireframes
 
@@ -147,7 +158,7 @@ For my wireframes, I started with simple pencil and paper sketches. Once satisfi
 - Code Institute have provided all students with free access until the end of 2019.
 - The simplicity and ease of use in a quick and effective manner.
 
-All of my wireframes for this project can be found [here](https://github.com/TravelTimN/ci-milestone05-fsfw/tree/master/wireframes) in the *sketches* and *balsamiq* sub-directories respectively.
+All of my wireframes for this project can be found in the **design** folder, which contains both the [balsamiq](design/wireframes/balsamiq/?raw=true) and [sketches](design/wireframes/sketches/?raw=true) sub-directories respectively.
 
 ##### back to [top](#table-of-contents)
 
@@ -155,7 +166,7 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 
 ## Features
 
-*pending*
+In accordance to the project brief, I have successfully implemented all of the *required* features, as well as quite a few additional features to improve user experience!
 
 ### Existing Features
 
@@ -169,10 +180,10 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 - In addition to updating their profile, users can upload a photo to use as their avatar. All images are cropped and resized to a 300px square in order to minimize file size being stored on AWS, since avatars are displayed small anyway.
 
 **View All Tickets**
-- On the *tickets* page, all Tickets are initially displayed in a 'last edit date' order, with a standard 8-items per page using pagination.
+- On the *tickets* page, all Tickets are initially displayed in a 'last edit date' order, with a standard 6-items per page using pagination.
 
 **Filtering Tickets**
-- If a user would like to narrow-down the number of tickets displayed, they can easily filter tickets using a few different options. Filter can by done by ticket type (bug vs feature), by ticket status (open, in progress, closed), or by minimum/maximum number of upvotes received.
+- If a user would like to narrow-down the number of tickets displayed, they can easily filter tickets using a few different options. Filter can by done by ticket type (bug vs feature), by ticket status (open, in progress, closed), minimum/maximum number of ticket views, or by minimum/maximum number of upvotes received.
 
 **Add a Ticket**
 - Opening a new ticket comes in two varieties; Bugs and Tickets. Both require two minimal items: a Ticket Title and Description. For Features, however, there is a minimum donation required which allows users to slide the donation amount with a minimum of €5 and maximum of €100. The secure Stripe API allows users to pay for these donations.
@@ -196,7 +207,10 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 - Users can add comments on tickets that they relate to. This is also where they would see updates from the Admin related to the ticket, to offer transparency to users.
 
 **View Statistics**
-- On the *statistics* page, a number of lists and charts can be viewed. This includes: a leader board outlining the top 3 supporters, the top 10 most upvoted bugs and features (5 of each), a bar chart showing the number of bugs/features based on ticket status, a pie chart showing the total number of bugs vs features, and a bar chart showing the average number of bugs/features that are created on a monthly/weekly/daily basis. In addition to the *statistics* page, the *footer* also displays the 5 most recent tickets that have been opened.
+- On the *statistics* page, a number of lists and charts can be viewed. This includes: a leader board outlining the top 3 supporters, the top 10 most upvoted bugs and features (5 of each), a bar chart showing the number of bugs/features based on ticket status, a pie chart showing the total number of bugs vs features, and a bar chart showing the average number of bugs/features that are edited on a monthly/weekly/daily basis. In addition to the *statistics* page, the *footer* also displays the 5 most recent tickets that have been opened.
+
+**Admin Status**
+- As Admin (ie: superuser), there are quite a few additional features across the site that no other user has access to. The navbar has an additional link to the Django Admin Panel. Admin can change the status of any ticket directly from the ticket page (open, in progress, closed). The Admin can also modify or delete any tickets deemed inappropriate.
 
 ### Features Left to Implement
 
@@ -204,7 +218,7 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 - Ideally, I would've loved to implement a badge system for unlocking different achievements. These would've included awarding a badge for new members, creating your 1st/10th/25th ticket, having a feature reach full donation goal, adding an avatar to your profile, etc.
 
 **Additional Stats**
-- I think another statistic that would be great to display would've been *most popular tickets*, which would list the top 5 tickets with the most comments.
+- I think another statistic that would be great to display would've been *most popular tickets*, which would list the top 5 tickets with the most comments added.
 
 **Delete Account**
 - Users should be given the opportunity to delete their account entirely. Currently they can register and edit their data, but not remove it from the database.
@@ -215,29 +229,48 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 
 ## Technologies Used
 
-- [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for coding.
-- [GitHub](https://github.com/) - Used as remote storage of my code online.
-- [Photoshop CS6](https://www.adobe.com/Photoshop) - Used for editing images.
-- [TinyPNG](https://tinypng.com/) - Used to compress images for faster loading.
+- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.36.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
+    - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for coding.
+- ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
+    - [GitHub](https://github.com/) - Used as remote storage of my code online.
+- ![Adobe Photoshop CS6](https://img.shields.io/static/v1?label=Adobe%20Photoshop&message=CS6&color=00C8FF&logo=adobe%20photoshop&logoColor=ffffff)
+    - [Photoshop CS6](https://www.adobe.com/Photoshop) - Used for editing images.
+- ![Balsamiq Wireframes](https://img.shields.io/static/v1?label=Balsamiq&message=3.5.17&color=CC0200)
+    - [Balsamiq](https://balsamiq.com/) - Used to design my wireframes.
 
 ### Front-End Technologies
 
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Used as the base for markup text.
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Used as the base for cascading styles.
-- [jQuery 3.4.1](https://code.jquery.com/jquery/) - Used as the primary JavaScript functionality.
-- [Materialize 1.0.0](https://materializecss.com/) - Used as the front-end framework for layout and design.
+- ![HTML5](https://img.shields.io/static/v1?label=HTML&message=5&color=E34F26&logo=html5&logoColor=ffffff)
+    - [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Used as the base for markup text.
+- ![CSS3](https://img.shields.io/static/v1?label=CSS&message=3&color=1572B6&logo=css3&logoColor=ffffff)
+    - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Used as the base for cascading styles.
+- ![jQuery 3.4.1](https://img.shields.io/static/v1?label=jQuery&message=3.4.1&color=0769AD&logo=jquery&logoColor=ffffff)
+    - [jQuery 3.4.1](https://code.jquery.com/jquery/) - Used as the primary JavaScript functionality.
+- ![Materialize 1.0.0](https://img.shields.io/static/v1?label=Materialize&message=1.0.0&color=ee6e73)
+    - [Materialize 1.0.0](https://materializecss.com/) - Used as the front-end framework for layout and design.
+- ![Stripe API](https://img.shields.io/static/v1?label=Stripe&message=API&color=008CDD&logo=stripe&logoColor=ffffff)
+    - [Stripe API](https://stripe.com/docs/api?lang=python) - Used to make secured payments on Features.
+- ![Amazon AWS](https://img.shields.io/static/v1?label=Amazon%20AWS&message=S3&color=232F3E&logo=amazon%20aws)
+    - [Amazon AWS-S3](https://aws.amazon.com/) - Used to store *staticfiles* and *media* folders and files.
+- ![Chart.js](https://img.shields.io/static/v1?label=Chart.js&message=2.8.0&color=007EC6)
+    - [Chart.js 2.8.0](https://www.chartjs.org/docs/latest/) - Used to render interactive charts and statistics graphs.
 
 ### Back-End Technologies
 
-- **Django**
-    - 
-- **Heroku**
-    - [Heroku](https://www.heroku.com) - Used for app hosting.
-- **Python**    
+
+- ![Python](https://img.shields.io/static/v1?label=Python&message=3.6.7&color=blue&logo=python&logoColor=ffffff)
     - [Python 3.6.7](https://www.python.org/) - Used as the back-end programming language.
+- ![Django](https://img.shields.io/static/v1?label=Django&message=1.11.22&color=092E20&logo=django)
+    - [Django 1.11.22](https://docs.djangoproject.com/en/1.11/) - Used as my Python web framework.
+- ![Heroku](https://img.shields.io/static/v1?label=Heroku&message=PaaS&color=430098&logo=heroku)
+    - [Heroku](https://www.heroku.com) - Used for *"Platform as a Service"* (PaaS) for app hosting.
+- ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
+    - [PostgreSQL 11.4](https://www.postgresql.org/) - Used as relational SQL database plugin via Heroku.
+
+For further details on all Python packages used on this project can be found in the [requirements.txt](project/requirements.txt?raw=true) file. Each of these is outlined below (click below to expand the dropdown), with the package version and a brief description.
 
 <details>
-<summary>Click to expand the full <b>requirements.txt</b></summary>
+<summary>CLICK HERE to expand the full <b>requirements.txt</b> details.</summary>
 
 | Package | Version | Description |
 | :--- | :--- | :--- |
@@ -377,7 +410,11 @@ All of my wireframes for this project can be found [here](https://github.com/Tra
 
 ### Content
 
-*pending*
+- [TinyPNG](https://tinypng.com/) - Used to compress images for faster loading.
+- [UI Faces](https://uifaces.co) - Used to create generic fake profile avatars.
+- [Mini Web Tool](https://www.miniwebtool.com/django-secret-key-generator/) - Used to generate a Django Secret Key.
+- [Shields.io](https://shields.io) - Used to create markdown badges for my README.
+- [ERD Plus](https://erdplus.com) - Used to create my relational database schema.
 
 ### Media
 
