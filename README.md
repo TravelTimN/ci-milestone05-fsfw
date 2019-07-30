@@ -267,7 +267,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
     - [PostgreSQL 11.4](https://www.postgresql.org/) - Used as relational SQL database plugin via Heroku.
 
-For further details on all Python packages used on this project can be found in the [requirements.txt](project/requirements.txt?raw=true) file. Each of these is outlined below (click below to expand the dropdown), with the package version and a brief description.
+For further details on all Python packages used on this project can be found in the [requirements.txt](project/requirements.txt) file. Each of these is outlined below (click below to expand the dropdown), with the package version and a brief description.
 
 <details>
 <summary>CLICK HERE to expand the full <b>requirements.txt</b> details.</summary>
@@ -314,40 +314,99 @@ For further details on all Python packages used on this project can be found in 
 
 ## Testing
 
-*pending*
+A thorough mix of automated and manual testing have gone into building the project. In addition to tests, I have validated all files against online validation sites, and checked compatibilities across various modern browsers and devices.
 
 ### Validators
 
 **HTML**
-- [W3C HTML Validator](https://validator.w3.org) - *pending*
+- [W3C HTML Validator](https://validator.w3.org)
+    - All **28 .html** files checked.
+    - **5 .html** files contained minor errors that have since been rectified (*statistics, navbar, ticket_card, ticket_filter, ticket_stats*). [Correction Commit: 416a5e4](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/416a5e483b2b380d4fe8023c34224b74ae772354)
+    - **Error**: Attribute `lazyload` not allowed on element `img` at this point. (`lazyload="on"` is not yet fully recognized for loading images)
+    - The remaining validation issues are all attributed to Django Templating not being recognized by W3C:
+        - **Warning**: Consider adding a `lang` attribute to the `html` start tag to declare the language of this document.
+        - **Error**: Non-space characters found without seeing a doctype first. Expected `<!DOCTYPE html>`.
+        - **Warning**: This document appears to be written in English. Consider adding `lang="en"` (or variant) to the `html` start tag.
+        - **Error**: Element `head` is missing a required instance of child element `title`.
+        - **Error**: Bad value `{% foo %}`.
 
 **CSS**
-- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) - *pending*
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+    - The W3C Jigsaw validator does not yet recognize root variables, and therefore passes **Parse Errors** (x2). These are used to set global CSS variables, similar to most other programming languages. The two Parse Errors I've received are:
+        - `:root`
+        - `var(--foo)`
+    - I also received 6 **Warnings**:
+        - Imported style sheets are not checked in direct input and file upload modes.
+    - `-webkit-text-fill-color` is an unknown vendor extension.
+    - `-webkit-background-clip` is an unknown vendor extension.
+    - `::-webkit-slider-thumb` is an unknown vendor extended pseudo-element.
+    - `::-webkit-slider-runnable-track` is an unknown vendor extended pseudo-element.
+    - `-webkit-transition` is an unknown vendor extension.
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - *pending*
-- [JSesprima](http://esprima.org/demo/validate.html)
-    - *pending*
+    - *stripe.js* [file](project/static/js/stripe.js):
+        - METRICS:
+            - There are **4** functions in this file. Function with the largest signature take **1** arguments, while the median is **1**. Largest function has **7** statements in it, while the median is **4**. The most complex function has a cyclomatic complexity value of **2** while the median is **1.5**.
+        - UNDEFINED VARIABLES:
+            - `Stripe` (used for Stripe API)
+    - *scripts.js* [file](project/static/js/scripts.js):
+        - METRICS:
+            - There are **4** functions in this file. Function with the largest signature take **0** arguments, while the median is **0**. Largest function has **5** statements in it, while the median is **3.5**. The most complex function has a cyclomatic complexity value of **1** while the median is **1**.
+        - UNDEFINED VARIABLES:
+            - `$` (used for jQuery)
 - [Beautify Tools](http://beautifytools.com/javascript-validator.php)
-    - *pending*
+    - *stripe.js* [file](project/static/js/stripe.js):
+        - *`Stripe` is not defined.*
+    - *scripts.js* [file](project/static/js/scripts.js):
+        - *No syntax errors!*
 
 **Python**
 - [PEP8 Online](http://pep8online.com/)
-    - *pending*
+    - All **32 .py** files checked.
+    - Entirely **PEP8 compliant** with one exception:
+        - `settings.py` [file](project/main/settings.py) (the built-in Django settings file has a known issue, but is acceptable to not force a line break)
+            - *line too long (>79 characters)* (x4) `AUTH_PASSWORD_VALIDATORS= [{}]`
+            
 
 ### Compatibility
 
-*pending*
+Full details about compatibility tests can be found in my [testing folder](testing/?raw=true), which includes results from Chrome's DevTools Audit report as well.
+
+To ensure a broad range of users can successfully use the site, I tested it across the 6 major browsers in both desktop and mobile configuration.
+
+- **Chrome** (*v.75.0.3770.142*)
+- **Edge** (*v.42.17134.1.0*)
+- **Firefox** (*v.68.0.1*)
+- **Safari** (*v.12.1.2*)
+- **Opera** (v.62.0.3331.99*)
+- **Internet Explorer** (*v.11.885.17134.0*)
+
+I have also created a testing matrix ([raw Excel file here](testing/testing-ci-milestone05-fsfw.xlsx?raw=true)).
+
+**Testing Matrix**
+![Testing Matrix](testing/testing-matrix.png "Testing Matrix")
+
+**Chrome's DevTools Audit Report**
+| Performance | Accessibility | Best Practices | SEO |
+| :---: | :---: | :---: | :---: |
+| 100% | 84% | 79% | 85% |
+
+![Chrome DevTools Audit Report](testing/devtools-audit.png?raw=true "Chrome Audit Report")
 
 ### Known Issues
 
-*pending*
+During development, I encountered one semi-urgent issued after making one of my GitHub commits. I quickly opened an *issue* on GitHub so I would remember to revisit this problem and resolve it.
+
+- [Reset Password functionality [broken]](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/6)
+    - This was fixed and pushed with [commit 39749a2](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/39749a2915272ab21aae0b9f82c9d75724f7dc3e).
 
 ### Automated Testing
 
+With Django's built-in `unittest` library module and `TestCase` subclass, I built **27** different tests to encompass most of my python *views*, *forms*, and *models*. Using the [coverage.py](https://coverage.readthedocs.io/en/v4.5.x/) test package, those 27 tests have provided an overall result of **75% test coverage**, which is within the approved minimum requirement for testing. All tests pass as '*OK*'! Most of the remaining Python that I didn't manually build tests for, are built-in Django boilerplates and core functionality. Below is a full table with the entire breakdown of the **Coverage Report** - click to expand the dropdown menu.
+
 <details>
-<summary>Click to expand the full <b>Coverage Report</b></summary>
+<summary>CLICK HERE to expand the full <b>Coverage Report</b></summary>
 
 | **Name** | **Stmts** | **Miss** | **Branch** | **BrPart** | **Cover** |
 | :--- | ---: | ---: | ---: | ---: | ---: |
@@ -387,6 +446,10 @@ For further details on all Python packages used on this project can be found in 
 | **TOTAL** | **714** | **156** | **104** | **21** | **75%** |
 
 </details>
+
+In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.org/) to test Continuous Integration. I had quit the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is where there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
+- [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw)
+- *NOTE: this is a live/active badge, showing 'passing' at time of project submission!)*
 
 ##### back to [top](#table-of-contents)
 
