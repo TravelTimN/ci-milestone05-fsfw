@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} | Error: Page Not Found{% endblock %}
+{% block css %}
+<style>
+    body {
+        background: url("{% static 'img/bg-stars.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container white-text bold">
+    <div class="row">
+        <div class="col s12 m4 center-align upper bold text-shadow-2">
+            <br><br><br><br>
+            <h1 class="font-londrina">Error</h1>
+            <h2 class="font-londrina">Page Not Found</h2>
+            <div class="divider divider-rainbow"></div>
+            <h3>Whoops! This page doesn't exist!</h3>
+            <h3>Let's get you back home!</h3>
+            <div class="divider divider-rainbow"></div>
+            <a href="{% url 'index' %}" class="btn btn-large purple">Take Me Home</a>
+        </div>
+        <div class="col s12 m8 center-align">
+            <img src="{% static 'img/bg-404.png' %}" class="responsive-img" alt="">
+        </div>
+    </div>
+</div>
+{% endblock %}
