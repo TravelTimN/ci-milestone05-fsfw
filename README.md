@@ -70,7 +70,7 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 
 ### User Stories
 
-"**_As a user, I would like to_** _____________________________"
+"**_As a user, I would like to_** _______________"
 
 - *view the site* from **any device** *(mobile, tablet, desktop)*. :white_check_mark:
 - *view all tickets (bugs/features)* as a **Guest**. :white_check_mark:
@@ -92,7 +92,7 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 
 :white_check_mark: *denotes items that have been successfully implemented*
 
-:x: *denotes items that have not been implemented yet*
+:x: *denotes items that were not been implemented*
 
 ### Design
 
@@ -105,39 +105,41 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
 - [jQuery 3.4.1](https://code.jquery.com/jquery/)
     - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
 - [Django 1.11.22](https://www.djangoproject.com/download/)
-    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize.
+    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 2.0 being the current version, so this is what I developed my project using. Partly through development, GitHub advised of the following warning:
+        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version 1.11.22 or later.*
+        - I have upgraded to version 1.11.22!
 
 #### Color Scheme
 
-*Color Palette*: **Ticket Type**
+*Palette*: **Ticket Type**
 
 | Bugs | Features |
 | :---: | :---: |
 | ![#FD8D14](https://placehold.it/15/FD8D14/FD8D14) | ![#1484FC](https://placehold.it/15/1484FC/1484FC) |
 | #FD8D14 | #1484FC |
 
-*Color Palette*: **Ticket Status**
+*Palette*: **Ticket Status**
 
 | Open | In Progress | Closed |
 | :---: | :---: | :---: |
 | ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FFC107](https://placehold.it/15/FFC107/FFC107) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) |
 | #F44336 | #FFC107 | #4CAF50 |
 
-*Color Palette*: **Top Supports / Donors**
+*Palette*: **Top Supports / Donors**
 
 | Gold | Silver | Bronze |
 | :---: | :---: | :---: |
 | ![#D6AF36](https://placehold.it/15/D6AF36/D6AF36) | ![#A7A7AD](https://placehold.it/15/A7A7AD/A7A7AD) | ![#A77044](https://placehold.it/15/A77044/A77044) |
 | #D6AF36 | #A7A7AD | #A77044 |
 
-*Color Palette*: **Rainbow**
+*Palette*: **Rainbow**
 
 | Red | Orange | Yellow | Green | Blue | Indigo | Purple |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FF9800](https://placehold.it/15/FF9800/FF9800) | ![#FFEB3B](https://placehold.it/15/FFEB3B/FFEB3B) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) | ![#2196F3](https://placehold.it/15/2196F3/2196F3) | ![#3F51B5](https://placehold.it/15/3F51B5/3F51B5) | ![#9C27B0](https://placehold.it/15/9C27B0/9C27B0) |
 | #F44336 | #FF9800 | #FFEB3B | #4CAF50 | #2196F3 | #3F51B5 | #9C27B0 |
 
-All of these colors (plus a few others) are set at `:root` level within my *CSS file*. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
+All of these colors (plus a few others) are set at `:root` level within my [styles.css](project/static/css/styles.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
 
 #### Icons
 
@@ -146,11 +148,11 @@ All of these colors (plus a few others) are set at `:root` level within my *CSS 
 
 #### Typography
 
-- [Google Fonts](https://fonts.google.com/)
-    - [Open Sans](https://fonts.google.com/specimen/Open+Sans) : default font across the entire site.
-    - [Dosis](https://fonts.google.com/specimen/Dosis) : font used for *Unicorn Attractor* logo text.
-    - [Fontdiner Swanky](https://fonts.google.com/specimen/Fontdiner+Swanky) : font used for larger headers.
-    - [Londrina Solid](https://fonts.google.com/specimen/Londrina+Solid) : font used for smaller headers.
+- 4 [Google Fonts](https://fonts.google.com/) were used across the site:
+    - [Open Sans](https://fonts.google.com/specimen/Open+Sans) : default font.
+    - [Dosis](https://fonts.google.com/specimen/Dosis) : used for *Unicorn Attractor* logo text.
+    - [Fontdiner Swanky](https://fonts.google.com/specimen/Fontdiner+Swanky) : used for larger headers.
+    - [Londrina Solid](https://fonts.google.com/specimen/Londrina+Solid) : used for smaller headers.
 
 ### Wireframes
 
@@ -166,7 +168,7 @@ All of my wireframes for this project can be found in the **design** folder, whi
 
 ## Features
 
-In accordance to the project brief, I have successfully implemented all of the *required* features, as well as quite a few additional features to improve user experience!
+In accordance to the project brief, I have successfully implemented all of the *required* features, as well as a few additional features to improve user experience!
 
 ### Existing Features
 
@@ -195,10 +197,10 @@ In accordance to the project brief, I have successfully implemented all of the *
 - Only the user that created a ticket, can edit the ticket. Exception: the admin (superuser) can also edit any ticket in the database.
 
 **Delete a Ticket** :ticket: :put_litter_in_its_place:
-- Similar to editing tickets, only the user that creates a ticket can edit the ticket. Exception: the admin (superuser) can also delete any ticket in the database, should they be inappropriate and/or offensive.
+- Similar to editing tickets, only the user that creates a ticket can delete the ticket. Exception: the admin (superuser) can also delete any ticket in the database, should they be inappropriate and/or offensive.
 
 **Upvote a Ticket** :ticket: :+1:
-- If the ticket is a Bug, then anybody can upvote the ticket free of charge. If the ticket is a Feature, then in order to upvote the ticket, a small donation is required. The user can decide how much to donate by using a slider, with a minimum donation required of €5. Payment of the donation is done using the secure Stripe API. If the Feature ticket has met its goal of €100, then any additional upvote henceforth is free of charge.
+- If the ticket is a Bug, then anybody can upvote the ticket free of charge, as long as they're logged in. If the ticket is a Feature, then in order to upvote the ticket, a small donation is required. The user can decide how much to donate by using a slider, with a minimum donation required of €5. Payment of the donation is done using the secure Stripe API. If the Feature ticket has met its goal of €100, then any additional upvote henceforth is free of charge.
 
 **Downvote a Ticket** :ticket: :-1:
 - If a user no longer supports a ticket, they can downvote it to remove their name from the list of supporters. This is only allowed for tickets that are Bugs, since donations on Features are non-refundable.
@@ -207,7 +209,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - Users can add comments on tickets that they relate to. This is also where they would see updates from the Admin related to the ticket, to offer transparency to users.
 
 **View Statistics** :bar_chart:
-- On the *statistics* page, a number of lists and charts can be viewed. This includes: a leader board outlining the top 3 supporters, the top 10 most upvoted bugs and features (5 of each), a bar chart showing the number of bugs/features based on ticket status, a pie chart showing the total number of bugs vs features, and a bar chart showing the average number of bugs/features that are edited on a monthly/weekly/daily basis. In addition to the *statistics* page, the *footer* also displays the 5 most recent tickets that have been opened.
+- On the *Statistics* page, a number of lists and charts can be viewed. This includes: a leader board outlining the top 3 supporters, the top 10 most upvoted bugs and features (5 of each), a bar chart showing the number of bugs/features based on ticket status, a pie chart showing the total number of bugs vs features, and a bar chart showing the average number of bugs/features that are edited on a monthly/weekly/daily basis. In addition to the *statistics* page, the *footer* also displays the 5 most recent tickets that have been opened.
 
 **Admin Status** :cop:
 - As Admin (ie: superuser), there are quite a few additional features across the site that no other user has access to. The navbar has an additional link to the Django Admin Panel. Admin can change the status of any ticket directly from the ticket page (open, in progress, closed). The Admin can also modify or delete any tickets deemed inappropriate.
@@ -230,13 +232,13 @@ In accordance to the project brief, I have successfully implemented all of the *
 ## Technologies Used
 
 - ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.36.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
-    - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for coding.
+    - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for developing projects.
 - ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
-    - [GitHub](https://github.com/) - Used as remote storage of my code online.
+    - [GitHub](https://github.com/) - Used as remote storage of my projects online.
 - ![Adobe Photoshop CS6](https://img.shields.io/static/v1?label=Adobe%20Photoshop&message=CS6&color=00C8FF&logo=adobe%20photoshop&logoColor=ffffff)
-    - [Photoshop CS6](https://www.adobe.com/Photoshop) - Used for editing images.
+    - [Photoshop CS6](https://www.adobe.com/Photoshop) - Used for editing and creating images.
 - ![Balsamiq Wireframes](https://img.shields.io/static/v1?label=Balsamiq&message=3.5.17&color=CC0200)
-    - [Balsamiq](https://balsamiq.com/) - Used to design my wireframes.
+    - [Balsamiq](https://balsamiq.com/) - Used to bring my wireframe sketches to life.
 
 ### Front-End Technologies
 
@@ -249,9 +251,9 @@ In accordance to the project brief, I have successfully implemented all of the *
 - ![Materialize 1.0.0](https://img.shields.io/static/v1?label=Materialize&message=1.0.0&color=ee6e73)
     - [Materialize 1.0.0](https://materializecss.com/) - Used as the front-end framework for layout and design.
 - ![Stripe API](https://img.shields.io/static/v1?label=Stripe&message=API&color=008CDD&logo=stripe&logoColor=ffffff)
-    - [Stripe API](https://stripe.com/docs/api?lang=python) - Used to make secured payments on Features.
-- ![Amazon AWS](https://img.shields.io/static/v1?label=Amazon%20AWS&message=S3&color=232F3E&logo=amazon%20aws)
-    - [Amazon AWS-S3](https://aws.amazon.com/) - Used to store *staticfiles* and *media* folders and files.
+    - [Stripe API](https://stripe.com/docs/api?lang=python) - Used to make secured payments on *Feature Tickets*.
+- ![Amazon AWS S3](https://img.shields.io/static/v1?label=Amazon%20AWS&message=S3&color=232F3E&logo=amazon%20aws)
+    - [Amazon AWS S3](https://aws.amazon.com/) - Used to store *staticfiles* and *media* folders and files.
 - ![Chart.js](https://img.shields.io/static/v1?label=Chart.js&message=2.8.0&color=007EC6)
     - [Chart.js 2.8.0](https://www.chartjs.org/docs/latest/) - Used to render interactive charts and statistics graphs.
 
@@ -320,9 +322,9 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **HTML**
 - [W3C HTML Validator](https://validator.w3.org)
-    - All **28 .html** files checked.
+    - All **30 .html** files checked.
     - **5 .html** files contained minor errors that have since been rectified (*statistics, navbar, ticket_card, ticket_filter, ticket_stats*). [Correction Commit: 416a5e4](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/416a5e483b2b380d4fe8023c34224b74ae772354)
-    - **Error**: Attribute `lazyload` not allowed on element `img` at this point. (`lazyload="on"` is not yet fully recognized for loading images)
+    - **Error**: Attribute `lazyload` not allowed on element `img` at this point.
     - The remaining validation issues are all attributed to Django Templating not being recognized by W3C:
         - **Warning**: Consider adding a `lang` attribute to the `html` start tag to declare the language of this document.
         - **Error**: Non-space characters found without seeing a doctype first. Expected `<!DOCTYPE html>`.
@@ -332,7 +334,7 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **CSS**
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
-    - The W3C Jigsaw validator does not yet recognize root variables, and therefore passes **Parse Errors** (x2). These are used to set global CSS variables, similar to most other programming languages. The two Parse Errors I've received are:
+    - The W3C Jigsaw validator does not yet recognize root variables, and therefore passes 2 **Parse Errors**. These are used to set global CSS variables, similar to most other programming languages. The two Parse Errors I've received are:
         - `:root`
         - `var(--foo)`
     - I also received 6 **Warnings**:
@@ -366,7 +368,7 @@ A thorough mix of automated and manual testing have gone into building the proje
     - All **32 .py** files checked.
     - Entirely **PEP8 compliant** with one exception:
         - `settings.py` [file](project/main/settings.py) (the built-in Django settings file has a known issue, but is acceptable to not force a line break)
-        - *line too long (>79 characters)* (x4) `AUTH_PASSWORD_VALIDATORS = [{}]`
+        - *line too long (>79 characters)* -  `AUTH_PASSWORD_VALIDATORS = [{}]` x4
             
 
 ### Compatibility
@@ -459,15 +461,17 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
 
 ## Deployment
 
-**PLEASE NOTE**: during development, none of my *staticfiles* were pushed to GitHub, as taught in the Code Institute LMS videos. These were added to my *[.gitignore](.gitignore)* file, as Heroku cannot host these files. They are hosted on Amazon AWS in an S3-Bucket, but these files will be pushed to GitHub purely for project assessment purposes only! My *static* file contains the following folders and files:
+This project can be viewed live on Heroku: [https://unicorn-attractor-2bn.herokuapp.com](https://unicorn-attractor-2bn.herokuapp.com)
+
+**PLEASE NOTE**: during development, none of my *staticfiles* were pushed to GitHub, as taught in the Code Institute LMS videos. These were added to my *[.gitignore](.gitignore)* file, as Heroku cannot host these files. They are hosted on Amazon AWS in an S3-Bucket. These files were pushed to GitHub purely for project assessment purposes only at the end of development! My *static* file contains the following folders and files:
 
 - **css/**
-    - *styles.css*
+    - *[styles.css](project/static/css/styles.css)*
 - **img/**
     - all images used for the project
 - **js/**
-    - *scripts.js*
-    - *stripe.js*
+    - *[scripts.js](project/static/js/scripts.js)*
+    - *[stripe.js](project/static/js/stripe.js)*
 
 ### Local Deployment
 
@@ -566,12 +570,11 @@ This site is currently deployed on [Heroku](https://www.heroku.com/) using the *
     - Create a *New Policy* and a *New User* in the IAM section as well, then attach these to the Group you just built.
 - In your CLI-terminal, you should now be able to push the static files to AWS if everything is configured properly using this command:
     - `python manage.py collectstatic`
-
 - Sign up for a free [Stripe](https://stripe.com) account. Navigate to the **Developers** section, and click on **API Keys**. You should have two confidential keys which need to be added to your *.env* file, as well as your Heroku config vars. These keys are:
     - `Publishable Key`: **pk_test_key**
     - `Secret Key`: **sk_test_key**
 
-Congratulations! Your project should be completely setup and ready for remote deployment!
+Congratulations! Your project should be completely setup and ready for remote deployment! :tada:
 
 ##### back to [top](#table-of-contents)
 
@@ -594,6 +597,7 @@ Congratulations! Your project should be completely setup and ready for remote de
 - [bauhinia.org](http://www.bauhinia.org/assets/thumbnail/images/image/cover-20180709_1530869692_800_500_thumb.png) - wallpaper used as background
 - [crunchbase.com](https://news.crunchbase.com/wp-content/uploads/2018/01/unicorn_1.png) - wallpaper used as background
 - [dreamardor.com](https://www.dreamardor.com/wp-content/uploads/2018/05/matrix-different-wallpaper-wallpapers-pestanac-rainbow.jpg) - wallpaper used as background
+- [dribble.com](https://cdn.dribbble.com/users/1889436/screenshots/4780640/smartly_404_unicorn-01.jpg) - unicorn used for error handling
 - [flaticon.com](https://www.flaticon.com/free-icon/unicorn_616628) - favicon
 - [gmcrafts.co.uk](https://www.gmcrafts.co.uk/wp-content/uploads/2018/11/Pink-Unicorn-With-Rainbow-Main-Product-Image-700x700.jpg) - unicorn used on background image
 - [happylabel.cz](https://www.happylabel.cz/en/round-stickers-no-name/1555-unicorn.html) - unicorn used on background image
@@ -604,6 +608,7 @@ Congratulations! Your project should be completely setup and ready for remote de
 - [vecteezy.com](https://www.vecteezy.com/vector-art/102454-insect-cute-sticker) - bugs used on background image
 - [vectorstock.com](https://www.vectorstock.com/royalty-free-vector/cartoon-unicorn-with-a-rainbow-mane-sweet-pony-vector-19046336) - unicorn used on background image
 - [vectorstock.com](https://www.vectorstock.com/royalty-free-vector/unicorns-fart-rainbows-vector-17448926) - unicorn used on background image
+- [wallpaperplay.com](https://wallpaperplay.com/board/stars-wallpapers) - wallpaper used for error handling
 
 
 ### Code
