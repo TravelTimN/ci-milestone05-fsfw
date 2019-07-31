@@ -142,7 +142,7 @@ All of these colors (plus a few others) are set at `:root` level within my *CSS 
 #### Icons
 
 - [Font Awesome 5.8.2](https://fontawesome.com/)
-    - Although *Materialize Icons* have nearly 1,000 free-to-use icons, I prefer the look of the *Font Awesome* icons, and they significantly more icons to use. They aren't displayed using *text*, but rather *classes*, so use on mobile devices isn't affected.
+    - Although *Materialize Icons* have nearly 1,000 free-to-use icons, I prefer the look of the *Font Awesome* icons, and they have significantly more icons to use. They aren't displayed using *text*, but rather *classes*, so use on mobile devices isn't affected.
 
 #### Typography
 
@@ -267,7 +267,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
     - [PostgreSQL 11.4](https://www.postgresql.org/) - Used as relational SQL database plugin via Heroku.
 
-For further details on all Python packages used on this project can be found in the [requirements.txt](project/requirements.txt) file. Each of these is outlined below (click below to expand the dropdown), with the package version and a brief description.
+Further details on all Python packages used on this project can be found in the [requirements.txt](project/requirements.txt) file. Each of these is outlined below (click below to expand the dropdown), with the package version and a brief description.
 
 <details>
 <summary>CLICK HERE to expand the full <b>requirements.txt</b> details.</summary>
@@ -337,11 +337,11 @@ A thorough mix of automated and manual testing have gone into building the proje
         - `var(--foo)`
     - I also received 6 **Warnings**:
         - Imported style sheets are not checked in direct input and file upload modes.
-    - `-webkit-text-fill-color` is an unknown vendor extension.
-    - `-webkit-background-clip` is an unknown vendor extension.
-    - `::-webkit-slider-thumb` is an unknown vendor extended pseudo-element.
-    - `::-webkit-slider-runnable-track` is an unknown vendor extended pseudo-element.
-    - `-webkit-transition` is an unknown vendor extension.
+        - `-webkit-text-fill-color` is an unknown vendor extension.
+        - `-webkit-background-clip` is an unknown vendor extension.
+        - `::-webkit-slider-thumb` is an unknown vendor extended pseudo-element.
+        - `::-webkit-slider-runnable-track` is an unknown vendor extended pseudo-element.
+        - `-webkit-transition` is an unknown vendor extension.
 
 **JavaScript**
 - [JShint](https://jshint.com/)
@@ -461,11 +461,105 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
 
 ### Local Deployment
 
-*pending*
+It's highly recommended to work in a *virtual environment*, but not absolutely required.
+
+In order to run this project locally on your own system, you will need the following installed (as a bare minimum):
+
+- [Python3](https://www.python.org/downloads) to run the application.
+- [PIP](https://pip.pypa.io/en/stable/installing) to install all app requirements.
+- [GIT](https://www.atlassian.com/git/tutorials/install-git) for cloning and version control.
+- [Microsoft Visual Studio Code](https://code.visualstudio.com) (or any suitable IDE) to develop your project.
+
+Next, there's a series of steps to take in order to proceed with local deployment:
+
+- Clone this GitHub repository by either clicking the green "*Clone or download*" button above in order to download the project as a zip-file (remember to unzip it first), or by entering the following command into the Git CLI terminal:
+    - `git clone https://github.com/TravelTimN/ci-milestone05-fsfw.git`
+- Navigate to the correct file location after unpacking the files.
+    - `cd <path to folder>`
+- Create a `.env` file with your own credentials. An example *.env* file can be found here ([.env_sample](project/.env_sample?raw=true)).
+    - *Note: the example .env file contains environmental variables for both local and remote deployment. (see below for remote deployment details)*
+- Install all requirements from the [requirements.txt](project/requirements.txt?raw=true) file using this command:
+    - `sudo -H pip3 -r requirements.txt`
+- In the IDE terminal, use the following command to launch the Django project:
+    - `python manage.py runserver`
+- The Django server should be running locally now on **http://127.0.0.1:8000**. If it doesn't automatically open, you can copy/paste it into your browser of choice.
+- When you run the Django server for the first time, it should create a new *SQLite3* database file: **db.sqlite3**
+- Next, you'll need to make migrations to create the database schema:
+    - `python manage.py migrate`
+- In order to access the Django *Admin Panel*, you must generate a superuser:
+    - `python manage.py createsuperuser`
+    - (assign an admin username, email, and secure password)
+
+Once the database migrations and superuser have been successfully completed, Django should migrate the existing *migrations.py* files from each app to configure the following relational schema:
+
+![Relational Schema](design/relational-schema.png?raw=true "Relational Schema")
 
 ### Remote Deployment
 
-*pending*
+This site is currently deployed on [Heroku](https://www.heroku.com/) using the **master** branch on GitHub. Once you have the project setup locally, you can proceed to deploy it remotely with the following steps:
+
+- Create a **requirements.txt** file so Heroku can install the required dependencies to run the app:
+    - `sudo pip3 freeze --local > requirements.txt`
+    - The *requirements.txt* file for this project can be found here: [requirements.txt](project/requirements.txt)
+- Create a **Procfile** to tell Heroku what type of application is being deployed using *gunicorn*, and how to run it:
+    - `echo web: gunicorn main.wsgi:application > Procfile`
+    - The *Procfile* for this project can be found here: [Procfile](project/Procfile)
+- Sign up for a free Heroku account, create your project app, and click the **Deploy** tab, at which point you can *Connect GitHub* as the Deployment Method, and select *Enable Automatic Deployment*.
+- In the Heroku **Resources** tab, navigate to the *Add-Ons* section and search for **Heroku Postgres**. Make sure to select the free *Hobby* level. This will allow you to have a remote database instead of using the local sqlite3 database, and can be found in the Settings tab. You'll need to update your *.env* file with your new *database-url* details.
+- In the Heroku **Settings** tab, click on the *Reveal Config Vars* button to configure environmental variables. You will need to copy/paste all of the *.env* key value pairs into the config variables, but please omit the *development=1* variable; this is only for local deployment.
+- Still within the **Settings** tab, find the *Buildpacks* section and add the following two buildpacks below. This is because the main project lives in a subdirectory. Note: the order these are added is important:
+    - `https://github.com/timanovsky/subdir-heroku-buildpack.git`
+    - `heroku/python`
+- Your app should be successfully deployed to Heroku at this point, but you're not quite finished yet!
+- Update the *settings.py* file to connect the remote database using this Python package: `dj_database_url`
+- Re-build the migrations and create a superuser to your new remote database using the instructions in the *local deployment* section above.
+- Sign up for a free [Amazon AWS](https://aws.amazon.com/) account in order to host your *staticfiles* and *media* files. From the **S3 buckets** section, you'll need to create a new unique bucket. Follow these next steps to complete the setup:
+
+**Permissions** > **CORS configuration**:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>HEAD</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+    <AllowedHeader>Authorization</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+```
+
+**Permissions** > **Bucket Policy**:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::<x>/*"
+        }
+    ]
+}
+```
+
+*! IMPORTANT ! - on the **Resource** line above, be sure to replace `<x>` with your **AWS bucket arn** details, but retain the `/*` at the end.*
+
+- From here, you'll need to navigate to the **IAM** section of AWS.
+    - Create a *New Group* and be sure to select your existing S3 Bucket details to attach.
+    - Create a *New Policy* and a *New User* in the IAM section as well, then attach these to the Group you just built.
+- In your CLI-terminal, you should now be able to push the static files to AWS if everything is configured properly using this command:
+    - `python manage.py collectstatic`
+
+- Sign up for a free [Stripe](https://stripe.com) account. Navigate to the **Developers** section, and click on **API Keys**. You should have two confidential keys which need to be added to your *.env* file, as well as your Heroku config vars. These keys are:
+    - `Publishable Key`: **pk_test_key**
+    - `Secret Key`: **sk_test_key**
+
+Congratulations! Your project should be completely setup and ready for remote deployment!
 
 ##### back to [top](#table-of-contents)
 
@@ -475,6 +569,7 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
 
 ### Content
 
+- *"[How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)"* by Chris Beams *(as recommended by Code Institute assessors on previous projects)*
 - [TinyPNG](https://tinypng.com/) - Used to compress images for faster loading.
 - [UI Faces](https://uifaces.co) - Used to create generic fake profile avatars.
 - [Mini Web Tool](https://www.miniwebtool.com/django-secret-key-generator/) - Used to generate a Django Secret Key.
