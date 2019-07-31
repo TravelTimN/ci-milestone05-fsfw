@@ -17,5 +17,5 @@ htmlcov/
 .coveragerc
 
 # local files
-static/
+# static/
 media/
