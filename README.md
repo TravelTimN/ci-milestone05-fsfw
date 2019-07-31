@@ -16,9 +16,9 @@ This exciting app helps to promote physical activity in the outdoors, combined w
 
 The best part? **Unicorn Attractor** is absolutely free to enjoy with your friends and Bronies!
 
-If you have any issues or requests regarding the the app, please head over to our support page: [Unicorn Attractor Support Page](https://unicorn-attractor-2bn.herokuapp.com/). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
+If you have any issues or requests regarding the the app, please head over to the [Unicorn Attractor Tickets Page](https://unicorn-attractor-2bn.herokuapp.com/tickets/). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
 
-- **BUGS** - If you have any problems or issues using the app, please open a new *Bug* Ticket. Bug requests are always free!
+- **BUGS** - If you have any problems or issues using the app, please open a new ticket for a *Bug*. Bug requests are always free!
 - **FEATURES** - If you think we've missed something, or you'd like to see something added to the app, please open a new *Feature* Ticket. (***NOTE**: Features require a small donation, and can gain more donations if others support your Feature.*)
 
 ---
@@ -170,51 +170,51 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 ### Existing Features
 
-**Register Account**
+**Register Account** :bust_in_silhouette: :heavy_plus_sign:
 - Anybody can register for free and create their own unique account. This is built using Django's authentication and authorization to validate profile data. Passwords are hashed for security purposes!
 
-**Change Password**
+**Change Password** :closed_lock_with_key:
 - Users can update their passwords from their profile page. They will receive an email with instructions on how to reset the password.
 
-**Add Profile Picture**
+**Add Profile Picture** :camera:
 - In addition to updating their profile, users can upload a photo to use as their avatar. All images are cropped and resized to a 300px square in order to minimize file size being stored on AWS, since avatars are displayed small anyway.
 
-**View All Tickets**
+**View All Tickets** :ticket: :ticket:
 - On the *tickets* page, all Tickets are initially displayed in a 'last edit date' order, with a standard 6-items per page using pagination.
 
-**Filtering Tickets**
+**Filtering Tickets** :ticket: :arrow_up_down:
 - If a user would like to narrow-down the number of tickets displayed, they can easily filter tickets using a few different options. Filter can by done by ticket type (bug vs feature), by ticket status (open, in progress, closed), minimum/maximum number of ticket views, or by minimum/maximum number of upvotes received.
 
-**Add a Ticket**
+**Add a Ticket** :ticket: :heavy_plus_sign:
 - Opening a new ticket comes in two varieties; Bugs and Tickets. Both require two minimal items: a Ticket Title and Description. For Features, however, there is a minimum donation required which allows users to slide the donation amount with a minimum of €5 and maximum of €100. The secure Stripe API allows users to pay for these donations.
 
-**View a Ticket**
+**View a single Ticket** :ticket:
 - Whether it's a Bug or a Feature, users can view all tickets individually, regardless of their ticket status. All ticket details are displayed, including a list of other users who have upvoted/supported the ticket. In addition, any existing comments on the ticket will be displayed to the user.
 
-**Update a Ticket**
+**Update a Ticket** :ticket: :arrows_counterclockwise:
 - Only the user that created a ticket, can edit the ticket. Exception: the admin (superuser) can also edit any ticket in the database.
 
-**Delete a Ticket**
+**Delete a Ticket** :ticket: :put_litter_in_its_place:
 - Similar to editing tickets, only the user that creates a ticket can edit the ticket. Exception: the admin (superuser) can also delete any ticket in the database, should they be inappropriate and/or offensive.
 
-**Upvote a Ticket**
+**Upvote a Ticket** :ticket: :+1:
 - If the ticket is a Bug, then anybody can upvote the ticket free of charge. If the ticket is a Feature, then in order to upvote the ticket, a small donation is required. The user can decide how much to donate by using a slider, with a minimum donation required of €5. Payment of the donation is done using the secure Stripe API. If the Feature ticket has met its goal of €100, then any additional upvote henceforth is free of charge.
 
-**Downvote a Ticket**
+**Downvote a Ticket** :ticket: :-1:
 - If a user no longer supports a ticket, they can downvote it to remove their name from the list of supporters. This is only allowed for tickets that are Bugs, since donations on Features are non-refundable.
 
-**Comment on a Ticket**
+**Comment on a Ticket** :ticket: :speech_balloon:
 - Users can add comments on tickets that they relate to. This is also where they would see updates from the Admin related to the ticket, to offer transparency to users.
 
-**View Statistics**
+**View Statistics** :bar_chart:
 - On the *statistics* page, a number of lists and charts can be viewed. This includes: a leader board outlining the top 3 supporters, the top 10 most upvoted bugs and features (5 of each), a bar chart showing the number of bugs/features based on ticket status, a pie chart showing the total number of bugs vs features, and a bar chart showing the average number of bugs/features that are edited on a monthly/weekly/daily basis. In addition to the *statistics* page, the *footer* also displays the 5 most recent tickets that have been opened.
 
-**Admin Status**
+**Admin Status** :cop:
 - As Admin (ie: superuser), there are quite a few additional features across the site that no other user has access to. The navbar has an additional link to the Django Admin Panel. Admin can change the status of any ticket directly from the ticket page (open, in progress, closed). The Admin can also modify or delete any tickets deemed inappropriate.
 
 ### Features Left to Implement
 
-**Badge Achievements**
+**Badge Achievements** 
 - Ideally, I would've loved to implement a badge system for unlocking different achievements. These would've included awarding a badge for new members, creating your 1st/10th/25th ticket, having a feature reach full donation goal, adding an avatar to your profile, etc.
 
 **Additional Stats**
@@ -345,20 +345,20 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - *stripe.js* [file](project/static/js/stripe.js):
+    - **stripe.js** [file](project/static/js/stripe.js):
         - METRICS:
             - There are **4** functions in this file. Function with the largest signature take **1** arguments, while the median is **1**. Largest function has **7** statements in it, while the median is **4**. The most complex function has a cyclomatic complexity value of **2** while the median is **1.5**.
         - UNDEFINED VARIABLES:
             - `Stripe` (used for Stripe API)
-    - *scripts.js* [file](project/static/js/scripts.js):
+    - **scripts.js** [file](project/static/js/scripts.js):
         - METRICS:
             - There are **4** functions in this file. Function with the largest signature take **0** arguments, while the median is **0**. Largest function has **5** statements in it, while the median is **3.5**. The most complex function has a cyclomatic complexity value of **1** while the median is **1**.
         - UNDEFINED VARIABLES:
             - `$` (used for jQuery)
 - [Beautify Tools](http://beautifytools.com/javascript-validator.php)
-    - *stripe.js* [file](project/static/js/stripe.js):
+    - **stripe.js** [file](project/static/js/stripe.js):
         - *`Stripe` is not defined.*
-    - *scripts.js* [file](project/static/js/scripts.js):
+    - **scripts.js** [file](project/static/js/scripts.js):
         - *No syntax errors!*
 
 **Python**
@@ -366,7 +366,7 @@ A thorough mix of automated and manual testing have gone into building the proje
     - All **32 .py** files checked.
     - Entirely **PEP8 compliant** with one exception:
         - `settings.py` [file](project/main/settings.py) (the built-in Django settings file has a known issue, but is acceptable to not force a line break)
-            - *line too long (>79 characters)* (x4) `AUTH_PASSWORD_VALIDATORS= [{}]`
+        - *line too long (>79 characters)* (x4) `AUTH_PASSWORD_VALIDATORS = [{}]`
             
 
 ### Compatibility
@@ -449,15 +449,25 @@ With Django's built-in `unittest` library module and `TestCase` subclass, I buil
 
 </details>
 
-In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.org/) to test Continuous Integration. I had quit the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is where there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
+In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.org/) to test Continuous Integration. I had quite the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is why there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
 - [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw)
-- *NOTE: this is a live/active badge, showing 'passing' at time of project submission!)*
+- *NOTE: this is a live/active badge, showing 'passing' at time of project submission!*
 
 ##### back to [top](#table-of-contents)
 
 ---
 
 ## Deployment
+
+**PLEASE NOTE**: during development, none of my *staticfiles* were pushed to GitHub, as taught in the Code Institute LMS videos. These were added to my *[.gitignore](.gitignore)* file, as Heroku cannot host these files. They are hosted on Amazon AWS in an S3-Bucket, but these files will be pushed to GitHub purely for project assessment purposes only! My *static* file contains the following folders and files:
+
+- **css/**
+    - *styles.css*
+- **img/**
+    - all images used for the project
+- **js/**
+    - *scripts.js*
+    - *stripe.js*
 
 ### Local Deployment
 
@@ -476,15 +486,16 @@ Next, there's a series of steps to take in order to proceed with local deploymen
     - `git clone https://github.com/TravelTimN/ci-milestone05-fsfw.git`
 - Navigate to the correct file location after unpacking the files.
     - `cd <path to folder>`
-- Create a `.env` file with your own credentials. An example *.env* file can be found here ([.env_sample](project/.env_sample?raw=true)).
+- Create a `.env` file with your own credentials. An example *.env* file can be found here ([.env_sample](project/.env_sample)).
     - *Note: the example .env file contains environmental variables for both local and remote deployment. (see below for remote deployment details)*
-- Install all requirements from the [requirements.txt](project/requirements.txt?raw=true) file using this command:
+- Install all requirements from the [requirements.txt](project/requirements.txt) file using this command:
     - `sudo -H pip3 -r requirements.txt`
 - In the IDE terminal, use the following command to launch the Django project:
     - `python manage.py runserver`
-- The Django server should be running locally now on **http://127.0.0.1:8000**. If it doesn't automatically open, you can copy/paste it into your browser of choice.
+- The Django server should be running locally now on **http://127.0.0.1:8000** (or similar). If it doesn't automatically open, you can copy/paste it into your browser of choice.
 - When you run the Django server for the first time, it should create a new *SQLite3* database file: **db.sqlite3**
 - Next, you'll need to make migrations to create the database schema:
+    - `python manage.py makemigrations`
     - `python manage.py migrate`
 - In order to access the Django *Admin Panel*, you must generate a superuser:
     - `python manage.py createsuperuser`
@@ -547,7 +558,8 @@ This site is currently deployed on [Heroku](https://www.heroku.com/) using the *
 }
 ```
 
-*! IMPORTANT ! - on the **Resource** line above, be sure to replace `<x>` with your **AWS bucket arn** details, but retain the `/*` at the end.*
+*! IMPORTANT ! - on the **Resource** line above, be sure to replace `<x>` with your **AWS bucket arn** details, but retain the `/*` at the end.* It should look similar to this:
+    - `"Resource": "arn:aws:s3:::my-bucket-name/*"`
 
 - From here, you'll need to navigate to the **IAM** section of AWS.
     - Create a *New Group* and be sure to select your existing S3 Bucket details to attach.
@@ -575,7 +587,7 @@ Congratulations! Your project should be completely setup and ready for remote de
 - [Mini Web Tool](https://www.miniwebtool.com/django-secret-key-generator/) - Used to generate a Django Secret Key.
 - [Shields.io](https://shields.io) - Used to create markdown badges for my README.
 - [ERD Plus](https://erdplus.com) - Used to create my relational database schema.
-- [Techsini](https://techsini.com/multi-mockup/) - Used to create the README mockup image
+- [Techsini](https://techsini.com/multi-mockup/) - Used to create the README mockup image.
 
 ### Media
 
