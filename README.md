@@ -2,7 +2,7 @@
 
 # [Unicorn Attractor](https://unicorn-attractor-2bn.herokuapp.com/)
 
-![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=1.11.22&color=092E20)
+![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=1.11.24&color=092E20)
 
 [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
 
@@ -104,10 +104,10 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
     - I really like the modern and clean layout of Materialize as a framework, with its simple-to-understand documentation.
 - [jQuery 3.4.1](https://code.jquery.com/jquery/)
     - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
-- [Django 1.11.22](https://www.djangoproject.com/download/)
+- [Django 1.11.24](https://www.djangoproject.com/download/)
     - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 2.0 being the current version, so this is what I developed my project using. Partly through development, GitHub advised of the following warning:
-        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version 1.11.22 or later.*
-        - I have upgraded to version 1.11.22!
+        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version ~~1.11.22~~ 1.11.24 or later.*
+        - I have upgraded to version ~~1.11.22~~ 1.11.24!
 
 #### Color Scheme
 
@@ -262,8 +262,8 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 - ![Python](https://img.shields.io/static/v1?label=Python&message=3.6.7&color=blue&logo=python&logoColor=ffffff)
     - [Python 3.6.7](https://www.python.org/) - Used as the back-end programming language.
-- ![Django](https://img.shields.io/static/v1?label=Django&message=1.11.22&color=092E20&logo=django)
-    - [Django 1.11.22](https://docs.djangoproject.com/en/1.11/) - Used as my Python web framework.
+- ![Django](https://img.shields.io/static/v1?label=Django&message=1.11.24&color=092E20&logo=django)
+    - [Django 1.11.24](https://docs.djangoproject.com/en/1.11/) - Used as my Python web framework.
 - ![Heroku](https://img.shields.io/static/v1?label=Heroku&message=PaaS&color=430098&logo=heroku)
     - [Heroku](https://www.heroku.com) - Used for *"Platform as a Service"* (PaaS) for app hosting.
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
