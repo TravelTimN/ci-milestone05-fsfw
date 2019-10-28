@@ -292,7 +292,7 @@ Further details on all Python packages used on this project can be found in the 
 | idna | 2.8 | Suitable replacement for the “encodings.idna” module that comes with the standard Python library |
 | jmespath | 0.9.4 | Allows you to declaratively specify how to extract elements from a JSON document |
 | olefile | 0.46 | Python package to parse, read and write Microsoft OLE2 files |
-| Pillow | 5.3.0 | Adds support for opening, manipulating, and saving many different image file formats |
+| Pillow | 6.2.0 | Adds support for opening, manipulating, and saving many different image file formats |
 | postgres | 2.2.2 | High-value abstraction over psycopg2 |
 | psycopg2 | 2.7.3.2 | Most popular PostgreSQL database adapter for Python |
 | psycopg2-binary | 2.8.3 | Python-PostgreSQL Database Adapter |
