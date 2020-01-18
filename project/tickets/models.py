@@ -65,10 +65,12 @@ class Ticket(models.Model):
         on_delete=models.CASCADE)
     ticket_status = models.ForeignKey(
         TicketStatus,
-        null=True)
+        null=True,
+        on_delete=models.CASCADE)
     ticket_type = models.ForeignKey(
         TicketType,
-        null=True)
+        null=True,
+        on_delete=models.CASCADE)
     date_created = models.DateTimeField(
         blank=False,
         null=False,
