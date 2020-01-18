@@ -1,18 +1,16 @@
-from django.conf.urls import url
-from django.core.urlresolvers import reverse_lazy
+from django.urls import path
 from django.contrib.auth.views import (
-    password_reset, password_reset_done,
-    password_reset_confirm, password_reset_complete)
+    PasswordResetView, PasswordResetDoneView,
+    PasswordResetConfirmView, PasswordResetCompleteView)
 
 
 urlpatterns = [
-    url(r"^$", password_reset, {
-        "post_reset_redirect": reverse_lazy("password_reset_done")},
+    path("", PasswordResetView.as_view(),
         name="password_reset"),
-    url(r"^done/$", password_reset_done, name="password_reset_done"),
-    url(r"^(?P<uidb64>[a-zA-Z0-9]+)-(?P<token>.+)/$", password_reset_confirm, {
-        "post_reset_redirect": reverse_lazy("password_reset_complete")},
+    path("done/", PasswordResetDoneView.as_view(),
+        name="password_reset_done"),
+    path("confirm/<uidb64>/<token>/", PasswordResetConfirmView.as_view(),
         name="password_reset_confirm"),
-    url(r"^complete/$", password_reset_complete,
-        name="password_reset_complete")
+    path("complete/", PasswordResetCompleteView.as_view(),
+        name="password_reset_complete"),
 ]
