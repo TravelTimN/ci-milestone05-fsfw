@@ -9,7 +9,7 @@ from tickets import urls as tickets_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("admin/", superuser, name="superuse"),
+    path("admin/", superuser, name="superuser"),
     path("", index, name="index"),
     path("accounts/", include(accounts_urls)),
     path("statistics/", include(stats_urls)),
