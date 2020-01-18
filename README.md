@@ -104,10 +104,10 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
     - I really like the modern and clean layout of Materialize as a framework, with its simple-to-understand documentation.
 - [jQuery 3.4.1](https://code.jquery.com/jquery/)
     - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
-- [Django 1.11.24](https://www.djangoproject.com/download/)
-    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 2.0 being the current version, so this is what I developed my project using. Partly through development, GitHub advised of the following warning:
-        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version ~~1.11.22~~ 1.11.24 or later.*
-        - I have upgraded to version ~~1.11.22~~ 1.11.24!
+- [Django 2.2.9](https://www.djangoproject.com/download/)
+    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 3+ being the current version, so this is what I developed my project using (originally). As of January 2020, I have upgraded to Django 2.2.9 now. Partly through development, GitHub advised of the following warning:
+        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version ~~1.11.22~~ ~~1.11.24~~ 1.11.27 or later.*
+        - I have upgraded to version ~~1.11.22~~ ~~1.11.24~~ 2.2.9!
 
 #### Color Scheme
 
@@ -157,7 +157,7 @@ All of these colors (plus a few others) are set at `:root` level within my [styl
 ### Wireframes
 
 For my wireframes, I started with simple pencil and paper sketches. Once satisfied with the initial sketches, I built mockup concept wireframes using [Balsamiq Wireframes](https://balsamiq.com/) for a couple reasons:
-- Code Institute have provided all students with free access until the end of 2019.
+- Code Institute have provided all students with free access until the end of ~~2019~~ 2020.
 - The simplicity and ease of use in a quick and effective manner.
 
 All of my wireframes for this project can be found in the **design** folder, which contains both the [balsamiq](design/wireframes/balsamiq/?raw=true) and [sketches](design/wireframes/sketches/?raw=true) sub-directories respectively.
@@ -231,7 +231,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 ## Technologies Used
 
-- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.36.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
+- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.41.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
     - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for developing projects.
 - ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
     - [GitHub](https://github.com/) - Used as remote storage of my projects online.
@@ -262,8 +262,8 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 - ![Python](https://img.shields.io/static/v1?label=Python&message=3.6.7&color=blue&logo=python&logoColor=ffffff)
     - [Python 3.6.7](https://www.python.org/) - Used as the back-end programming language.
-- ![Django](https://img.shields.io/static/v1?label=Django&message=1.11.24&color=092E20&logo=django)
-    - [Django 1.11.24](https://docs.djangoproject.com/en/1.11/) - Used as my Python web framework.
+- ![Django](https://img.shields.io/static/v1?label=Django&message=2.2.9&color=092E20&logo=django)
+    - [Django 2.2.9](https://docs.djangoproject.com/en/2.2/) - Used as my Python web framework.
 - ![Heroku](https://img.shields.io/static/v1?label=Heroku&message=PaaS&color=430098&logo=heroku)
     - [Heroku](https://www.heroku.com) - Used for *"Platform as a Service"* (PaaS) for app hosting.
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
@@ -404,6 +404,12 @@ During development, I encountered one semi-urgent issue after making one of my G
 - [Reset Password functionality [broken]](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/6)
     - This was fixed and pushed with [commit 39749a2](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/39749a2915272ab21aae0b9f82c9d75724f7dc3e).
     - ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
+
+Upon upgrading to Django 2.2.9 in January 2020, I encountered an additional problem running Automated Tests. This issue still needs to be resolved.
+
+- [Automated Tests (TravisCI) fail with Django upgrade](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/87)
+    - To be fixed [commit pending]().
+    - ![GitHub issue open](https://img.shields.io/github/issues-raw/traveltimn/ci-milestone05-fsfw)
 
 ### Automated Testing
 
