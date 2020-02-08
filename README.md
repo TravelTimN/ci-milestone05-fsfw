@@ -399,17 +399,17 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-ci-m
 
 ### Known Issues
 
+![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
+
 During development, I encountered one semi-urgent issue after making one of my GitHub commits. I quickly opened an *Issue* on GitHub so I would remember to revisit this problem and resolve it.
 
 - [Reset Password functionality [broken]](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/6)
     - This was fixed and pushed with [commit 39749a2](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/39749a2915272ab21aae0b9f82c9d75724f7dc3e).
-    - ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
 
-Upon upgrading to Django 2.2.9 in January 2020, I encountered an additional problem running Automated Tests. This issue still needs to be resolved.
+Upon upgrading to Django 2.2.9 in January 2020, I encountered an additional problem running Automated Tests. ~~This issue still needs to be resolved.~~ *(fixed 08FEB2020)*
 
 - [Automated Tests (TravisCI) fail with Django upgrade](https://github.com/TravelTimN/ci-milestone05-fsfw/issues/87)
-    - To be fixed [commit pending]().
-    - ![GitHub issue open](https://img.shields.io/github/issues-raw/traveltimn/ci-milestone05-fsfw)
+    - This was fixed and pushed with [commit 8450f72](https://github.com/TravelTimN/ci-milestone05-fsfw/commit/8450f72e2a6f4de0a092ec42fd49a011a2b8a43b).
 
 ### Automated Testing
 
