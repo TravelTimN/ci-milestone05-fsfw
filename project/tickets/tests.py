@@ -53,14 +53,22 @@ class TestTicketsViews(TestCase):
             description="Test description on new Feature Ticket",
             ticket_status=TicketStatus(id=1),
             ticket_type=TicketType(id=2)).save()
-        self.client.post(
-            "/accounts/register/",
-            {"email": "Test@Email.com",
-                "username": "TestUser",
-                "first_name": "TestFirst",
-                "last_name": "TestLast",
-                "password1": "Passw0rd",
-                "password2": "Passw0rd"})
+        """ the following 8 lines were for Django 1.11 """
+        # self.client.post(
+        #     "/accounts/register/",
+        #     {"email": "Test@Email.com",
+        #         "username": "TestUser",
+        #         "first_name": "TestFirst",
+        #         "last_name": "TestLast",
+        #         "password1": "Passw0rd",
+        #         "password2": "Passw0rd"})
+        """
+            the following 3 lines are for Django 2.2
+            (create user and log user in)
+        """
+        self.user = User.objects.create_user(
+            username="TestUser", password="Passw0rd")
+        self.client.login(username="TestUser", password="Passw0rd")
 
     def test_tickets_view_all(self):
         page = self.client.get("/tickets/")
@@ -134,11 +142,12 @@ class TestTicketsViews(TestCase):
 
     def test_tickets_delete(self):
         ticket = Ticket.objects.filter(title="Test Bug")[0]
-        response = self.client.get(
-            "/tickets/{0}".format(ticket.pk), follow=True)
-        results = Ticket.objects.filter(
-            description="Test description on new Bug Ticket").count()
-        self.assertEqual(results, 1)
+        """ the following 5 lines serve no actual purpose """
+        # response = self.client.get(
+        #     "/tickets/{0}".format(ticket.pk), follow=True)
+        # results = Ticket.objects.filter(
+        #     description="Test description on new Bug Ticket").count()
+        # self.assertEqual(results, 1)
         self.client.get("/tickets/delete/{0}".format(ticket.pk), follow=True)
         tickets_delete = Ticket.objects.filter(title="Test Bug").count()
         self.assertEqual(tickets_delete, 0)
