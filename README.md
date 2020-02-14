@@ -2,7 +2,7 @@
 
 # [Unicorn Attractor](https://unicorn-attractor-2bn.herokuapp.com/)
 
-![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=1.11.24&color=092E20)
+![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
 
 [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
 
@@ -72,6 +72,8 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 
 "**_As a user, I would like to_** _______________"
 
+:white_check_mark: *successfully implemented* | :x: *not yet implemented*
+
 - *view the site* from **any device** *(mobile, tablet, desktop)*. :white_check_mark:
 - *view all tickets (bugs/features)* as a **Guest**. :white_check_mark:
 - *create* my own **profile**. :white_check_mark:
@@ -90,10 +92,6 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 - *view* **statistics** of tickets such as "*most upvotes received*". :white_check_mark:
 - *earn* various **badges** for *active participation* using the app. :x:
 
-:white_check_mark: *denotes items that have been successfully implemented*
-
-:x: *denotes items that were not been implemented*
-
 ### Design
 
 Since the app is called **Unicorn Attractor**, I figured *cute* and *full of colorful rainbows* would match the overall theme. In addition, there are plenty of *unicorns* across the site.
@@ -104,10 +102,10 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
     - I really like the modern and clean layout of Materialize as a framework, with its simple-to-understand documentation.
 - [jQuery 3.4.1](https://code.jquery.com/jquery/)
     - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
-- [Django 2.2.9](https://www.djangoproject.com/download/)
-    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 3+ being the current version, so this is what I developed my project using (originally). As of January 2020, I have upgraded to Django 2.2.9 now. Partly through development, GitHub advised of the following warning:
-        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to version ~~1.11.22~~ ~~1.11.24~~ 1.11.27 or later.*
-        - I have upgraded to version ~~1.11.22~~ ~~1.11.24~~ 2.2.9!
+- [Django 2.2.10](https://www.djangoproject.com/download/)
+    - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 3+ being the current version, so this is what I developed my project using (originally). As of January 2020, I have upgraded to Django 2.2+ now. Partly through development, GitHub advised of the following warning:
+        - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to a later version.*
+        - I have upgraded to version ~~1.11.22~~ ~~1.11.24~~ ~~1.11.27~~ ~~2.2.9~~ 2.2.10
 
 #### Color Scheme
 
@@ -231,7 +229,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 ## Technologies Used
 
-- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.41.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
+- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.42.0&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
     - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for developing projects.
 - ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
     - [GitHub](https://github.com/) - Used as remote storage of my projects online.
@@ -262,8 +260,8 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 - ![Python](https://img.shields.io/static/v1?label=Python&message=3.6.7&color=blue&logo=python&logoColor=ffffff)
     - [Python 3.6.7](https://www.python.org/) - Used as the back-end programming language.
-- ![Django](https://img.shields.io/static/v1?label=Django&message=2.2.9&color=092E20&logo=django)
-    - [Django 2.2.9](https://docs.djangoproject.com/en/2.2/) - Used as my Python web framework.
+- ![Django](https://img.shields.io/static/v1?label=Django&message=2.2.10&color=092E20&logo=django)
+    - [Django 2.2.10](https://docs.djangoproject.com/en/2.2/) - Used as my Python web framework.
 - ![Heroku](https://img.shields.io/static/v1?label=Heroku&message=PaaS&color=430098&logo=heroku)
     - [Heroku](https://www.heroku.com) - Used for *"Platform as a Service"* (PaaS) for app hosting.
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
@@ -277,34 +275,37 @@ Further details on all Python packages used on this project can be found in the 
 | Package | Version | Description |
 | :--- | :--- | :--- |
 | boto3 | 1.9.179 | The AWS SDK for Python |
-| botocore | 1.12.179 | Foundation for AWS-CLI command line utilities |
-| certifi | 2019.3.9 | Collection of Root Certificates for validating the trustworthiness of SSL |
+| botocore | 1.12.253 | Foundation for AWS-CLI command line utilities |
+| certifi | 2019.6.16 | Collection of Root Certificates for validating the trustworthiness of SSL |
 | chardet | 3.0.4 | Universal Character Encoding Detector |
 | colorama | 0.2.7 | Cross-platform API to print colored terminal text from Python apps) |
 | coverage | 4.5.3 | Tool for measuring code coverage of Python programs |
 | dj-database-url | 0.4.2 | Utilizes the 12factor inspired DATABASE_URL environment variable to configure Django apps |
+| Django | 2.2.10 | the Django framework
 | django-cleanup | 3.2.0 | Automatically deletes old files/images to replace with updated versions |
 | django-materializecss-form | 1.1.14 | Django form template tags to work with Materialize CSS |
 | django-storages | 1.7.1 | Connects Django to S3 Buckets |
-| docutils | 0.14 | Modular system for processing documentation into useful formats |
+| docutils | 0.15.2 | Modular system for processing documentation into useful formats |
 | gunicorn | 19.7.1 | A Python WSGI HTTP Server for UNIX |
 | html5lib | 0.999999999 | A pure-Python library for parsing HTML |
 | idna | 2.8 | Suitable replacement for the “encodings.idna” module that comes with the standard Python library |
 | jmespath | 0.9.4 | Allows you to declaratively specify how to extract elements from a JSON document |
 | olefile | 0.46 | Python package to parse, read and write Microsoft OLE2 files |
-| Pillow | 6.2.0 | Adds support for opening, manipulating, and saving many different image file formats |
-| postgres | 2.2.2 | High-value abstraction over psycopg2 |
+| Pillow | 6.2.1 | Adds support for opening, manipulating, and saving many different image file formats |
+| postgres | 3.0.0 | High-value abstraction over psycopg2 |
 | psycopg2 | 2.7.3.2 | Most popular PostgreSQL database adapter for Python |
-| psycopg2-binary | 2.8.3 | Python-PostgreSQL Database Adapter |
-| pycurl | 7.43.0.2 | Used to fetch objects identified by a URL from a Python program |
-| python-dateutil | 2.6.1 | Provides powerful extensions to the standard datetime module |
+| psycopg2-binary | 2.8.4 | Python-PostgreSQL Database Adapter |
+| psycopg2-pool | 1.1 | Proper pooling of psycopg2 connections |
+| pycurl | 7.43.0.3 | Used to fetch objects identified by a URL from a Python program |
+| python-dateutil | 2.8.1 | Provides powerful extensions to the standard datetime module |
 | python-dotenv | 0.10.3 | Adds .env support in development and deployments using 12-factor principles |
-| pytz | 2018.9 | Brings the Olson tz database into Python |
+| pytz | 2019.3 | Brings the Olson tz database into Python |
 | requests | 2.22.0 | Makes HTTP requests simpler and more human-friendly |
 | s3transfer | 0.2.1 | Python library for managing Amazon S3 transfers |
-| six | 1.12.0 | A Python 2 and 3 compatibility library |
+| six | 1.13.0 | A Python 2 and 3 compatibility library |
+| sqlparse | 0.3.0 | Non-validating SQL parser |
 | stripe | 2.29.4 | Python library for Stripe’s API |
-| urllib3 | 1.25.3 | Powerful, sanity-friendly HTTP client for Python |
+| urllib3 | 1.25.6 | Powerful, sanity-friendly HTTP client for Python |
 | webencodings | 0.5.1 | Character encoding aliases for legacy web content |
 | whitenoise | 3.3.1 | Simplifies static file serving for WSGI applications with Django |
 
