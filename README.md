@@ -72,25 +72,27 @@ This project is part of my [Code Institute](https://codeinstitute.net/) Full Sta
 
 "**_As a user, I would like to_** _______________"
 
-:white_check_mark: *successfully implemented* | :x: *not yet implemented*
+:white_check_mark: *successfully implemented*
 
-- *view the site* from **any device** *(mobile, tablet, desktop)*. :white_check_mark:
-- *view all tickets (bugs/features)* as a **Guest**. :white_check_mark:
-- *create* my own **profile**. :white_check_mark:
-- *update* my **profile**, including *uploading* a **photo**. :white_check_mark:
-- *log* my own **bug tickets** for *free*. :white_check_mark:
-- *submit* my own **feature requests** for *a small fee*. :white_check_mark:
-- *edit* my own **tickets** *(bugs and features)*. :white_check_mark:
-- *delete* my own **tickets** *(bugs and features)*. :white_check_mark:
-- be able to **log out**. :white_check_mark:
-- be able to **change my password**. :white_check_mark:
-- *filter and search* amongst all **tickets**. :white_check_mark:
-- *see* the **total views** of each *bug and feature*. :white_check_mark:
-- *comment* on **bugs and features** that I relate to. :white_check_mark:
-- *upvote* **bugs** for *free* that I relate to. :white_check_mark:
-- *pay a nominal fee to upvote* **features** that I support. :white_check_mark:
-- *view* **statistics** of tickets such as "*most upvotes received*". :white_check_mark:
-- *earn* various **badges** for *active participation* using the app. :x:
+:x: *not yet implemented*
+
+- :white_check_mark: *view the site* from **any device** *(mobile, tablet, desktop)*.
+- :white_check_mark: *view all tickets (bugs/features)* as a **Guest**.
+- :white_check_mark: *create* my own **profile**.
+- :white_check_mark: *update* my **profile**, including *uploading* a **photo**.
+- :white_check_mark: *log* my own **bug tickets** for *free*.
+- :white_check_mark: *submit* my own **feature requests** for *a small fee*.
+- :white_check_mark: *edit* my own **tickets** *(bugs and features)*.
+- :white_check_mark: *delete* my own **tickets** *(bugs and features)*.
+- :white_check_mark: be able to **log out**.
+- :white_check_mark: be able to **change my password**.
+- :white_check_mark: *filter and search* amongst all **tickets**.
+- :white_check_mark: *see* the **total views** of each *bug and feature*.
+- :white_check_mark: *comment* on **bugs and features** that I relate to.
+- :white_check_mark: *upvote* **bugs** for *free* that I relate to.
+- :white_check_mark: *pay a nominal fee to upvote* **features** that I support.
+- :white_check_mark: *view* **statistics** of tickets such as "*most upvotes received*".
+- :x: *earn* various **badges** for *active participation* using the app.
 
 ### Design
 
