@@ -18,9 +18,14 @@
                         lazyload="on">
                     <span class="title {% include './ticket_status_color.html' %}-text bold">
                         {{ comment.commenter.username }}
-                    </span>
-                    <small class="{% include './ticket_status_color.html' %}-text text-lighten-3">
-                        {{ comment.date_commented|naturaltime }}
+                    </span>|
+                    <small>
+                        <span class="{% include './ticket_status_color.html' %}-text text-lighten-2">
+                            {{ comment.date_commented|date:"dMy @G:i-T"|upper }}
+                        </span>
+                        (<span class="{% include './ticket_status_color.html' %}-text text-lighten-4">
+                            {{ comment.date_commented|naturaltime }}
+                        </span>)
                     </small>
                     <p>
                         {{ comment.comment|linebreaksbr }}
