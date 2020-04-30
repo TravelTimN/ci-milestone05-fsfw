@@ -1,6 +1,6 @@
-from django.conf.urls import url
+from django.urls import path
 from stats.views import get_all_stats
 
 urlpatterns = [
-    url(r"^$", get_all_stats, name="get_all_stats"),
+    path("", get_all_stats, name="get_all_stats"),
 ]
