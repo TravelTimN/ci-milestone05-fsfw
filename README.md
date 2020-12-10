@@ -4,7 +4,7 @@
 
 ![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
 
-[![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
+[![Build Status](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/traveltimn/ci-milestone05-fsfw?color=orange) ![GitHub pull requests](https://img.shields.io/github/issues-pr/traveltimn/ci-milestone05-fsfw) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/traveltimn/ci-milestone05-fsfw) ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
 
@@ -460,8 +460,8 @@ With Django's built-in `unittest` library module and `TestCase` subclass, I buil
 
 </details>
 
-In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.org/) to test Continuous Integration. I had quite the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is why there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
-- [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw)
+In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.com/) to test Continuous Integration. I had quite the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is why there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
+- [![Build Status](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw)
 - *NOTE: this is a live/active badge, showing 'passing' at time of project submission!*
 
 ##### back to [top](#table-of-contents)
