@@ -4,7 +4,7 @@
 
 ![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
 
-[![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
+[![Build Status](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw) ![Coverage](https://img.shields.io/static/v1?label=coverage&message=75%&color=green)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/traveltimn/ci-milestone05-fsfw?color=orange) ![GitHub pull requests](https://img.shields.io/github/issues-pr/traveltimn/ci-milestone05-fsfw) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/traveltimn/ci-milestone05-fsfw) ![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/ci-milestone05-fsfw)
 
@@ -104,10 +104,10 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
     - I really like the modern and clean layout of Materialize as a framework, with its simple-to-understand documentation.
 - [jQuery 3.4.1](https://code.jquery.com/jquery/)
     - In an effort to keep the JavaScript minimal, I have decided to use jQuery as foundation to my scripts framework.
-- [Django 2.2.10](https://www.djangoproject.com/download/)
+- [Django 2.2.16](https://www.djangoproject.com/download/)
     - Django is a free and open-source web framework that I've used to render the back-end Python with the front-end Materialize. We were taught how to use Django 1.11 in the lessons, despite Django 3+ being the current version, so this is what I developed my project using (originally). As of January 2020, I have upgraded to Django 2.2+ now. Partly through development, GitHub advised of the following warning:
         - *Potential security vulnerability found in the django dependency. Vulnerable versions: >= 1.11.0 | Upgrade django to a later version.*
-        - I have upgraded to version ~~1.11.22~~ ~~1.11.24~~ ~~1.11.27~~ ~~2.2.9~~ 2.2.10
+        - I have upgraded to version ~~1.11.22~~ ~~1.11.24~~ ~~1.11.27~~ ~~2.2.9~~ ~~2.2.10~~ 2.2.16
 
 #### Color Scheme
 
@@ -262,8 +262,8 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 - ![Python](https://img.shields.io/static/v1?label=Python&message=3.6.7&color=blue&logo=python&logoColor=ffffff)
     - [Python 3.6.7](https://www.python.org/) - Used as the back-end programming language.
-- ![Django](https://img.shields.io/static/v1?label=Django&message=2.2.10&color=092E20&logo=django)
-    - [Django 2.2.10](https://docs.djangoproject.com/en/2.2/) - Used as my Python web framework.
+- ![Django](https://img.shields.io/static/v1?label=Django&message=2.2.16&color=092E20&logo=django)
+    - [Django 2.2.16](https://docs.djangoproject.com/en/2.2/) - Used as my Python web framework.
 - ![Heroku](https://img.shields.io/static/v1?label=Heroku&message=PaaS&color=430098&logo=heroku)
     - [Heroku](https://www.heroku.com) - Used for *"Platform as a Service"* (PaaS) for app hosting.
 - ![PostgreSQL 11.4](https://img.shields.io/static/v1?label=PostgreSQL&message=11.4&color=336791&logo=postgresql)
@@ -460,8 +460,8 @@ With Django's built-in `unittest` library module and `TestCase` subclass, I buil
 
 </details>
 
-In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.org/) to test Continuous Integration. I had quite the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is why there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
-- [![Build Status](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw.svg?branch=master)](https://travis-ci.org/TravelTimN/ci-milestone05-fsfw)
+In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI](https://travis-ci.com/) to test Continuous Integration. I had quite the problem initially due to the fact that my primary project sits in a sub-directory called *project* and not at the top-level, which is why there were quite a few various commits on 26th July, but ultimately got it sorted with a successful *passing build* badge.
+- [![Build Status](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw.svg?branch=main)](https://travis-ci.com/TravelTimN/ci-milestone05-fsfw)
 - *NOTE: this is a live/active badge, showing 'passing' at time of project submission!*
 
 ##### back to [top](#table-of-contents)
@@ -520,7 +520,7 @@ Once the database migrations and superuser have been successfully completed, Dja
 
 ### Remote Deployment
 
-This site is currently deployed on [Heroku](https://www.heroku.com/) using the **master** branch on GitHub. Once you have the project setup locally, you can proceed to deploy it remotely with the following steps:
+This site is currently deployed on [Heroku](https://www.heroku.com/) using the ~~**master**~~ **main** branch on GitHub. Once you have the project setup locally, you can proceed to deploy it remotely with the following steps:
 
 - Create a **requirements.txt** file so Heroku can install the required dependencies to run the app:
     - `sudo pip3 freeze --local > project/requirements.txt`
