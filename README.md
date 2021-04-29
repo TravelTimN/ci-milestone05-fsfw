@@ -115,28 +115,28 @@ Since the app is called **Unicorn Attractor**, I figured *cute* and *full of col
 
 | Bugs | Features |
 | :---: | :---: |
-| ![#FD8D14](https://placehold.it/15/FD8D14/FD8D14) | ![#1484FC](https://placehold.it/15/1484FC/1484FC) |
+| ![#FD8D14](https://via.placeholder.com/15/FD8D14/FD8D14) | ![#1484FC](https://via.placeholder.com/15/1484FC/1484FC) |
 | #FD8D14 | #1484FC |
 
 *Palette*: **Ticket Status**
 
 | Open | In Progress | Closed |
 | :---: | :---: | :---: |
-| ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FFC107](https://placehold.it/15/FFC107/FFC107) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) |
+| ![#F44336](https://via.placeholder.com/15/F44336/F44336) | ![#FFC107](https://via.placeholder.com/15/FFC107/FFC107) | ![#4CAF50](https://via.placeholder.com/15/4CAF50/4CAF50) |
 | #F44336 | #FFC107 | #4CAF50 |
 
 *Palette*: **Top Supports / Donors**
 
 | Gold | Silver | Bronze |
 | :---: | :---: | :---: |
-| ![#D6AF36](https://placehold.it/15/D6AF36/D6AF36) | ![#A7A7AD](https://placehold.it/15/A7A7AD/A7A7AD) | ![#A77044](https://placehold.it/15/A77044/A77044) |
+| ![#D6AF36](https://via.placeholder.com/15/D6AF36/D6AF36) | ![#A7A7AD](https://via.placeholder.com/15/A7A7AD/A7A7AD) | ![#A77044](https://via.placeholder.com/15/A77044/A77044) |
 | #D6AF36 | #A7A7AD | #A77044 |
 
 *Palette*: **Rainbow**
 
 | Red | Orange | Yellow | Green | Blue | Indigo | Purple |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ![#F44336](https://placehold.it/15/F44336/F44336) | ![#FF9800](https://placehold.it/15/FF9800/FF9800) | ![#FFEB3B](https://placehold.it/15/FFEB3B/FFEB3B) | ![#4CAF50](https://placehold.it/15/4CAF50/4CAF50) | ![#2196F3](https://placehold.it/15/2196F3/2196F3) | ![#3F51B5](https://placehold.it/15/3F51B5/3F51B5) | ![#9C27B0](https://placehold.it/15/9C27B0/9C27B0) |
+| ![#F44336](https://via.placeholder.com/15/F44336/F44336) | ![#FF9800](https://via.placeholder.com/15/FF9800/FF9800) | ![#FFEB3B](https://via.placeholder.com/15/FFEB3B/FFEB3B) | ![#4CAF50](https://via.placeholder.com/15/4CAF50/4CAF50) | ![#2196F3](https://via.placeholder.com/15/2196F3/2196F3) | ![#3F51B5](https://via.placeholder.com/15/3F51B5/3F51B5) | ![#9C27B0](https://via.placeholder.com/15/9C27B0/9C27B0) |
 | #F44336 | #FF9800 | #FFEB3B | #4CAF50 | #2196F3 | #3F51B5 | #9C27B0 |
 
 All of these colors (plus a few others) are set at `:root` level within my [styles.css](project/static/css/styles.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
@@ -502,16 +502,16 @@ Next, there's a series of steps to take in order to proceed with local deploymen
 - Create a `.env` file with your own credentials. An example *.env* file can be found here ([.env_sample](project/.env_sample)).
     - *Note: the example .env file contains environmental variables for both local and remote deployment. (see below for remote deployment details)*
 - Install all requirements from the [requirements.txt](project/requirements.txt) file using this command:
-    - `sudo -H pip3 -r requirements.txt`
+    - `sudo -H pip3 -r project/requirements.txt`
 - In the IDE terminal, use the following command to launch the Django project:
-    - `python manage.py runserver`
+    - `python3 manage.py runserver`
 - The Django server should be running locally now on **http://127.0.0.1:8000** (or similar). If it doesn't automatically open, you can copy/paste it into your browser of choice.
 - When you run the Django server for the first time, it should create a new *SQLite3* database file: **db.sqlite3**
 - Next, you'll need to make migrations to create the database schema:
-    - `python manage.py makemigrations`
-    - `python manage.py migrate`
+    - `python3 manage.py makemigrations`
+    - `python3 manage.py migrate`
 - In order to access the Django *Admin Panel*, you must generate a superuser:
-    - `python manage.py createsuperuser`
+    - `python3 manage.py createsuperuser`
     - (assign an admin username, email, and secure password)
 
 Once the database migrations and superuser have been successfully completed, Django should migrate the existing *migrations.py* files from each app to configure the following relational schema:
@@ -523,10 +523,10 @@ Once the database migrations and superuser have been successfully completed, Dja
 This site is currently deployed on [Heroku](https://www.heroku.com/) using the **master** branch on GitHub. Once you have the project setup locally, you can proceed to deploy it remotely with the following steps:
 
 - Create a **requirements.txt** file so Heroku can install the required dependencies to run the app:
-    - `sudo pip3 freeze --local > requirements.txt`
+    - `sudo pip3 freeze --local > project/requirements.txt`
     - The *requirements.txt* file for this project can be found here: [requirements.txt](project/requirements.txt)
 - Create a **Procfile** to tell Heroku what type of application is being deployed using *gunicorn*, and how to run it:
-    - `echo web: gunicorn main.wsgi:application > Procfile`
+    - `echo web: gunicorn main.wsgi:application > project/Procfile`
     - The *Procfile* for this project can be found here: [Procfile](project/Procfile)
 - Sign up for a free Heroku account, create your project app, and click the **Deploy** tab, at which point you can *Connect GitHub* as the Deployment Method, and select *Enable Automatic Deployment*.
 - In the Heroku **Resources** tab, navigate to the *Add-Ons* section and search for **Heroku Postgres**. Make sure to select the free *Hobby* level. This will allow you to have a remote database instead of using the local sqlite3 database, and can be found in the Settings tab. You'll need to update your *.env* file with your new *database-url* details.
@@ -578,7 +578,7 @@ This site is currently deployed on [Heroku](https://www.heroku.com/) using the *
     - Create a *New Group* and be sure to select your existing S3 Bucket details to attach.
     - Create a *New Policy* and a *New User* in the IAM section as well, then attach these to the Group you just built.
 - In your CLI-terminal, you should now be able to push the static files to AWS if everything is configured properly using this command:
-    - `python manage.py collectstatic`
+    - `python3 manage.py collectstatic`
 - Sign up for a free [Stripe](https://stripe.com) account. Navigate to the **Developers** section, and click on **API Keys**. You should have two confidential keys which need to be added to your *.env* file, as well as your Heroku config vars. These keys are:
     - `Publishable Key`: **pk_test_key**
     - `Secret Key`: **sk_test_key**
