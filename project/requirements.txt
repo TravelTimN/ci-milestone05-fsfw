@@ -16,7 +16,7 @@ html5lib==0.999999999
 idna==2.8
 jmespath==0.9.4
 olefile==0.46
-Pillow
+Pillow==9.0.1
 postgres==3.0.0
 psycopg2-binary==2.8.4
 psycopg2-pool==1.1
@@ -29,6 +29,6 @@ s3transfer==0.2.1
 six==1.13.0
 sqlparse==0.4.2
 stripe==2.29.4
-urllib3
+urllib3==1.25
 webencodings==0.5.1
 whitenoise==3.3.1
