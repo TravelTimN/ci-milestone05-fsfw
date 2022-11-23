@@ -1,6 +1,6 @@
 ![Unicorn Attractor mockups](design/mockups.png?raw=true "Unicorn Attractor mockups")
 
-# [Unicorn Attractor](https://unicorn-attractor-2bn.herokuapp.com/)
+# [Unicorn Attractor](https://tim-ms5.2bn.dev/)
 
 ![Python](https://img.shields.io/static/v1?label=python&message=3.6.7&color=blue) ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
 
@@ -16,7 +16,7 @@ This exciting app helps to promote physical activity in the outdoors, combined w
 
 The best part? **Unicorn Attractor** is absolutely free to enjoy with your friends and Bronies!
 
-If you have any issues or requests regarding the the app, please head over to the [Unicorn Attractor Tickets Page](https://unicorn-attractor-2bn.herokuapp.com/tickets/). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
+If you have any issues or requests regarding the the app, please head over to the [Unicorn Attractor Tickets Page](https://tim-ms5.2bn.dev/tickets/). You'll be able to open two different types of Tickets; *Bugs* and *Features*.
 
 - **BUGS** - If you have any problems or issues using the app, please open a new ticket for a *Bug*. Bug requests are always free!
 - **FEATURES** - If you think we've missed something, or you'd like to see something added to the app, please open a new *Feature* Ticket. (***NOTE**: Features require a small donation, and can gain more donations if others support your Feature.*)
@@ -470,7 +470,7 @@ In addition to the `TestCase` and **coverage.py** tests, I have used [Travis-CI]
 
 ## Deployment
 
-This project can be viewed live on Heroku: [https://unicorn-attractor-2bn.herokuapp.com](https://unicorn-attractor-2bn.herokuapp.com)
+This project can be viewed live: [https://tim-ms5.2bn.dev](https://tim-ms5.2bn.dev)
 
 **PLEASE NOTE**: during development, none of my *staticfiles* were pushed to GitHub, as taught in the Code Institute LMS videos. These were added to my *[.gitignore](.gitignore)* file, as Heroku cannot host these files. They are hosted on Amazon AWS in an S3-Bucket. These files were pushed to GitHub purely for project assessment purposes only at the end of development! My *static* file contains the following folders and files:
 
