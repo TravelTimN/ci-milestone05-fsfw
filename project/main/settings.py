@@ -5,10 +5,10 @@ import dj_database_url
 if os.path.exists(".env"):
     from dotenv import load_dotenv
     load_dotenv()
-    DEBUG = True
 else:
-    DEBUG = False
     STATICFILES_STORAGE = "custom_storages.StaticStorage"
+
+DEBUG = int(os.environ.get("DEVELOPMENT", 0))
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -16,10 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # ALLOWED HOSTS
-ALLOWED_HOSTS = []
-host = os.getenv("SITE_NAME")
-if host:
-    ALLOWED_HOSTS.append(host)
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
