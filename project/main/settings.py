@@ -16,7 +16,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # ALLOWED HOSTS
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = []
+host = os.getenv("SITE_NAME")
+if host:
+    ALLOWED_HOSTS.append(host)
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
