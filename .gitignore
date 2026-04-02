@@ -19,3 +19,6 @@ htmlcov/
 # local files
 # static/
 media/
+
+# fixtures
+fixtures/
